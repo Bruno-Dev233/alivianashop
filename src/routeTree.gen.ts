@@ -16,6 +16,7 @@ import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminFinancasRouteImport } from './routes/admin.financas'
+import { Route as AdminLandingRouteImport } from './routes/admin.landing'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminMaisRouteImport } from './routes/admin.mais'
 import { Route as AdminPedidosRouteImport } from './routes/admin.pedidos'
@@ -56,6 +57,11 @@ const AdminFinancasRoute = AdminFinancasRouteImport.update({
   path: '/financas',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLandingRoute = AdminLandingRouteImport.update({
+  id: '/landing',
+  path: '/landing',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
+  '/admin/landing': typeof AdminLandingRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
+  '/admin/landing': typeof AdminLandingRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
+  '/admin/landing': typeof AdminLandingRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
+    | '/admin/landing'
     | '/admin/login'
     | '/admin/mais'
     | '/admin/pedidos'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
+    | '/admin/landing'
     | '/admin/login'
     | '/admin/mais'
     | '/admin/pedidos'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
+    | '/admin/landing'
     | '/admin/login'
     | '/admin/mais'
     | '/admin/pedidos'
@@ -216,6 +228,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFinancasRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/landing': {
+      id: '/admin/landing'
+      path: '/landing'
+      fullPath: '/admin/landing'
+      preLoaderRoute: typeof AdminLandingRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
@@ -249,6 +268,7 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminFinancasRoute: typeof AdminFinancasRoute
+  AdminLandingRoute: typeof AdminLandingRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMaisRoute: typeof AdminMaisRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
@@ -258,6 +278,7 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminFinancasRoute: AdminFinancasRoute,
+  AdminLandingRoute: AdminLandingRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMaisRoute: AdminMaisRoute,
   AdminPedidosRoute: AdminPedidosRoute,

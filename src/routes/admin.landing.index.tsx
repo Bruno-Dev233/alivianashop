@@ -4,7 +4,7 @@ import { ChevronRight, ExternalLink, Loader2 } from "lucide-react";
 import { AdminShell } from "@/components/aurelis/AdminShell";
 import { useLandingPages } from "@/hooks/useLandingPage";
 
-export const Route = createFileRoute("/admin/landing")({
+export const Route = createFileRoute("/admin/landing/")({
   head: () => ({
     meta: [
       { title: "Landing Pages | AURELIS Gestão" },
