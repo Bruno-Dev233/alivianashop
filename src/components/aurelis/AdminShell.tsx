@@ -6,6 +6,7 @@ import {
   Home,
   Loader2,
   LogOut,
+  LayoutTemplate,
   Menu,
   Package,
   ShoppingCart,
@@ -33,6 +34,17 @@ const NAV = [
   { to: "/admin/product", label: "Produtos", icon: Package },
   { to: "/admin/mais", label: "Mais", icon: MoreHorizontal },
 ] as const;
+
+/** Barra lateral e menu completo (a barra inferior mantém apenas 5 atalhos). */
+const FULL_NAV = [
+  { to: "/admin", label: "Início", icon: Home },
+  { to: "/admin/financas", label: "Finanças", icon: Wallet },
+  { to: "/admin/pedidos", label: "Pedidos", icon: ShoppingCart },
+  { to: "/admin/product", label: "Produtos", icon: Package },
+  { to: "/admin/landing", label: "Landing Pages", icon: LayoutTemplate },
+  { to: "/admin/mais", label: "Mais", icon: MoreHorizontal },
+] as const;
+
 
 export function AdminShell({ title, children }: { title: string; children: ReactNode }) {
   const { loading, session, isAdmin } = useAdminSession();
