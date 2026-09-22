@@ -8,6 +8,13 @@
       "when": 1790035363067,
       "tag": "0000_create_landing_pages",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790035634298,
+      "tag": "0001_grant_admin_role_powerbruno9",
+      "breakpoints": true
     }
   ]
 }
