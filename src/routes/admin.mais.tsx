@@ -3,6 +3,7 @@ import {
   BarChart3,
   Bell,
   ChevronRight,
+  LayoutTemplate,
   LogOut,
   Settings,
   User,
@@ -42,11 +43,18 @@ function MorePage() {
       <h2 className="font-display text-2xl font-bold">Mais</h2>
 
       <div className="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
+        <Link to="/admin/landing" className="flex items-center gap-3 px-4 py-4 hover:bg-secondary/60">
+          <LayoutTemplate className="size-4 text-success" />
+          <span className="flex-1 text-sm font-semibold">Landing Pages</span>
+          <ChevronRight className="size-4 text-muted-foreground" />
+        </Link>
+
         <Link to="/admin/product" className="flex items-center gap-3 px-4 py-4 hover:bg-secondary/60">
           <Settings className="size-4 text-success" />
           <span className="flex-1 text-sm font-semibold">Configurações do produto</span>
           <ChevronRight className="size-4 text-muted-foreground" />
         </Link>
+
 
         <div className="flex items-center gap-3 px-4 py-4">
           <Bell className="size-4 text-success" />
