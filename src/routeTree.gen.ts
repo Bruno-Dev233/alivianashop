@@ -16,11 +16,11 @@ import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminFinancasRouteImport } from './routes/admin.financas'
-import { Route as AdminLandingRouteImport } from './routes/admin.landing'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminMaisRouteImport } from './routes/admin.mais'
 import { Route as AdminPedidosRouteImport } from './routes/admin.pedidos'
 import { Route as AdminProductRouteImport } from './routes/admin.product'
+import { Route as AdminLandingIndexRouteImport } from './routes/admin.landing.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -57,11 +57,6 @@ const AdminFinancasRoute = AdminFinancasRouteImport.update({
   path: '/financas',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminLandingRoute = AdminLandingRouteImport.update({
-  id: '/landing',
-  path: '/landing',
-  getParentRoute: () => AdminRoute,
-} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -82,6 +77,11 @@ const AdminProductRoute = AdminProductRouteImport.update({
   path: '/product',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLandingIndexRoute = AdminLandingIndexRouteImport.update({
+  id: '/landing/',
+  path: '/landing/',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -90,12 +90,12 @@ export interface FileRoutesByFullPath {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
-  '/admin/landing': typeof AdminLandingRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/product': typeof AdminProductRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/landing/': typeof AdminLandingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -103,12 +103,12 @@ export interface FileRoutesByTo {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
-  '/admin/landing': typeof AdminLandingRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/product': typeof AdminProductRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/landing': typeof AdminLandingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -118,12 +118,12 @@ export interface FileRoutesById {
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
-  '/admin/landing': typeof AdminLandingRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/product': typeof AdminProductRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/landing/': typeof AdminLandingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -134,12 +134,12 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
-    | '/admin/landing'
     | '/admin/login'
     | '/admin/mais'
     | '/admin/pedidos'
     | '/admin/product'
     | '/admin/'
+    | '/admin/landing/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -147,12 +147,12 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
-    | '/admin/landing'
     | '/admin/login'
     | '/admin/mais'
     | '/admin/pedidos'
     | '/admin/product'
     | '/admin'
+    | '/admin/landing'
   id:
     | '__root__'
     | '/'
@@ -161,12 +161,12 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
-    | '/admin/landing'
     | '/admin/login'
     | '/admin/mais'
     | '/admin/pedidos'
     | '/admin/product'
     | '/admin/'
+    | '/admin/landing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -228,13 +228,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFinancasRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/admin/landing': {
-      id: '/admin/landing'
-      path: '/landing'
-      fullPath: '/admin/landing'
-      preLoaderRoute: typeof AdminLandingRouteImport
-      parentRoute: typeof AdminRoute
-    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
@@ -263,27 +256,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProductRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/landing/': {
+      id: '/admin/landing/'
+      path: '/landing'
+      fullPath: '/admin/landing/'
+      preLoaderRoute: typeof AdminLandingIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
   AdminFinancasRoute: typeof AdminFinancasRoute
-  AdminLandingRoute: typeof AdminLandingRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMaisRoute: typeof AdminMaisRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
   AdminProductRoute: typeof AdminProductRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminLandingIndexRoute: typeof AdminLandingIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminFinancasRoute: AdminFinancasRoute,
-  AdminLandingRoute: AdminLandingRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMaisRoute: AdminMaisRoute,
   AdminPedidosRoute: AdminPedidosRoute,
   AdminProductRoute: AdminProductRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminLandingIndexRoute: AdminLandingIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
