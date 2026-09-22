@@ -24,6 +24,7 @@ type Props = {
   quantity: number;
   onQuantityChange: (quantity: number) => void;
   onPlaced: (order: PlacedOrder) => void;
+  minQuantity?: number;
 };
 
 type FieldKey = "fullName" | "phone" | "address" | "reference" | "email";
