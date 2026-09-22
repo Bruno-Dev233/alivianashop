@@ -118,7 +118,7 @@ function AdminChrome({
           <p className="text-xs text-muted-foreground">Painel de gestão</p>
         </div>
         <nav className="mt-6 flex flex-1 flex-col gap-1">
-          {NAV.map(({ to, label, icon: Icon }) => (
+          {FULL_NAV.map(({ to, label, icon: Icon }) => (
             <Link
               key={to}
               to={to}
@@ -152,7 +152,7 @@ function AdminChrome({
               <SheetContent side="left" className="w-72 p-5">
                 <SheetTitle className="font-display text-lg">AURELIS</SheetTitle>
                 <nav className="mt-4 flex flex-col gap-1">
-                  {NAV.map(({ to, label, icon: Icon }) => (
+                  {FULL_NAV.map(({ to, label, icon: Icon }) => (
                     <Link
                       key={to}
                       to={to}
