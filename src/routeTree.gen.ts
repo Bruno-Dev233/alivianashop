@@ -20,6 +20,8 @@ import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminMaisRouteImport } from './routes/admin.mais'
 import { Route as AdminPedidosRouteImport } from './routes/admin.pedidos'
 import { Route as AdminProductRouteImport } from './routes/admin.product'
+import { Route as AdminLandingIndexRouteImport } from './routes/admin.landing.index'
+import { Route as AdminLandingSlugRouteImport } from './routes/admin.landing.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -76,6 +78,16 @@ const AdminProductRoute = AdminProductRouteImport.update({
   path: '/product',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminLandingIndexRoute = AdminLandingIndexRouteImport.update({
+  id: '/landing/',
+  path: '/landing/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLandingSlugRoute = AdminLandingSlugRouteImport.update({
+  id: '/landing/$slug',
+  path: '/landing/$slug',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -89,6 +101,8 @@ export interface FileRoutesByFullPath {
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/product': typeof AdminProductRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/landing/$slug': typeof AdminLandingSlugRoute
+  '/admin/landing/': typeof AdminLandingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -101,6 +115,8 @@ export interface FileRoutesByTo {
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/product': typeof AdminProductRoute
   '/admin': typeof AdminIndexRoute
+  '/admin/landing/$slug': typeof AdminLandingSlugRoute
+  '/admin/landing': typeof AdminLandingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -115,6 +131,8 @@ export interface FileRoutesById {
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/product': typeof AdminProductRoute
   '/admin/': typeof AdminIndexRoute
+  '/admin/landing/$slug': typeof AdminLandingSlugRoute
+  '/admin/landing/': typeof AdminLandingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -130,6 +148,8 @@ export interface FileRouteTypes {
     | '/admin/pedidos'
     | '/admin/product'
     | '/admin/'
+    | '/admin/landing/$slug'
+    | '/admin/landing/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -142,6 +162,8 @@ export interface FileRouteTypes {
     | '/admin/pedidos'
     | '/admin/product'
     | '/admin'
+    | '/admin/landing/$slug'
+    | '/admin/landing'
   id:
     | '__root__'
     | '/'
@@ -155,6 +177,8 @@ export interface FileRouteTypes {
     | '/admin/pedidos'
     | '/admin/product'
     | '/admin/'
+    | '/admin/landing/$slug'
+    | '/admin/landing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -244,6 +268,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProductRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/landing/': {
+      id: '/admin/landing/'
+      path: '/landing'
+      fullPath: '/admin/landing/'
+      preLoaderRoute: typeof AdminLandingIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/landing/$slug': {
+      id: '/admin/landing/$slug'
+      path: '/landing/$slug'
+      fullPath: '/admin/landing/$slug'
+      preLoaderRoute: typeof AdminLandingSlugRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
@@ -254,6 +292,8 @@ interface AdminRouteChildren {
   AdminPedidosRoute: typeof AdminPedidosRoute
   AdminProductRoute: typeof AdminProductRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AdminLandingSlugRoute: typeof AdminLandingSlugRoute
+  AdminLandingIndexRoute: typeof AdminLandingIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -263,6 +303,8 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminPedidosRoute: AdminPedidosRoute,
   AdminProductRoute: AdminProductRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AdminLandingSlugRoute: AdminLandingSlugRoute,
+  AdminLandingIndexRoute: AdminLandingIndexRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)

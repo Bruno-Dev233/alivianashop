@@ -1,16 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  Check,
-  Crown,
-  Flame,
-  Plug,
-  Soup,
-  Sparkles,
-  Truck,
-  Utensils,
-  Wallet,
-} from "lucide-react";
+import { Check, Crown, Truck, Wallet } from "lucide-react";
 
 import { CheckoutDrawer, type PlacedOrder } from "@/components/aurelis/CheckoutDrawer";
 import { OrderSuccessDialog } from "@/components/aurelis/OrderSuccessDialog";
@@ -22,127 +12,57 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { fetchLandingPage, landingPageKey, useLandingPage } from "@/hooks/useLandingPage";
 import { formatKz, type Product } from "@/lib/aurelis";
+import { DEFAULT_LANDING, type LandingContent } from "@/lib/landing";
 
-import img1 from "@/assets/lancheira-1.jpg.asset.json";
-import img2 from "@/assets/lancheira-2.jpg.asset.json";
-import img3 from "@/assets/lancheira-3.jpg.asset.json";
-import img4 from "@/assets/lancheira-4.avif.asset.json";
-
-const title = "Lancheira Elétrica 2 em 1 | AURELIS";
-const description =
-  "Lancheira Elétrica 2 em 1 da AURELIS: aquecedor de alimentos portátil à prova de vazamento, 1,5L. 32.750 Kz com entrega grátis em Luanda e pagamento na entrega.";
+const SLUG = "lancheira-eletrica";
 
 export const Route = createFileRoute("/lancheira-eletrica")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "product" },
-      { property: "og:image", content: img1.url },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: img1.url },
-    ],
-  }),
+  loader: ({ context }) =>
+    context.queryClient.ensureQueryData({
+      queryKey: landingPageKey(SLUG),
+      queryFn: () => fetchLandingPage(SLUG),
+    }),
+  head: ({ loaderData }) => {
+    const c = loaderData?.content ?? DEFAULT_LANDING;
+    const image = c.images[0];
+    return {
+      meta: [
+        { title: c.seoTitle },
+        { name: "description", content: c.seoDescription },
+        { property: "og:title", content: c.seoTitle },
+        { property: "og:description", content: c.seoDescription },
+        { property: "og:type", content: "product" },
+        ...(image
+          ? [
+              { property: "og:image", content: image },
+              { name: "twitter:image", content: image },
+            ]
+          : []),
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+    };
+  },
   component: LancheiraPage,
 });
 
-const PRODUCT_NAME =
-  "Lancheira Elétrica 2 em 1 – Aquecedor de Alimentos Portátil à Prova de Vazamento";
-const PRICE = 32750;
-const OLD_PRICE = 54999;
-const IMAGES = [img1.url, img2.url, img3.url, img4.url];
-
-const OFFERS = [
-  { quantity: 1, label: "1 LANCHEIRA", price: 32750, old: 54999, cta: "COMPRAR 1 UNIDADE" },
-  {
-    quantity: 2,
-    label: "2 LANCHEIRAS",
-    price: 59900,
-    old: 109998,
-    cta: "COMPRAR 2 UNIDADES",
-    tag: "🔥 MAIS VENDIDO",
-  },
-  {
-    quantity: 3,
-    label: "3 LANCHEIRAS",
-    price: 84900,
-    old: 164997,
-    cta: "COMPRAR 3 UNIDADES",
-    tag: "👑 MELHOR VALOR",
-  },
-];
-
-const SOLUTIONS = [
-  { icon: Soup, title: "🍱 Capacidade de 1,5L" },
-  { icon: Plug, title: "⚡ Aquecimento diretamente na lancheira" },
-  { icon: Sparkles, title: "💧 Design à prova de vazamento" },
-  { icon: Utensils, title: "🥄 Compartimento para colher" },
-  { icon: Flame, title: "🏠 Ideal para trabalho, escola ou casa" },
-  { icon: Check, title: "🧼 Fácil de usar e limpar" },
-];
-
-const STEPS = [
-  { n: "01", text: "🍱 COLOQUE SUA REFEIÇÃO" },
-  { n: "02", text: "🔌 CONECTE A LANCHEIRA" },
-  { n: "03", text: "🔥 AQUEÇA SUA REFEIÇÃO" },
-  { n: "04", text: "😋 COMA QUENTE" },
-];
-
-const BENEFITS = [
-  "🍱 1,5L de capacidade",
-  "⚡ Aquecimento prático",
-  "💧 À prova de vazamento",
-  "🥄 Compartimento para colher",
-  "🏫 Ideal para escola",
-  "💼 Ideal para trabalho",
-];
-
-const AUDIENCE = [
-  "Quem trabalha fora",
-  "Estudantes",
-  "Quem leva comida de casa",
-  "Quem busca praticidade",
-  "Quem não tem micro-ondas disponível",
-];
-
-const FAQ = [
-  {
-    q: "Qual é a capacidade?",
-    a: "A Lancheira Elétrica AURELIS possui capacidade de 1,5L.",
-  },
-  {
-    q: "Posso usar no trabalho ou na escola?",
-    a: "Sim. Ela foi pensada para facilitar o transporte e aquecimento das refeições no dia a dia.",
-  },
-  {
-    q: "Preciso de micro-ondas?",
-    a: "A proposta do produto é permitir o aquecimento diretamente na própria lancheira.",
-  },
-  { q: "Possui compartimento para colher?", a: "Sim." },
-  { q: "Como funciona o pagamento?", a: "O pagamento é realizado na entrega." },
-  { q: "Onde entregam?", a: "Atualmente, a entrega está disponível em Luanda." },
-  { q: "A entrega é grátis?", a: "Sim, a entrega é grátis em Luanda." },
-];
-
-function buildProduct(unitPrice: number): Product {
+function buildProduct(c: LandingContent, unitPrice: number): Product {
   return {
     id: "",
-    name: PRODUCT_NAME,
+    name: c.productName,
     price: unitPrice,
-    old_price: OLD_PRICE,
+    old_price: c.oldPrice,
     cost_price: 0,
     description: null,
     social_proof_text: "",
     top_bar_text: "",
     top_bar_text_2: "",
-    store_name: "AURELIS",
+    store_name: c.brand,
     logo_url: null,
-    main_image_1: IMAGES[0] ?? null,
-    main_image_2: IMAGES[1] ?? null,
-    main_image_3: IMAGES[2] ?? null,
+    main_image_1: c.images[0] ?? null,
+    main_image_2: c.images[1] ?? null,
+    main_image_3: c.images[2] ?? null,
     content_image_1: null,
     content_image_2: null,
     content_image_3: null,
@@ -151,12 +71,15 @@ function buildProduct(unitPrice: number): Product {
 }
 
 function LancheiraPage() {
+  const { data } = useLandingPage(SLUG);
+  const c = data?.content ?? DEFAULT_LANDING;
+
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [unitPrice, setUnitPrice] = useState(PRICE);
+  const [unitPrice, setUnitPrice] = useState(c.price);
   const [placed, setPlaced] = useState<PlacedOrder | null>(null);
 
-  const buy = (qty = 1, total = PRICE * qty) => {
+  const buy = (qty = 1, total = c.price * qty) => {
     setQuantity(qty);
     setUnitPrice(total / qty);
     setCheckoutOpen(true);
@@ -165,19 +88,19 @@ function LancheiraPage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="bg-lunch px-4 py-2 text-center text-xs font-bold uppercase tracking-wide text-lunch-foreground sm:text-sm">
-        🚚 Entrega grátis em Luanda • 💵 Pague apenas quando receber
+        {c.topBar}
       </div>
 
       <header className="border-b border-border bg-background">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3">
-          <span className="font-display text-xl font-extrabold tracking-tight">AURELIS</span>
+          <span className="font-display text-xl font-extrabold tracking-tight">{c.brand}</span>
           <Button
             type="button"
             variant="ghost"
             onClick={() => buy(1)}
             className="h-10 rounded-full bg-lunch px-4 text-sm font-bold text-lunch-foreground hover:bg-lunch-dark hover:text-lunch-foreground"
           >
-            🔥 Comprar
+            {c.headerCta}
           </Button>
         </div>
       </header>
@@ -187,31 +110,29 @@ function LancheiraPage() {
         <section className="mx-auto w-full max-w-6xl px-4 pb-10 pt-6">
           <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
             <div className="rounded-3xl bg-lunch-soft p-3">
-              <ProductGallery images={IMAGES} alt={PRODUCT_NAME} />
+              <ProductGallery images={c.images} alt={c.productName} />
             </div>
 
             <div>
-              <span className="inline-block rounded-full bg-foreground px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-background">
-                🔥 OFERTA ESPECIAL
-              </span>
+              {c.badge && (
+                <span className="inline-block rounded-full bg-foreground px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-background">
+                  {c.badge}
+                </span>
+              )}
               <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight sm:text-4xl">
-                🔥 CANSADO DE COMER <span className="text-lunch">COMIDA FRIA?</span>
+                {c.heroTitle} <span className="text-lunch">{c.heroTitleHighlight}</span>
               </h1>
-              <p className="mt-3 text-lg font-semibold leading-snug">
-                Tenha sua refeição com você e aqueça de forma prática no trabalho, na escola ou em
-                casa. 🍱⚡
-              </p>
+              <p className="mt-3 text-lg font-semibold leading-snug">{c.heroSubtitle}</p>
               <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-                Com a Lancheira Elétrica 2 em 1 da AURELIS, você pode transportar sua refeição e
-                aquecê-la diretamente na lancheira.
+                {c.heroDescription}
               </p>
 
               <div className="mt-5 flex flex-wrap items-end gap-3">
                 <span className="font-display text-4xl font-extrabold text-lunch sm:text-5xl">
-                  {formatKz(PRICE)}
+                  {formatKz(c.price)}
                 </span>
                 <span className="text-lg text-muted-foreground line-through">
-                  {formatKz(OLD_PRICE)}
+                  {formatKz(c.oldPrice)}
                 </span>
               </div>
 
@@ -221,15 +142,15 @@ function LancheiraPage() {
                 onClick={() => buy(1)}
                 className="animate-cta-shake mt-5 h-16 w-full rounded-2xl bg-lunch text-base font-bold text-lunch-foreground shadow-ink hover:bg-lunch-dark hover:text-lunch-foreground"
               >
-                🔥 COMPRAR AGORA
+                {c.heroCta}
               </Button>
 
               <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-sm font-semibold">
                 <span className="flex items-center gap-1.5">
-                  <Truck className="size-4 text-lunch" /> 🚚 Entrega grátis em Luanda
+                  <Truck className="size-4 text-lunch" /> {c.note1}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Wallet className="size-4 text-lunch" /> 💵 Pagamento na entrega
+                  <Wallet className="size-4 text-lunch" /> {c.note2}
                 </span>
               </div>
             </div>
@@ -239,34 +160,33 @@ function LancheiraPage() {
         {/* PROBLEMA */}
         <section className="bg-muted/60 py-12">
           <div className="mx-auto w-full max-w-3xl px-4 text-center">
-            <h2 className="font-display text-2xl font-bold sm:text-3xl">😩 COMIDA FRIA DE NOVO?</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-              Você leva sua comida para o trabalho ou para a escola e, quando chega a hora de comer,
-              ela já está fria.
-            </p>
-            <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
-              Nem sempre existe um micro-ondas disponível.
-            </p>
-            <p className="mt-2 text-[15px] font-semibold leading-relaxed">
-              A Lancheira Elétrica AURELIS foi pensada para tornar esse momento mais prático.
-            </p>
+            <h2 className="font-display text-2xl font-bold sm:text-3xl">{c.problemTitle}</h2>
+            {c.problemParagraphs.map((p, i) => (
+              <p
+                key={p}
+                className={
+                  i === c.problemParagraphs.length - 1
+                    ? "mt-3 text-[15px] font-semibold leading-relaxed"
+                    : "mt-3 text-[15px] leading-relaxed text-muted-foreground"
+                }
+              >
+                {p}
+              </p>
+            ))}
           </div>
         </section>
 
         {/* SOLUÇÃO */}
         <section className="mx-auto w-full max-w-6xl px-4 py-12">
           <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
-            🔥 LEVE. AQUEÇA. COMA.
+            {c.solutionTitle}
           </h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {SOLUTIONS.map(({ icon: Icon, title: t }) => (
+            {c.solutionItems.map((t) => (
               <div
                 key={t}
                 className="flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-4 shadow-soft"
               >
-                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-lunch-soft text-lunch">
-                  <Icon className="size-5" />
-                </span>
                 <p className="text-sm font-semibold leading-snug">{t}</p>
               </div>
             ))}
@@ -276,12 +196,10 @@ function LancheiraPage() {
         {/* COMO FUNCIONA */}
         <section className="bg-foreground py-12 text-background">
           <div className="mx-auto w-full max-w-6xl px-4">
-            <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
-              🔥 COMO FUNCIONA?
-            </h2>
+            <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">{c.howTitle}</h2>
             <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {STEPS.map(({ n, text }) => (
-                <div key={n} className="rounded-2xl bg-background/10 p-5">
+              {c.steps.map(({ n, text }) => (
+                <div key={`${n}-${text}`} className="rounded-2xl bg-background/10 p-5">
                   <span className="font-display text-3xl font-extrabold text-lunch">{n}</span>
                   <p className="mt-2 text-sm font-bold leading-snug">{text}</p>
                 </div>
@@ -293,14 +211,14 @@ function LancheiraPage() {
         {/* GALERIA */}
         <section className="mx-auto w-full max-w-6xl px-4 py-12">
           <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
-            🍱 PRATICIDADE PARA O SEU DIA
+            {c.galleryTitle}
           </h2>
           <div className="hide-scrollbar mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4">
-            {IMAGES.map((src, i) => (
+            {c.images.map((src, i) => (
               <img
                 key={src}
                 src={src}
-                alt={`Lancheira Elétrica AURELIS — imagem ${i + 1}`}
+                alt={`${c.productName} — imagem ${i + 1}`}
                 loading="lazy"
                 decoding="async"
                 className="aspect-square w-[78%] shrink-0 snap-center rounded-2xl border border-border bg-lunch-soft object-cover sm:w-full"
@@ -313,12 +231,12 @@ function LancheiraPage() {
         <section className="bg-lunch-soft py-12">
           <div className="mx-auto w-full max-w-6xl px-4">
             <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
-              🔥 ESCOLHA SUA OFERTA
+              {c.offersTitle}
             </h2>
             <div className="mt-6 grid gap-4 lg:grid-cols-3">
-              {OFFERS.map((offer) => (
+              {c.offers.map((offer) => (
                 <div
-                  key={offer.quantity}
+                  key={`${offer.quantity}-${offer.label}`}
                   className="flex flex-col rounded-3xl border-2 border-border bg-card p-5 shadow-card"
                 >
                   {offer.tag && (
@@ -350,10 +268,10 @@ function LancheiraPage() {
         {/* BENEFÍCIOS */}
         <section className="mx-auto w-full max-w-6xl px-4 py-12">
           <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
-            ✨ FEITA PARA FACILITAR SUA ROTINA
+            {c.benefitsTitle}
           </h2>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {BENEFITS.map((b) => (
+            {c.benefits.map((b) => (
               <p
                 key={b}
                 className="rounded-2xl border border-lunch/30 bg-card px-4 py-4 text-sm font-semibold shadow-soft"
@@ -368,10 +286,10 @@ function LancheiraPage() {
         <section className="bg-muted/60 py-12">
           <div className="mx-auto w-full max-w-3xl px-4">
             <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
-              👥 PARA QUEM É A LANCHEIRA AURELIS?
+              {c.audienceTitle}
             </h2>
             <ul className="mx-auto mt-6 max-w-md space-y-2.5">
-              {AUDIENCE.map((item) => (
+              {c.audience.map((item) => (
                 <li
                   key={item}
                   className="flex items-center gap-3 rounded-xl bg-card px-4 py-3 text-sm font-semibold shadow-soft"
@@ -387,16 +305,14 @@ function LancheiraPage() {
         <section className="bg-foreground py-14 text-background">
           <div className="mx-auto w-full max-w-3xl px-4 text-center">
             <h2 className="font-display text-2xl font-extrabold leading-tight sm:text-3xl">
-              🔥 CANSADO DE COMER <span className="text-lunch">COMIDA FRIA?</span>
+              {c.finalTitle} <span className="text-lunch">{c.finalTitleHighlight}</span>
             </h2>
-            <p className="mt-3 text-[15px] leading-relaxed opacity-90">
-              Leve sua refeição com você e tenha uma forma prática de aquecê-la durante o dia.
-            </p>
+            <p className="mt-3 text-[15px] leading-relaxed opacity-90">{c.finalText}</p>
             <div className="mt-5 flex flex-wrap items-end justify-center gap-3">
               <span className="font-display text-4xl font-extrabold text-lunch sm:text-5xl">
-                {formatKz(PRICE)}
+                {formatKz(c.price)}
               </span>
-              <span className="text-lg line-through opacity-70">{formatKz(OLD_PRICE)}</span>
+              <span className="text-lg line-through opacity-70">{formatKz(c.oldPrice)}</span>
             </div>
             <Button
               type="button"
@@ -404,22 +320,20 @@ function LancheiraPage() {
               onClick={() => buy(1)}
               className="mt-5 h-16 w-full max-w-md rounded-2xl bg-lunch text-base font-bold text-lunch-foreground hover:bg-lunch-dark hover:text-lunch-foreground"
             >
-              🔥 COMPRAR AGORA
+              {c.finalCta}
             </Button>
             <div className="mt-3 flex flex-wrap items-center justify-center gap-4 text-sm font-semibold">
-              <span>🚚 Entrega grátis em Luanda</span>
-              <span>💵 Pagamento na entrega</span>
+              <span>{c.note1}</span>
+              <span>{c.note2}</span>
             </div>
           </div>
         </section>
 
         {/* FAQ */}
         <section className="mx-auto w-full max-w-3xl px-4 py-12">
-          <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">
-            Perguntas frequentes
-          </h2>
+          <h2 className="text-center font-display text-2xl font-bold sm:text-3xl">{c.faqTitle}</h2>
           <Accordion type="single" collapsible className="mt-6">
-            {FAQ.map(({ q, a }) => (
+            {c.faq.map(({ q, a }) => (
               <AccordionItem key={q} value={q}>
                 <AccordionTrigger className="text-left text-sm font-semibold">{q}</AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground">{a}</AccordionContent>
@@ -431,13 +345,12 @@ function LancheiraPage() {
 
       <footer className="border-t border-border bg-background py-6 text-center text-xs text-muted-foreground">
         <span className="flex items-center justify-center gap-1.5">
-          <Crown className="size-3.5 text-lunch" /> AURELIS — Entrega grátis em Luanda • Pagamento
-          na entrega
+          <Crown className="size-3.5 text-lunch" /> {c.footerText}
         </span>
       </footer>
 
       <CheckoutDrawer
-        product={buildProduct(unitPrice)}
+        product={buildProduct(c, unitPrice)}
         open={checkoutOpen}
         onOpenChange={setCheckoutOpen}
         quantity={quantity}
