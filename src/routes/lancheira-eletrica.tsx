@@ -78,9 +78,11 @@ function LancheiraPage() {
   const [quantity, setQuantity] = useState(1);
   const [unitPrice, setUnitPrice] = useState(c.price);
   const [placed, setPlaced] = useState<PlacedOrder | null>(null);
+  const [minQty, setMinQty] = useState(1);
 
   const buy = (qty = 1, total = c.price * qty) => {
     setQuantity(qty);
+    setMinQty(qty);
     setUnitPrice(total / qty);
     setCheckoutOpen(true);
   };
@@ -237,7 +239,7 @@ function LancheiraPage() {
               {c.offers.map((offer) => (
                 <div
                   key={`${offer.quantity}-${offer.label}`}
-                  className="flex flex-col rounded-3xl border-2 border-border bg-card p-5 shadow-card"
+                  className={`flex flex-col rounded-3xl border-2 bg-card p-5 transition ${offer.tag?.includes("MAIS VENDIDO") ? "border-lunch shadow-[0_18px_50px_-12px_var(--lunch)] ring-4 ring-lunch/20 lg:-translate-y-2" : "border-border shadow-card"}`}
                 >
                   {offer.tag && (
                     <span className="mb-3 self-start rounded-full bg-lunch px-3 py-1 text-xs font-bold text-lunch-foreground">
@@ -356,6 +358,7 @@ function LancheiraPage() {
         quantity={quantity}
         onQuantityChange={setQuantity}
         onPlaced={setPlaced}
+        minQuantity={minQty}
       />
       <OrderSuccessDialog order={placed} onClose={() => setPlaced(null)} />
     </div>

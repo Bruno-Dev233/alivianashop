@@ -61,6 +61,7 @@ export function CheckoutDrawer({
   quantity,
   onQuantityChange,
   onPlaced,
+  minQuantity = 1,
 }: Props) {
   const [values, setValues] = useState<Record<FieldKey, string>>({
     fullName: "",
@@ -209,7 +210,7 @@ export function CheckoutDrawer({
               </div>
               <div className="mt-3 flex items-center justify-between">
                 <span className="text-sm font-medium text-muted-foreground">Quantidade</span>
-                <QuantityStepper value={quantity} onChange={onQuantityChange} />
+                <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} />
               </div>
               <dl className="mt-3 space-y-1.5 border-t border-border pt-3 text-sm">
                 <div className="flex justify-between">
