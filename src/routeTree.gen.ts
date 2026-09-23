@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
 import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
+import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -33,9 +35,19 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DepiladorEletricoRoute = DepiladorEletricoRouteImport.update({
+  id: '/depilador-eletrico',
+  path: '/depilador-eletrico',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LancheiraEletricaRoute = LancheiraEletricaRouteImport.update({
   id: '/lancheira-eletrica',
   path: '/lancheira-eletrica',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ObrigadoRoute = ObrigadoRouteImport.update({
+  id: '/obrigado',
+  path: '/obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
@@ -92,7 +104,9 @@ const AdminLandingSlugRoute = AdminLandingSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
+  '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -106,7 +120,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
+  '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -122,7 +138,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
+  '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
+  '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -139,7 +157,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/depilador-eletrico'
     | '/lancheira-eletrica'
+    | '/obrigado'
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
@@ -153,7 +173,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/depilador-eletrico'
     | '/lancheira-eletrica'
+    | '/obrigado'
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
@@ -168,7 +190,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/depilador-eletrico'
     | '/lancheira-eletrica'
+    | '/obrigado'
     | '/privacidade'
     | '/termos'
     | '/admin/financas'
@@ -184,7 +208,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
+  DepiladorEletricoRoute: typeof DepiladorEletricoRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
+  ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   TermosRoute: typeof TermosRoute
 }
@@ -205,11 +231,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/depilador-eletrico': {
+      id: '/depilador-eletrico'
+      path: '/depilador-eletrico'
+      fullPath: '/depilador-eletrico'
+      preLoaderRoute: typeof DepiladorEletricoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lancheira-eletrica': {
       id: '/lancheira-eletrica'
       path: '/lancheira-eletrica'
       fullPath: '/lancheira-eletrica'
       preLoaderRoute: typeof LancheiraEletricaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/obrigado': {
+      id: '/obrigado'
+      path: '/obrigado'
+      fullPath: '/obrigado'
+      preLoaderRoute: typeof ObrigadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacidade': {
@@ -312,7 +352,9 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
+  DepiladorEletricoRoute: DepiladorEletricoRoute,
   LancheiraEletricaRoute: LancheiraEletricaRoute,
+  ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   TermosRoute: TermosRoute,
 }
