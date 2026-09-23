@@ -64,6 +64,10 @@
   --color-cyan: var(--cyan);
   --color-cyan-foreground: var(--cyan-foreground);
   --color-lunch: var(--lunch);
+  --color-rose: var(--rose);
+  --color-rose-dark: var(--rose-dark);
+  --color-rose-soft: var(--rose-soft);
+  --color-rose-foreground: var(--rose-foreground);
   --color-lunch-dark: var(--lunch-dark);
   --color-lunch-foreground: var(--lunch-foreground);
   --color-lunch-soft: var(--lunch-soft);
@@ -85,6 +89,10 @@
   --cyan: oklch(0.55 0.19 250);
   --cyan-foreground: oklch(0.99 0 0);
   --lunch: oklch(0.68 0.19 48);
+  --rose: oklch(0.64 0.22 358);
+  --rose-dark: oklch(0.5 0.2 358);
+  --rose-soft: oklch(0.96 0.03 355);
+  --rose-foreground: oklch(0.99 0 0);
   --lunch-dark: oklch(0.55 0.17 44);
   --lunch-foreground: oklch(0.99 0 0);
   --lunch-soft: oklch(0.96 0.04 60);
