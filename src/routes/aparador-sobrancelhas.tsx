@@ -18,7 +18,6 @@ import {
 
 import { CheckoutDrawer, type PlacedOrder } from "@/components/aurelis/CheckoutDrawer";
 import { OrderSuccessDialog } from "@/components/aurelis/OrderSuccessDialog";
-import { ProductGallery } from "@/components/aurelis/ProductGallery";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { formatKz, type Product } from "@/lib/aurelis";
@@ -242,9 +241,6 @@ function AparadorPage() {
           ["Como faço para encomendar?","Clique em “Encomendar Agora”, preencha os seus dados e confirme o pedido."],
         ].map(([q,a],i)=><AccordionItem value={String(i)} key={q}><AccordionTrigger className="text-left font-bold">❓ {q}</AccordionTrigger><AccordionContent className="leading-6 text-muted-foreground">{a}</AccordionContent></AccordionItem>)}</Accordion></div></section>
 
-        <div className="hidden">
-          <ProductGallery product={PRODUCT} />
-        </div>
       </main>
 
       <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t bg-white/95 p-2.5 shadow-[0_-10px_30px_rgba(0,0,0,.08)] backdrop-blur md:hidden">
