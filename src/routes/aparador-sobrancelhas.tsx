@@ -179,6 +179,45 @@ function AparadorPage() {
           })}
         </section>
 
+        <section className="bg-[#faf8ff] px-5 py-20 sm:py-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="rounded-full bg-[#F3E8FF] px-3 py-1.5 text-xs font-black text-[#7C3AED]">🎥 VEJA EM AÇÃO</span>
+              <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">😩 AINDA PERDE TEMPO COM AS SOBRANCELHAS?</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">Veja em poucos segundos como o Aparador Elétrico de Sobrancelhas 2 em 1 pode facilitar os pequenos retoques do seu dia a dia.</p>
+            </div>
+
+            <div className="mx-auto mt-9 max-w-md overflow-hidden rounded-[28px] border-4 border-white bg-black shadow-[0_25px_70px_rgba(17,17,17,.18)] ring-1 ring-[#e9ddff]">
+              <video
+                src="https://files.catbox.moe/5hgp9d.mp4"
+                controls
+                playsInline
+                muted
+                preload="metadata"
+                className="aspect-[9/16] w-full object-cover"
+              />
+            </div>
+
+            <div className="mx-auto mt-8 grid max-w-4xl gap-3 sm:grid-cols-3">
+              {[
+                ["⚡","PRÁTICO","Pequenos retoques de forma simples."],
+                ["🎯","PRECISO","Mais controle para cuidar dos detalhes."],
+                ["👜","PORTÁTIL","Compacto para ter sempre por perto."],
+              ].map(([icon,title,text]) => (
+                <article key={title} className="rounded-2xl border border-[#eadcff] bg-white p-5 text-center shadow-sm">
+                  <div className="text-2xl">{icon}</div>
+                  <h3 className="mt-2 font-black">{title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{text}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-8 text-center">
+              <Button onClick={() => openCheckout()} className="h-14 rounded-2xl bg-[#7C3AED] px-8 text-sm font-black shadow-[0_12px_30px_rgba(124,58,237,.24)] hover:bg-[#6D28D9] sm:text-base">💜 QUERO O MEU APARADOR <ArrowRight className="ml-1 size-5" /></Button>
+            </div>
+          </div>
+        </section>
+
         <section className="mx-auto max-w-3xl px-5 py-20 text-center sm:py-24">
           <span className="rounded-full bg-[#F3E8FF] px-3 py-1.5 text-xs font-black text-[#7C3AED]">CUIDADO DIÁRIO</span>
           <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">😩 SOBRANCELHAS SEM FORMA?</h2>
