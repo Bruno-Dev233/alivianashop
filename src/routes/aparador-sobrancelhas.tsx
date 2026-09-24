@@ -293,10 +293,15 @@ function AparadorPage() {
 
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t bg-white/95 p-2.5 shadow-[0_-10px_30px_rgba(0,0,0,.08)] backdrop-blur md:hidden">
-        <strong className="text-base">{formatKz(total)}</strong>
-        <Button onClick={() => openCheckout()} className="ml-auto rounded-xl bg-[#7C3AED] px-5 font-black hover:bg-[#6D28D9]">ENCOMENDAR</Button>
-      </div>
+      {!checkoutOpen && !offerModalOpen && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t bg-white/95 p-2.5 pb-[calc(.625rem+env(safe-area-inset-bottom))] shadow-[0_-10px_30px_rgba(0,0,0,.08)] backdrop-blur md:hidden">
+          <div className="min-w-0">
+            <span className="block text-[10px] font-bold uppercase text-muted-foreground">Total</span>
+            <strong className="block text-base leading-none">{formatKz(total)}</strong>
+          </div>
+          <Button onClick={() => openCheckout()} className="ml-auto h-11 rounded-xl bg-[#7C3AED] px-5 font-black hover:bg-[#6D28D9]">ENCOMENDAR</Button>
+        </div>
+      )}
 
       <footer className="px-5 py-8 text-center text-xs text-muted-foreground">AURELIS • Beleza com mais praticidade</footer>
 
