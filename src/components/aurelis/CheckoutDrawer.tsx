@@ -174,7 +174,7 @@ export function CheckoutDrawer({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="bottom"
-        className="flex h-[96dvh] flex-col gap-0 rounded-t-3xl border-0 bg-background p-0 sm:mx-auto sm:max-w-lg"
+        className="flex h-[100dvh] max-h-[100dvh] flex-col gap-0 rounded-t-3xl border-0 bg-background p-0 sm:h-[96dvh] sm:max-h-[96dvh] sm:mx-auto sm:max-w-lg"
       >
         <div className="flex items-center justify-between border-b border-border bg-sky px-4 py-3">
           <div className="flex items-center gap-2">
@@ -196,7 +196,7 @@ export function CheckoutDrawer({
         </div>
 
         <form onSubmit={handleSubmit} noValidate className="flex min-h-0 flex-1 flex-col">
-          <div className="min-h-0 flex-1 space-y-5 overflow-y-auto px-4 py-4">
+          <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 py-4 pb-6 sm:space-y-5 sm:pb-4">
             <div className="rounded-2xl border border-border bg-card p-3 shadow-soft">
               <div className="flex gap-3">
                 {thumb && (
@@ -252,7 +252,7 @@ export function CheckoutDrawer({
                     autoComplete={key === "fullName" ? "name" : undefined}
                     value={values[key]}
                     onChange={(e) => set(key, e.target.value)}
-                    className="h-12 rounded-xl text-base"
+                    className="h-12 min-h-12 w-full rounded-xl text-base"
                   />
                   {errors[key] && (
                     <p className="text-xs font-medium text-destructive">{errors[key]}</p>
@@ -268,7 +268,7 @@ export function CheckoutDrawer({
                   id="province"
                   value="Luanda"
                   onChange={() => undefined}
-                  className="h-12 w-full rounded-xl border border-input bg-background px-3 text-base focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="h-12 min-h-12 w-full rounded-xl border border-input bg-background px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <option value="Luanda">Luanda</option>
                 </select>
@@ -297,7 +297,7 @@ export function CheckoutDrawer({
                 <Checkbox
                   checked={confirmed}
                   onCheckedChange={(v) => setConfirmed(v === true)}
-                  className="mt-0.5"
+                  className="mt-1 shrink-0"
                 />
                 <span>
                   Por favor, finalize a sua compra apenas se tiver disponibilidade para receber a
@@ -328,7 +328,7 @@ export function CheckoutDrawer({
               type="submit"
               variant="ghost"
               disabled={submitting}
-              className="h-14 w-full rounded-2xl bg-ink text-base font-bold text-ink-foreground shadow-ink hover:bg-ink/90 hover:text-ink-foreground"
+              className="h-14 min-h-14 w-full rounded-2xl bg-ink text-base font-bold text-ink-foreground shadow-ink hover:bg-ink/90 hover:text-ink-foreground sm:h-14"
             >
               {submitting ? (
                 <>
