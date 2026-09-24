@@ -112,7 +112,6 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
-  '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
@@ -129,6 +128,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
@@ -147,6 +147,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
@@ -220,6 +221,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
+  AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
   ObrigadoRoute: typeof ObrigadoRoute
