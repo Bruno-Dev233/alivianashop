@@ -107,11 +107,18 @@ function AparadorPage() {
             </p>
             <p className="mt-4 font-medium text-[#b91550]">🌸 Compacto, fácil de transportar e ideal para incluir no seu cuidado diário.</p>
 
-            <div className="mt-6 flex items-center gap-2 text-sm">
-              <span className="tracking-[0.15em] text-[#E91E63]">★★★★★</span>
-              <strong>4.9</strong>
-              <span className="text-muted-foreground">Avaliações verificadas</span>
-            </div>
+            {PRODUCT.social_proof_text ? (
+              <div className="mt-6 flex items-center gap-2 text-sm">
+                <span className="tracking-[0.15em] text-[#E91E63]">★★★★★</span>
+                <strong>{PRODUCT.social_proof_text}</strong>
+                <span className="text-muted-foreground">Avaliações verificadas</span>
+              </div>
+            ) : (
+              <div className="mt-6 flex items-center gap-2 text-sm">
+                <span className="tracking-[0.15em] text-[#E91E63]">★★★★★</span>
+                <span className="text-muted-foreground">Avaliações verificadas</span>
+              </div>
+            )}
 
             <div className="mt-5 rounded-3xl border border-[#f1c3d5] bg-gradient-to-br from-white to-[#fff8fb] p-5 shadow-[0_18px_55px_rgba(17,17,17,.08)] sm:p-6">
               <p className="text-xs font-black tracking-wider text-[#E91E63]">🔥 OFERTA ESPECIAL</p>
