@@ -8,25 +8,36 @@ import {
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
 import { formatKz, type Product } from "@/lib/aurelis";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { DEFAULT_DEPILADOR, mergeDepilador } from "@/lib/depilador";
 import logo from "@/assets/logo-aurelis-v2.png.asset.json";
 
 // ===== Conteúdo editável =====
-const IMAGE = "https://files.catbox.moe/1kfxs5.jfif";
-const NAME = "Depilador Elétrico 2 em 1 – Remoção de Pelos Sem Dor, Aparador Corporal Recarregável";
-const PRICE = 18890;
-const OLD_PRICE = 29990;
-const DISCOUNT = "-37%";
+// Valores vêm do painel (Landing Pages); estes são actualizados em cada render.
+let IMAGE = DEFAULT_DEPILADOR.image;
+let NAME = DEFAULT_DEPILADOR.name;
+let PRICE = DEFAULT_DEPILADOR.price;
+let OLD_PRICE = DEFAULT_DEPILADOR.oldPrice;
+let DISCOUNT = DEFAULT_DEPILADOR.discount;
 // Avaliação: deixe RATING = null enquanto não houver avaliações reais.
 const RATING: { score: number; count: number } | null = null; // ex.: { score: 4.9, count: 247 }
 // Depoimentos reais: { name, location, stars, text, verified }
 const TESTIMONIALS: { name: string; location: string; stars: number; text: string; verified: boolean }[] = [];
 // =============================
 
-const TITLE = "Depilador Elétrico 2 em 1 — AURELIS";
-const DESC = "Remoção de pelos sem dor e aparador corporal recarregável. 18.890 Kz com pagamento na entrega em Luanda.";
+async function fetchDepilador() {
+  const { data } = await supabase.from("landing_pages").select("content").eq("slug", "depilador-eletrico").maybeSingle();
+  return mergeDepilador(data?.content);
+}
+const depQuery = { queryKey: ["landing_page_raw", "depilador-eletrico"], queryFn: fetchDepilador, staleTime: 30_000 };
 
 export const Route = createFileRoute("/depilador-eletrico")({
-  head: () => ({
+  loader: ({ context }) => context.queryClient.ensureQueryData(depQuery).catch(() => DEFAULT_DEPILADOR),
+  head: ({ loaderData }) => {
+    const c = loaderData ?? DEFAULT_DEPILADOR;
+    const TITLE = c.seoTitle, DESC = c.seoDescription, IMAGE = c.image;
+    return {
     meta: [
       { title: TITLE },
       { name: "description", content: DESC },
@@ -37,16 +48,17 @@ export const Route = createFileRoute("/depilador-eletrico")({
       { name: "twitter:image", content: IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-  }),
+  };
+  },
   component: Page,
 });
 
-const product: Product = {
+const buildProduct = (): Product => ({
   id: "", name: NAME, price: PRICE, old_price: OLD_PRICE, cost_price: 0, description: null,
   social_proof_text: "", top_bar_text: "", top_bar_text_2: "", store_name: "AURELIS",
   logo_url: null, main_image_1: IMAGE, main_image_2: null, main_image_3: null,
   content_image_1: null, content_image_2: null, content_image_3: null, content_image_4: null,
-};
+});
 
 function Price({ dark = false, center = false }: { dark?: boolean; center?: boolean }) {
   return (
@@ -68,11 +80,14 @@ function Page() {
   const [open, setOpen] = useState(false);
   const [qty, setQty] = useState(1);
   const buy = () => setOpen(true);
+  const { data: c = DEFAULT_DEPILADOR } = useQuery(depQuery);
+  IMAGE = c.image; NAME = c.name; PRICE = c.price; OLD_PRICE = c.oldPrice; DISCOUNT = c.discount;
+  const product = buildProduct();
 
   return (
     <div className="min-h-screen bg-background text-foreground animate-in fade-in duration-500">
       <div className="bg-rose px-3 py-2 text-center text-xs font-semibold text-rose-foreground sm:text-sm">
-        🚚 Frete Gratuito • 💵 Pagamento na Entrega • ⚡ Entrega em 12h a 24h
+        {c.topBar}
       </div>
 
       <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">

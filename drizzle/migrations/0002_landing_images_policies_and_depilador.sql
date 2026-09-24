@@ -1,0 +1,3 @@
+CREATE POLICY "admin upload landing images" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'landing-images' AND public.has_role(auth.uid(), 'admin'));
+CREATE POLICY "admin read landing images" ON storage.objects FOR SELECT TO authenticated USING (bucket_id = 'landing-images' AND public.has_role(auth.uid(), 'admin'));
+INSERT INTO public.landing_pages (slug, name, content) VALUES ('depilador-eletrico', 'Depilador Elétrico 2 em 1', '{}'::jsonb) ON CONFLICT (slug) DO NOTHING;
