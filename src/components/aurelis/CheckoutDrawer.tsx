@@ -28,7 +28,28 @@ type Props = {
 };
 
 type FieldKey = "fullName" | "phone" | "address" | "reference" | "email";
-type Errors = Partial<Record<FieldKey | "confirm", string>>;
+type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
+
+const PROVINCES = [
+  "Bengo",
+  "Benguela",
+  "Bié",
+  "Cabinda",
+  "Cuando Cubango",
+  "Cuanza Norte",
+  "Cuanza Sul",
+  "Cunene",
+  "Huambo",
+  "Huíla",
+  "Luanda",
+  "Lunda Norte",
+  "Lunda Sul",
+  "Malanje",
+  "Moxico",
+  "Namibe",
+  "Uíge",
+  "Zaire",
+] as const;
 
 const FIELDS: {
   key: FieldKey;
@@ -70,6 +91,7 @@ export function CheckoutDrawer({
     reference: "",
     email: "",
   });
+  const [province, setProvince] = useState<string>("Luanda");
   const [confirmed, setConfirmed] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
@@ -84,6 +106,7 @@ export function CheckoutDrawer({
       next.fullName = "Indique o nome e apelido.";
     if (!isValidPhone(values.phone)) next.phone = "Indique um número válido.";
     if (values.address.trim().length < 5) next.address = "Indique o bairro e a rua.";
+    if (!province) next.province = "Selecione a província.";
     if (values.email.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.email.trim()))
       next.email = "Email inválido.";
     if (!confirmed) next.confirm = "Confirme a disponibilidade para receber a encomenda.";
@@ -103,7 +126,7 @@ export function CheckoutDrawer({
     const addressLines = [
       values.address.trim(),
       reference ? `Ponto de referência: ${reference}` : null,
-      "Província: Luanda",
+      `Província: ${province}`,
       email ? `Email: ${email}` : null,
     ].filter(Boolean) as string[];
 
@@ -135,7 +158,7 @@ export function CheckoutDrawer({
         customer_name: fullName,
         customer_phone: values.phone.trim(),
         customer_address: values.address.trim(),
-        province: "Luanda",
+        province,
         email: email || null,
         reference: reference || null,
         quantity,
@@ -165,6 +188,7 @@ export function CheckoutDrawer({
       reference: "",
       email: "",
     });
+    setProvince("Luanda");
     setConfirmed(false);
   };
 
@@ -235,7 +259,7 @@ export function CheckoutDrawer({
               <p className="mt-1 text-xs text-foreground">
                 Entrega prevista nas próximas <strong>24 ou 48 horas</strong>
               </p>
-              <p className="text-xs text-muted-foreground">Exclusivo para Luanda</p>
+              <p className="text-xs text-muted-foreground">Entrega disponível em Angola</p>
             </div>
 
             <div className="space-y-3">
@@ -266,12 +290,23 @@ export function CheckoutDrawer({
                 </Label>
                 <select
                   id="province"
-                  value="Luanda"
-                  onChange={() => undefined}
+                  value={province}
+                  onChange={(e) => setProvince(e.target.value)}
                   className="h-12 min-h-12 w-full rounded-xl border border-input bg-background px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  required
                 >
-                  <option value="Luanda">Luanda</option>
+                  <option value="" disabled>
+                    Selecione a província
+                  </option>
+                  {PROVINCES.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
                 </select>
+                {errors.province && (
+                  <p className="text-xs font-medium text-destructive">{errors.province}</p>
+                )}
               </div>
 
               <div className="space-y-1.5">
