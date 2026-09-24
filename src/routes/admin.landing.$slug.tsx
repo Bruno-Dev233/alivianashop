@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { landingPageKey, useLandingPage } from "@/hooks/useLandingPage";
 import { supabase } from "@/integrations/supabase/client";
+import { ImageUpload } from "@/components/aurelis/ImageUpload";
+import { DepiladorEditor } from "@/components/aurelis/DepiladorEditor";
 import type { LandingContent, LandingFaq, LandingOffer, LandingStep } from "@/lib/landing";
 
 export const Route = createFileRoute("/admin/landing/$slug")({
@@ -28,7 +30,7 @@ export const Route = createFileRoute("/admin/landing/$slug")({
   }),
   component: () => (
     <AdminShell title="Editar Landing Page">
-      <LandingEditor />
+      <EditorSwitch />
     </AdminShell>
   ),
 });
@@ -112,6 +114,11 @@ function ListField({
       </Button>
     </div>
   );
+}
+
+function EditorSwitch() {
+  const { slug } = Route.useParams();
+  return slug === "depilador-eletrico" ? <DepiladorEditor /> : <LandingEditor />;
 }
 
 function LandingEditor() {
@@ -263,6 +270,7 @@ function LandingEditor() {
           placeholder="https://..."
           onChange={(v) => set("images", v)}
         />
+        <ImageUpload onUploaded={(url) => set("images", [...form.images.filter(Boolean), url])} />
         <div className="flex flex-wrap gap-2">
           {form.images.filter(Boolean).map((src) => (
             <img
