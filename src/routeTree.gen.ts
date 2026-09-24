@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
+import { Route as AparadorSobrancelhasRouteImport } from './routes/aparador-sobrancelhas'
 import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
@@ -38,6 +39,11 @@ const AdminRoute = AdminRouteImport.update({
 const DepiladorEletricoRoute = DepiladorEletricoRouteImport.update({
   id: '/depilador-eletrico',
   path: '/depilador-eletrico',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AparadorSobrancelhasRoute = AparadorSobrancelhasRouteImport.update({
+  id: '/aparador-sobrancelhas',
+  path: '/aparador-sobrancelhas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LancheiraEletricaRoute = LancheiraEletricaRouteImport.update({
@@ -105,6 +111,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
+  '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
@@ -158,6 +166,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/depilador-eletrico'
+    | '/aparador-sobrancelhas'
     | '/lancheira-eletrica'
     | '/obrigado'
     | '/privacidade'
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/depilador-eletrico'
+    | '/aparador-sobrancelhas'
     | '/lancheira-eletrica'
     | '/obrigado'
     | '/privacidade'
@@ -191,6 +201,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/depilador-eletrico'
+    | '/aparador-sobrancelhas'
     | '/lancheira-eletrica'
     | '/obrigado'
     | '/privacidade'
@@ -209,6 +220,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
+  AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
@@ -353,6 +365,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   DepiladorEletricoRoute: DepiladorEletricoRoute,
+  AparadorSobrancelhasRoute: AparadorSobrancelhasRoute,
   LancheiraEletricaRoute: LancheiraEletricaRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
