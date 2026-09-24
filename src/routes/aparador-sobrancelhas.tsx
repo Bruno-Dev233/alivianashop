@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -69,6 +69,31 @@ function AparadorPage() {
     () => (offer === "bundle" ? APARADOR_BUNDLE.total : PRODUCT.price * quantity),
     [offer, quantity],
   );
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && typeof window.fbq === "function") {
+      window.fbq("track", "ViewContent", {
+        content_ids: [PRODUCT.id],
+        content_name: PRODUCT.name,
+        content_type: "product",
+        value: PRODUCT.price,
+        currency: "AOA",
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (checkoutOpen && typeof window !== "undefined" && typeof window.fbq === "function") {
+      window.fbq("track", "InitiateCheckout", {
+        content_ids: [checkoutProduct.id],
+        content_name: checkoutProduct.name,
+        content_type: "product",
+        num_items: checkoutQuantity,
+        value: total,
+        currency: "AOA",
+      });
+    }
+  }, [checkoutOpen, checkoutProduct.id, checkoutProduct.name, checkoutQuantity, total]);
 
   return (
     <div className="min-h-screen bg-white text-foreground">
