@@ -222,7 +222,6 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
-  AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
