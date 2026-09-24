@@ -66,7 +66,7 @@ function AparadorPage() {
 
   return (
     <div className="min-h-screen bg-white text-foreground">
-      <div className="bg-[#E91E63] px-3 py-2.5 text-center text-[11px] font-bold text-white sm:text-sm">
+      <div className="bg-[#7C3AED] px-3 py-2.5 text-center text-[11px] font-bold text-white sm:text-sm">
         🚚 Frete Grátis <span className="mx-2 opacity-70">•</span> 💵 Pagamento na Entrega
         <span className="mx-2 opacity-70">•</span> ⚡ Entrega em 12h a 24h
       </div>
@@ -79,7 +79,7 @@ function AparadorPage() {
           </div>
           <Button
             onClick={() => openCheckout()}
-            className="h-10 rounded-xl bg-[#E91E63] px-4 text-[11px] font-black hover:bg-[#c91855] sm:text-xs"
+            className="h-10 rounded-xl bg-[#7C3AED] px-4 text-[11px] font-black hover:bg-[#6D28D9] sm:text-xs"
           >
             <ShoppingBag className="mr-1.5 size-4" /> ENCOMENDAR AGORA
           </Button>
@@ -89,42 +89,44 @@ function AparadorPage() {
       <main>
         <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 sm:py-16 lg:grid-cols-[1.02fr_.98fr] lg:gap-16 lg:py-20">
           <div className="order-2 lg:order-1">
-            <span className="inline-flex rounded-full bg-[#FCE7F3] px-3 py-1.5 text-xs font-black tracking-wider text-[#E91E63]">
+            <span className="inline-flex rounded-full bg-[#F3E8FF] px-3 py-1.5 text-xs font-black tracking-wider text-[#7C3AED]">
               • ELETRÓNICA
             </span>
             <h1 className="mt-5 text-4xl font-black leading-[.98] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
               ✨ SOBRANCELHAS PERFEITAS,
-              <span className="block text-[#E91E63]">COM MAIS PRATICIDADE</span>
+              <span className="block text-[#7C3AED]">COM MAIS PRATICIDADE</span>
             </h1>
             <p className="mt-5 max-w-2xl text-lg font-semibold leading-relaxed sm:text-xl">
               Aparador Elétrico de Sobrancelhas 2 em 1 para facilitar o cuidado diário com o seu olhar.
             </p>
-            <p className="mt-5 max-w-2xl leading-7 text-muted-foreground">
-              ✨ Cuide das suas sobrancelhas com mais praticidade.
-              <br /><br />
-              O Aparador Elétrico de Sobrancelhas 2 em 1 foi desenvolvido para ajudar a aparar, modelar e remover pequenos pelos com mais facilidade, proporcionando uma rotina de beleza simples e prática.
-            </p>
-            <p className="mt-4 font-medium text-[#b91550]">🌸 Compacto, fácil de transportar e ideal para incluir no seu cuidado diário.</p>
+            <div className="mt-5 min-h-[150px] max-w-2xl">
+              <p className="leading-7 text-muted-foreground">
+                ✨ Cuide das suas sobrancelhas com mais praticidade.
+                <br /><br />
+                O Aparador Elétrico de Sobrancelhas 2 em 1 foi desenvolvido para ajudar a aparar, modelar e remover pequenos pelos com mais facilidade, proporcionando uma rotina de beleza simples e prática.
+              </p>
+              <p className="mt-4 font-medium text-[#6D28D9]">🌸 Compacto, fácil de transportar e ideal para incluir no seu cuidado diário.</p>
+            </div>
 
             {PRODUCT.social_proof_text ? (
               <div className="mt-6 flex items-center gap-2 text-sm">
-                <span className="tracking-[0.15em] text-[#E91E63]">★★★★★</span>
+                <span className="tracking-[0.15em] text-[#7C3AED]">★★★★★</span>
                 <strong>{PRODUCT.social_proof_text}</strong>
                 <span className="text-muted-foreground">Avaliações verificadas</span>
               </div>
             ) : (
               <div className="mt-6 flex items-center gap-2 text-sm">
-                <span className="tracking-[0.15em] text-[#E91E63]">★★★★★</span>
+                <span className="tracking-[0.15em] text-[#7C3AED]">★★★★★</span>
                 <span className="text-muted-foreground">Avaliações verificadas</span>
               </div>
             )}
 
             <div className="mt-5 rounded-3xl border border-[#f1c3d5] bg-gradient-to-br from-white to-[#fff8fb] p-5 shadow-[0_18px_55px_rgba(17,17,17,.08)] sm:p-6">
-              <p className="text-xs font-black tracking-wider text-[#E91E63]">🔥 OFERTA ESPECIAL</p>
+              <p className="text-xs font-black tracking-wider text-[#7C3AED]">🔥 OFERTA ESPECIAL</p>
               <div className="mt-2 flex flex-wrap items-center gap-3">
                 <strong className="text-4xl tracking-tight sm:text-5xl">{formatKz(heroTotal)}</strong>
                 <del className="text-base text-muted-foreground">{formatKz(29990)}</del>
-                <span className="rounded-full bg-[#E91E63] px-2.5 py-1 text-xs font-black text-white">-37%</span>
+                <span className="rounded-full bg-[#7C3AED] px-2.5 py-1 text-xs font-black text-white">-37%</span>
               </div>
               <p className="mt-2 text-sm text-muted-foreground">💵 Pagamento na entrega. Sem custos adicionais.</p>
 
@@ -139,7 +141,7 @@ function AparadorPage() {
 
               <Button
                 onClick={() => openCheckout()}
-                className="mt-5 h-14 w-full rounded-2xl bg-[#E91E63] text-base font-black shadow-[0_12px_25px_rgba(233,30,99,.22)] hover:bg-[#c91855]"
+                className="mt-5 h-14 w-full rounded-2xl bg-[#7C3AED] text-base font-black shadow-[0_12px_25px_rgba(124,58,237,.22)] hover:bg-[#6D28D9]"
               >
                 🛍️ ENCOMENDAR AGORA <ArrowRight className="ml-1 size-5" />
               </Button>
@@ -151,7 +153,7 @@ function AparadorPage() {
           </div>
 
           <div className="relative order-1 lg:order-2">
-            <div className="absolute right-0 top-0 z-10 rounded-full bg-[#111] px-4 py-3 text-sm font-black text-white shadow-xl">-37%</div>
+            <div className="absolute right-2 top-2 z-10 rounded-full bg-[#7C3AED] px-3 py-2 text-xs font-black text-white shadow-lg">-37%</div>
             <div className="rounded-[28px] border bg-white p-3 shadow-[0_25px_65px_rgba(17,17,17,.13)] sm:p-6">
               <img src={IMAGE} alt={PRODUCT.name} className="block max-h-[600px] w-full rounded-2xl object-contain" />
             </div>
@@ -167,22 +169,25 @@ function AparadorPage() {
             [Headphones, "SUPORTE", "Sempre disponíveis"],
           ].map(([Icon, title, text]) => {
             const I = Icon as typeof Truck;
-            return <div key={title as string} className="flex gap-2 border-black/10 p-3 last:border-0 sm:border-r"><I className="mt-0.5 size-5 shrink-0 text-[#E91E63]" /><div><b className="block text-[10px] sm:text-xs">{title as string}</b><span className="text-[10px] text-muted-foreground sm:text-xs">{text as string}</span></div></div>;
+            return <div key={title as string} className="flex gap-2 border-black/10 p-3 last:border-0 sm:border-r"><I className="mt-0.5 size-5 shrink-0 text-[#7C3AED]" /><div><b className="block text-[10px] sm:text-xs">{title as string}</b><span className="text-[10px] text-muted-foreground sm:text-xs">{text as string}</span></div></div>;
           })}
         </section>
 
         <section className="mx-auto max-w-3xl px-5 py-20 text-center sm:py-24">
-          <span className="rounded-full bg-[#FCE7F3] px-3 py-1.5 text-xs font-black text-[#E91E63]">CUIDADO DIÁRIO</span>
+          <span className="rounded-full bg-[#F3E8FF] px-3 py-1.5 text-xs font-black text-[#7C3AED]">CUIDADO DIÁRIO</span>
           <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">😩 SOBRANCELHAS SEM FORMA?</h2>
           <p className="mt-5 leading-7 text-muted-foreground">Pequenos pelos fora do lugar podem deixar o visual menos definido.</p>
           <p className="mt-2 leading-7 text-muted-foreground">Nem sempre é prático utilizar métodos tradicionais para pequenos retoques.</p>
           <p className="mt-2 leading-7 text-muted-foreground">O Aparador Elétrico de Sobrancelhas 2 em 1 foi pensado para tornar esses cuidados mais simples no dia a dia.</p>
-          <Button onClick={() => openCheckout()} className="mt-7 rounded-xl bg-[#111] px-6 font-black hover:bg-black">✨ QUERO CUIDAR DAS MINHAS SOBRANCELHAS</Button>
+          <div className="mx-auto mt-8 max-w-md overflow-hidden rounded-3xl border border-[#eadcff] bg-white p-2 shadow-xl">
+            <img src="https://files.catbox.moe/12f68c.jpg" alt="Aparador elétrico de sobrancelhas em uso" className="w-full rounded-2xl object-cover" />
+          </div>
+          <Button onClick={() => openCheckout()} className="mt-7 rounded-xl bg-[#7C3AED] px-6 font-black hover:bg-[#6D28D9]">✨ QUERO CUIDAR DAS MINHAS SOBRANCELHAS</Button>
         </section>
 
-        <section className="bg-[#FCE7F3] px-5 py-20 sm:py-24">
+        <section className="bg-[#F3E8FF] px-5 py-20 sm:py-24">
           <div className="mx-auto max-w-6xl">
-            <span className="rounded-full bg-white px-3 py-1.5 text-xs font-black text-[#E91E63]">UMA ROTINA MAIS SIMPLES</span>
+            <span className="rounded-full bg-white px-3 py-1.5 text-xs font-black text-[#7C3AED]">UMA ROTINA MAIS SIMPLES</span>
             <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">🔥 LEVE. APARE. MODELE.</h2>
             <p className="mt-4 max-w-2xl text-muted-foreground">Uma solução compacta para ajudar nos pequenos cuidados com as sobrancelhas e outros pelos.</p>
             <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -196,23 +201,23 @@ function AparadorPage() {
 
         <section className="px-5 py-20 sm:py-24">
           <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
-            <div><span className="rounded-full bg-[#FCE7F3] px-3 py-1.5 text-xs font-black text-[#E91E63]">DETALHES QUE FAZEM A DIFERENÇA</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">📸 PRATICIDADE EM CADA DETALHE</h2><p className="mt-4 leading-7 text-muted-foreground">Uma solução pensada para os pequenos retoques da sua rotina de beleza.</p></div>
-            <div className="rounded-3xl border p-3 shadow-xl"><img src={IMAGE} alt={PRODUCT.name} className="w-full rounded-2xl object-contain" /></div>
+            <div><span className="rounded-full bg-[#F3E8FF] px-3 py-1.5 text-xs font-black text-[#7C3AED]">DETALHES QUE FAZEM A DIFERENÇA</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">📸 PRATICIDADE EM CADA DETALHE</h2><p className="mt-4 leading-7 text-muted-foreground">Uma solução pensada para os pequenos retoques da sua rotina de beleza.</p></div>
+            <div className="rounded-3xl border border-[#eadcff] bg-white p-3 shadow-xl"><img src="https://files.catbox.moe/6usw18.png" alt={PRODUCT.name} className="w-full rounded-2xl object-contain" /></div>
           </div>
         </section>
 
         <section className="bg-[#fafafa] px-5 py-20 sm:py-24">
-          <div className="mx-auto max-w-6xl"><span className="rounded-full bg-[#FCE7F3] px-3 py-1.5 text-xs font-black text-[#E91E63]">SIMPLES DE USAR</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">🔥 COMO FUNCIONA?</h2>
+          <div className="mx-auto max-w-6xl"><span className="rounded-full bg-[#F3E8FF] px-3 py-1.5 text-xs font-black text-[#7C3AED]">SIMPLES DE USAR</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">🔥 COMO FUNCIONA?</h2>
             <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 ["01","ESCOLHA A FUNÇÃO","Utilize a função adequada para o cuidado desejado."],["02","LIGUE O APARELHO","Acione o aparelho conforme as instruções do produto."],["03","APARE E MODELE","Faça pequenos retoques com cuidado e precisão."],["04","FINALIZE O SEU VISUAL","Tenha sobrancelhas mais cuidadas no seu dia a dia."],
-              ].map(([n,title,text]) => <article key={n} className="rounded-2xl border bg-white p-5"><b className="text-3xl text-[#E91E63]">{n}</b><h3 className="mt-3 font-black">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p></article>)}
+              ].map(([n,title,text]) => <article key={n} className="rounded-2xl border bg-white p-5"><b className="text-3xl text-[#7C3AED]">{n}</b><h3 className="mt-3 font-black">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p></article>)}
             </div>
           </div>
         </section>
 
         <section className="px-5 py-20 sm:py-24" id="oferta">
-          <div className="mx-auto max-w-5xl"><span className="rounded-full bg-[#FCE7F3] px-3 py-1.5 text-xs font-black text-[#E91E63]">ESCOLHA COMO COMPRAR</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">🔥 ESCOLHA SUA OFERTA</h2>
+          <div className="mx-auto max-w-5xl"><span className="rounded-full bg-[#F3E8FF] px-3 py-1.5 text-xs font-black text-[#7C3AED]">ESCOLHA COMO COMPRAR</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">🔥 ESCOLHA SUA OFERTA</h2>
             <div className="mt-9 grid gap-5 md:grid-cols-2">
               <OfferCard title="1 UNIDADE" price={18890} old={29990} badge="-37%" onClick={() => openCheckout("single")} />
               <OfferCard featured title="🔥 PAGUE 1, LEVE 2" price={24990} old={37780} badge="🔥 MAIS VENDIDO" saving="ECONOMIZE 12.790 Kz" onClick={() => openCheckout("bundle")} />
@@ -224,13 +229,13 @@ function AparadorPage() {
           ["🌸","Mais praticidade","Para pequenos cuidados diários."],["🎯","Mais precisão","Para detalhes da aparência."],["👜","Compacto","Fácil de levar."],["✨","2 em 1","Duas funções em um único aparelho."]
         ].map(([icon,title,text])=><article key={title} className="rounded-2xl border p-5 shadow-sm"><div className="text-3xl">{icon}</div><h3 className="mt-3 font-black">{title}</h3><p className="mt-1 text-sm text-muted-foreground">{text}</p></article>)}</div></div></section>
 
-        <section className="px-5 py-20 sm:py-24"><div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2"><div><span className="rounded-full bg-[#FCE7F3] px-3 py-1.5 text-xs font-black text-[#E91E63]">PARA VOCÊ</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">💗 PARA QUEM É?</h2></div><ul className="space-y-1">{[
+        <section className="px-5 py-20 sm:py-24"><div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-2"><div><span className="rounded-full bg-[#F3E8FF] px-3 py-1.5 text-xs font-black text-[#7C3AED]">PARA VOCÊ</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">💗 PARA QUEM É?</h2></div><ul className="space-y-1">{[
           "Para quem gosta de manter as sobrancelhas cuidadas","Para quem gosta de praticidade","Para pequenos retoques no dia a dia","Para quem prefere ter seu próprio aparelho","Para quem procura uma solução compacta"
         ].map(x=><li key={x} className="border-b py-4 font-semibold">✓ {x}</li>)}</ul></div></section>
 
-        <section className="bg-[#111] px-5 py-20 text-white sm:py-24"><div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1fr_390px]"><div><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-black text-[#f9a6c4]">AURELIS BEAUTY</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">✨ TUDO O QUE VOCÊ PRECISA PARA O SEU CUIDADO DIÁRIO</h2><ul className="mt-7 space-y-3 text-white/80">{["Design compacto","Aparador 2 em 1","Prático para pequenos retoques","Fácil de transportar","Ideal para rotina de beleza"].map(x=><li key={x}>✓ {x}</li>)}</ul></div><div className="rounded-3xl bg-white p-7 text-[#111] shadow-2xl"><p className="text-xs font-black text-[#E91E63]">🔥 OFERTA ESPECIAL</p><strong className="mt-2 block text-4xl">{formatKz(18890)}</strong><del className="text-muted-foreground">{formatKz(29990)}</del><span className="ml-2 rounded-full bg-[#E91E63] px-2 py-1 text-xs font-black text-white">-37%</span><Button onClick={() => openCheckout()} className="mt-5 h-14 w-full rounded-2xl bg-[#E91E63] font-black hover:bg-[#c91855]">ENCOMENDAR AGORA →</Button></div></div></section>
+        <section className="bg-[#111] px-5 py-20 text-white sm:py-24"><div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1fr_390px]"><div><span className="rounded-full bg-white/10 px-3 py-1.5 text-xs font-black text-[#f9a6c4]">AURELIS BEAUTY</span><h2 className="mt-5 text-3xl font-black sm:text-5xl">✨ TUDO O QUE VOCÊ PRECISA PARA O SEU CUIDADO DIÁRIO</h2><ul className="mt-7 space-y-3 text-white/80">{["Design compacto","Aparador 2 em 1","Prático para pequenos retoques","Fácil de transportar","Ideal para rotina de beleza"].map(x=><li key={x}>✓ {x}</li>)}</ul></div><div className="rounded-3xl bg-white p-7 text-[#111] shadow-2xl"><p className="text-xs font-black text-[#7C3AED]">🔥 OFERTA ESPECIAL</p><strong className="mt-2 block text-4xl">{formatKz(18890)}</strong><del className="text-muted-foreground">{formatKz(29990)}</del><span className="ml-2 rounded-full bg-[#7C3AED] px-2 py-1 text-xs font-black text-white">-37%</span><Button onClick={() => openCheckout()} className="mt-5 h-14 w-full rounded-2xl bg-[#7C3AED] font-black hover:bg-[#6D28D9]">ENCOMENDAR AGORA →</Button></div></div></section>
 
-        <section className="bg-[#E91E63] px-5 py-20 text-center text-white sm:py-24"><h2 className="text-3xl font-black sm:text-5xl">🔥 NÃO DEIXE PARA DEPOIS!</h2><p className="mx-auto mt-4 max-w-2xl">Cuide dos pequenos detalhes e torne sua rotina de beleza ainda mais prática.</p><div className="mt-6 text-3xl font-black">{formatKz(18890)} <del className="ml-2 text-base opacity-70">{formatKz(29990)}</del><span className="ml-2 rounded-full bg-[#111] px-2 py-1 text-xs">-37%</span></div><Button onClick={() => openCheckout()} className="mt-6 h-14 rounded-2xl bg-white px-8 font-black text-[#E91E63] hover:bg-white/90">🛍️ ENCOMENDAR AGORA →</Button><small className="mt-4 block">🚚 Entrega grátis em Luanda • 💵 Pagamento na entrega</small></section>
+        <section className="bg-[#7C3AED] px-5 py-20 text-center text-white sm:py-24"><h2 className="text-3xl font-black sm:text-5xl">🔥 NÃO DEIXE PARA DEPOIS!</h2><p className="mx-auto mt-4 max-w-2xl">Cuide dos pequenos detalhes e torne sua rotina de beleza ainda mais prática.</p><div className="mt-6 text-3xl font-black">{formatKz(18890)} <del className="ml-2 text-base opacity-70">{formatKz(29990)}</del><span className="ml-2 rounded-full bg-[#111] px-2 py-1 text-xs">-37%</span></div><Button onClick={() => openCheckout()} className="mt-6 h-14 rounded-2xl bg-white px-8 font-black text-[#7C3AED] hover:bg-white/90">🛍️ ENCOMENDAR AGORA →</Button><small className="mt-4 block">🚚 Entrega grátis em Luanda • 💵 Pagamento na entrega</small></section>
 
         <section className="bg-[#fafafa] px-5 py-20 sm:py-24"><div className="mx-auto max-w-3xl"><h2 className="text-3xl font-black sm:text-5xl">PERGUNTAS FREQUENTES</h2><Accordion type="single" collapsible className="mt-7">{[
           ["O produto é 2 em 1?","Sim. O produto foi desenvolvido para oferecer duas funções de cuidado em um único aparelho."],
@@ -245,7 +250,7 @@ function AparadorPage() {
 
       <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t bg-white/95 p-2.5 shadow-[0_-10px_30px_rgba(0,0,0,.08)] backdrop-blur md:hidden">
         <strong className="text-base">{formatKz(total)}</strong>
-        <Button onClick={() => openCheckout()} className="ml-auto rounded-xl bg-[#E91E63] px-5 font-black hover:bg-[#c91855]">ENCOMENDAR</Button>
+        <Button onClick={() => openCheckout()} className="ml-auto rounded-xl bg-[#7C3AED] px-5 font-black hover:bg-[#6D28D9]">ENCOMENDAR</Button>
       </div>
 
       <footer className="px-5 py-8 text-center text-xs text-muted-foreground">AURELIS • Beleza com mais praticidade</footer>
@@ -283,13 +288,13 @@ function OfferCard({
   onClick: () => void;
 }) {
   return (
-    <article className={`relative rounded-3xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${featured ? "border-2 border-[#E91E63] shadow-[0_20px_50px_rgba(233,30,99,.13)]" : ""}`}>
+    <article className={`relative rounded-3xl border bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl ${featured ? "border-2 border-[#7C3AED] shadow-[0_20px_50px_rgba(124,58,237,.13)]" : ""}`}>
       <div className="font-black">{title}</div>
       <strong className="mt-4 block text-4xl">{formatKz(price)}</strong>
       <del className="mt-1 block text-muted-foreground">{formatKz(old)}</del>
-      {saving && <p className="mt-3 font-black text-[#E91E63]">{saving}</p>}
-      <span className="mt-3 inline-flex rounded-full bg-[#E91E63] px-2.5 py-1 text-xs font-black text-white">{badge}</span>
-      <Button onClick={onClick} className="mt-5 h-14 w-full rounded-2xl bg-[#E91E63] font-black hover:bg-[#c91855]">{featured ? "QUERO 2 UNIDADES" : "COMPRAR 1 UNIDADE"}</Button>
+      {saving && <p className="mt-3 font-black text-[#7C3AED]">{saving}</p>}
+      <span className="mt-3 inline-flex rounded-full bg-[#7C3AED] px-2.5 py-1 text-xs font-black text-white">{badge}</span>
+      <Button onClick={onClick} className="mt-5 h-14 w-full rounded-2xl bg-[#7C3AED] font-black hover:bg-[#6D28D9]">{featured ? "QUERO 2 UNIDADES" : "COMPRAR 1 UNIDADE"}</Button>
     </article>
   );
 }
