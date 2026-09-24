@@ -79,7 +79,7 @@ function AparadorPage() {
 
       <header className="sticky top-0 z-40 border-b border-black/5 bg-white/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:h-[72px] sm:px-6">
-          <div className="text-lg font-black tracking-[0.18em] sm:text-xl">AURELIS</div>
+          <img src="https://files.catbox.moe/qa687v.jpg" alt="AURELIS" className="h-10 w-auto object-contain sm:h-12" />
           <div className="hidden text-sm font-semibold text-muted-foreground md:block">
             Aparador de Sobrancelhas 2 em 1
           </div>
