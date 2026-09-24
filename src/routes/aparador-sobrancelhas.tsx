@@ -47,15 +47,21 @@ function AparadorPage() {
   const [offer, setOffer] = useState<"single" | "bundle">("single");
   const [quantity, setQuantity] = useState(1);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [offerModalOpen, setOfferModalOpen] = useState(false);
   const [placedOrder, setPlacedOrder] = useState<PlacedOrder | null>(null);
 
   const checkoutProduct = offer === "bundle" ? BUNDLE_PRODUCT : PRODUCT;
   const checkoutQuantity = offer === "bundle" ? 2 : quantity;
   const total = offer === "bundle" ? APARADOR_BUNDLE.total : PRODUCT.price * quantity;
 
-  const openCheckout = (nextOffer: "single" | "bundle" = offer) => {
+  const openCheckout = () => {
+    setOfferModalOpen(true);
+  };
+
+  const proceedToCheckout = (nextOffer: "single" | "bundle") => {
     setOffer(nextOffer);
     setQuantity(nextOffer === "bundle" ? 2 : 1);
+    setOfferModalOpen(false);
     setCheckoutOpen(true);
   };
 
@@ -254,6 +260,59 @@ function AparadorPage() {
       </div>
 
       <footer className="px-5 py-8 text-center text-xs text-muted-foreground">AURELIS • Beleza com mais praticidade</footer>
+
+      {offerModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-end justify-center bg-black/60 p-0 backdrop-blur-sm sm:items-center sm:p-4">
+          <div className="w-full max-w-md overflow-hidden rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl">
+            <div className="bg-[#7C3AED] px-5 py-5 text-center text-white">
+              <p className="text-xl font-black">🔥 PAGUE 1, LEVE 2 E ECONOMIZE!</p>
+              <p className="mt-1 text-sm font-semibold text-white/90">Escolha a sua oferta antes de finalizar o pedido.</p>
+            </div>
+
+            <div className="space-y-3 p-4">
+              <button
+                type="button"
+                onClick={() => proceedToCheckout("bundle")}
+                className="relative w-full rounded-2xl border-2 border-[#7C3AED] bg-[#F3E8FF] p-4 text-left shadow-[0_10px_30px_rgba(124,58,237,.16)]"
+              >
+                <span className="absolute -top-3 left-4 rounded-full bg-[#7C3AED] px-3 py-1 text-[10px] font-black uppercase text-white">🔥 MELHOR OFERTA</span>
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-base font-black">🔥 PAGUE 1, LEVE 2</p>
+                    <p className="mt-1 text-xs font-semibold text-[#6D28D9]">🔥 MAIS VENDIDO • Leve 2 unidades</p>
+                  </div>
+                  <div className="text-right">
+                    <del className="block text-xs text-muted-foreground">37.780 Kz</del>
+                    <strong className="text-2xl font-black text-[#7C3AED]">24.990 Kz</strong>
+                  </div>
+                </div>
+                <div className="mt-3 rounded-xl bg-white px-3 py-2 text-center text-xs font-black text-[#7C3AED]">ECONOMIZE 12.790 Kz</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => proceedToCheckout("single")}
+                className="w-full rounded-2xl border border-gray-200 bg-white p-4 text-left transition hover:border-[#7C3AED]"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-black">1 UNIDADE</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Comprar apenas uma unidade</p>
+                  </div>
+                  <div className="text-right">
+                    <del className="block text-xs text-muted-foreground">29.990 Kz</del>
+                    <strong className="text-xl font-black">18.890 Kz</strong>
+                  </div>
+                </div>
+              </button>
+
+              <button type="button" onClick={() => setOfferModalOpen(false)} className="w-full py-2 text-sm font-semibold text-muted-foreground">
+                Continuar a navegar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <CheckoutDrawer
         product={checkoutProduct}
