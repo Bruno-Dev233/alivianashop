@@ -49,7 +49,7 @@ export function DepiladorEditor() {
       .update({ content: form, updated_at: new Date().toISOString() })
       .eq("id", data.id);
     setSaving(false);
-    if (error) return toast.error("Não foi possível guardar as alterações.");
+    if (error) { toast.error("Não foi possível guardar as alterações."); return; }
     await qc.invalidateQueries({ queryKey: ["landing_page_raw", SLUG] });
     await qc.invalidateQueries({ queryKey: ["landing_page_admin", SLUG] });
     toast.success("Landing page actualizada.");
