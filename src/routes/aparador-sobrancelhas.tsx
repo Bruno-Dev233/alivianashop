@@ -54,7 +54,8 @@ function AparadorPage() {
   const checkoutQuantity = offer === "bundle" ? 2 : quantity;
   const total = offer === "bundle" ? APARADOR_BUNDLE.total : PRODUCT.price * quantity;
 
-  const openCheckout = () => {
+  const openCheckout = (nextOffer?: "single" | "bundle") => {
+    if (nextOffer) { proceedToCheckout(nextOffer); return; }
     setOfferModalOpen(true);
   };
 
