@@ -5,6 +5,7 @@ import { ArrowRight, BatteryCharging, Check, Gauge, Headphones, Lock, RotateCcw,
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
 import { formatKz, type Product } from "@/lib/aurelis";
+import alivianaLogo from "@/assets/aliviana-logo.png";
 
 const PRODUCT = {
   id: "auxiliador-partida-4-em-1",
@@ -30,7 +31,7 @@ function productData(): Product {
 export const Route = createFileRoute("/auxiliador-partida")({
   head: () => ({
     meta: [
-      { title: "Auxiliador de Partida 4 em 1 — AURELIS" },
+      { title: "Auxiliador de Partida 4 em 1 — Aliviana" },
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: PRODUCT.name },
       { property: "og:description", content: DESCRIPTION },
@@ -63,7 +64,7 @@ function Page() {
 
       <header className="sticky top-0 z-30 border-b border-[#eee] bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
-          <div className="flex items-center gap-2"><span className="grid size-8 place-items-center rounded-lg bg-[#e52429] text-white">●</span><b>AURELIS</b></div>
+          <img src={alivianaLogo} alt="Aliviana — Bem-Estar e Leveza" className="h-8 w-auto object-contain sm:h-9" />
           <span className="hidden max-w-sm truncate text-sm font-semibold text-[#667085] md:block">{PRODUCT.name}</span>
           <button onClick={buy} className={`${cta} h-11 bg-[#e52429] px-5 text-sm text-white shadow-md`}><ShoppingBag className="size-4" /> Encomendar Agora</button>
         </div>
