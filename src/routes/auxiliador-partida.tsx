@@ -99,6 +99,27 @@ function Page() {
         <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{features.map(([Icon,title,text])=>{const I=Icon as typeof Zap;return <div key={title} className="rounded-3xl border border-[#eaecf0] bg-white p-6 text-left shadow-sm"><span className="grid size-12 place-items-center rounded-2xl bg-[#ecfdf3] text-[#16803a]"><I className="size-6"/></span><h3 className="mt-4 font-black">{title}</h3><p className="mt-2 text-sm leading-6 text-[#667085]">{text}</p></div>})}</div>
       </section>
 
+
+      <section className="border-y border-[#f2f4f7] bg-[#f8fafc]">
+        <div className="mx-auto max-w-7xl px-4 py-14 text-center sm:py-16">
+          <h2 className="font-display text-3xl font-black leading-tight sm:text-4xl">🎥 VEJA O AUXILIADOR 4 EM 1 EM AÇÃO</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-[#667085] sm:text-base">Mais praticidade para lidar com imprevistos na estrada, tudo em um único equipamento. 🚗⚡</p>
+          <div className="mx-auto mt-8 w-full max-w-3xl">
+            <div className="overflow-hidden rounded-[20px] border border-[#eaecf0] bg-black shadow-2xl shadow-[#101828]/15 sm:rounded-[24px]">
+              <video
+                src="https://files.catbox.moe/sq9fx9.mp4"
+                className="aspect-video w-full object-contain"
+                controls
+                preload="metadata"
+                playsInline
+              />
+            </div>
+            <button onClick={buy} className={`${cta} mt-7 h-14 w-full bg-[#e52429] px-6 text-base text-white shadow-xl shadow-red-200 sm:h-16 sm:w-auto sm:px-12 sm:text-lg`}>🚗 QUERO O MEU AGORA <ArrowRight className="size-5"/></button>
+            <p className="mt-3 text-xs font-medium text-[#667085]">🔒 Pagamento na Entrega · 🚚 Entrega Garantida</p>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-black text-white"><div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:grid-cols-2">
         <div><p className="text-xs font-black tracking-[0.2em] text-[#9be36a]">O QUE ESTÁ INCLUÍDO</p><h2 className="mt-3 font-display text-3xl font-black sm:text-5xl">Tudo o que precisa,<br/>num único produto.</h2><ul className="mt-7 space-y-3 text-sm text-white/85">{["Auxiliador de partida","Insuflador de pneus portátil","Ecrã digital","Design compacto para o carro","Prático para situações de emergência","Equipamento multifuncional 4 em 1"].map(item=><li key={item} className="flex items-center gap-3"><span className="grid size-6 place-items-center rounded-full bg-[#9be36a] text-black"><Check className="size-4"/></span>{item}</li>)}</ul></div>
         <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-6 sm:p-8"><p className="text-xs font-bold tracking-widest text-[#9be36a]">PREÇO ESPECIAL</p><p className="mt-2 font-display text-4xl font-black">{formatKz(PRODUCT.price)}</p><p className="text-sm text-white/45 line-through">{formatKz(PRODUCT.oldPrice)}</p><span className="mt-2 inline-flex rounded-full bg-[#9be36a] px-3 py-1 text-xs font-black text-black">{discount} DE DESCONTO</span><button onClick={buy} className={`${cta} mt-7 h-14 w-full bg-[#9be36a] text-black`}>Encomendar Agora <ArrowRight className="size-5"/></button><p className="mt-3 text-center text-xs text-white/50">🔒 Pagamento na entrega · Sem risco</p></div>

@@ -11,10 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
-import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
 import { Route as AparadorSobrancelhasRouteImport } from './routes/aparador-sobrancelhas'
-import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
 import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-partida'
+import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
+import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
@@ -37,24 +37,24 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DepiladorEletricoRoute = DepiladorEletricoRouteImport.update({
-  id: '/depilador-eletrico',
-  path: '/depilador-eletrico',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AparadorSobrancelhasRoute = AparadorSobrancelhasRouteImport.update({
   id: '/aparador-sobrancelhas',
   path: '/aparador-sobrancelhas',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LancheiraEletricaRoute = LancheiraEletricaRouteImport.update({
-  id: '/lancheira-eletrica',
-  path: '/lancheira-eletrica',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuxiliadorPartidaRoute = AuxiliadorPartidaRouteImport.update({
   id: '/auxiliador-partida',
   path: '/auxiliador-partida',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepiladorEletricoRoute = DepiladorEletricoRouteImport.update({
+  id: '/depilador-eletrico',
+  path: '/depilador-eletrico',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LancheiraEletricaRoute = LancheiraEletricaRouteImport.update({
+  id: '/lancheira-eletrica',
+  path: '/lancheira-eletrica',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObrigadoRoute = ObrigadoRouteImport.update({
@@ -116,10 +116,10 @@ const AdminLandingSlugRoute = AdminLandingSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
-  '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
+  '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
@@ -134,10 +134,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
-  '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
+  '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
@@ -154,10 +154,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
-  '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
+  '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
@@ -175,10 +175,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
-    | '/depilador-eletrico'
     | '/aparador-sobrancelhas'
-    | '/lancheira-eletrica'
     | '/auxiliador-partida'
+    | '/depilador-eletrico'
+    | '/lancheira-eletrica'
     | '/obrigado'
     | '/privacidade'
     | '/termos'
@@ -193,8 +193,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/depilador-eletrico'
     | '/aparador-sobrancelhas'
+    | '/auxiliador-partida'
+    | '/depilador-eletrico'
     | '/lancheira-eletrica'
     | '/obrigado'
     | '/privacidade'
@@ -211,8 +212,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
-    | '/depilador-eletrico'
     | '/aparador-sobrancelhas'
+    | '/auxiliador-partida'
+    | '/depilador-eletrico'
     | '/lancheira-eletrica'
     | '/obrigado'
     | '/privacidade'
@@ -230,8 +232,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
-  DepiladorEletricoRoute: typeof DepiladorEletricoRoute
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
+  AuxiliadorPartidaRoute: typeof AuxiliadorPartidaRoute
+  DepiladorEletricoRoute: typeof DepiladorEletricoRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
@@ -254,6 +257,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aparador-sobrancelhas': {
+      id: '/aparador-sobrancelhas'
+      path: '/aparador-sobrancelhas'
+      fullPath: '/aparador-sobrancelhas'
+      preLoaderRoute: typeof AparadorSobrancelhasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auxiliador-partida': {
+      id: '/auxiliador-partida'
+      path: '/auxiliador-partida'
+      fullPath: '/auxiliador-partida'
+      preLoaderRoute: typeof AuxiliadorPartidaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/depilador-eletrico': {
       id: '/depilador-eletrico'
       path: '/depilador-eletrico'
@@ -266,13 +283,6 @@ declare module '@tanstack/react-router' {
       path: '/lancheira-eletrica'
       fullPath: '/lancheira-eletrica'
       preLoaderRoute: typeof LancheiraEletricaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auxiliador-partida': {
-      id: '/auxiliador-partida'
-      path: '/auxiliador-partida'
-      fullPath: '/auxiliador-partida'
-      preLoaderRoute: typeof AuxiliadorPartidaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/obrigado': {
@@ -382,10 +392,10 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
-  DepiladorEletricoRoute: DepiladorEletricoRoute,
   AparadorSobrancelhasRoute: AparadorSobrancelhasRoute,
-  LancheiraEletricaRoute: LancheiraEletricaRoute,
   AuxiliadorPartidaRoute: AuxiliadorPartidaRoute,
+  DepiladorEletricoRoute: DepiladorEletricoRoute,
+  LancheiraEletricaRoute: LancheiraEletricaRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   TermosRoute: TermosRoute,
