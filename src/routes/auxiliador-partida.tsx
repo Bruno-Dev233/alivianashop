@@ -5,6 +5,7 @@ import { ArrowRight, BatteryCharging, Check, Gauge, Headphones, Lock, RotateCcw,
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
 import { formatKz, type Product } from "@/lib/aurelis";
+import alivianaLogo from "@/assets/aliviana-logo.png";
 
 const PRODUCT = {
   id: "auxiliador-partida-4-em-1",
