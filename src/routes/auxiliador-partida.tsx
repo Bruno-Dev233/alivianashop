@@ -112,7 +112,6 @@ function Page() {
                 controls
                 preload="metadata"
                 playsInline
-                allowFullScreen
               />
             </div>
             <button onClick={buy} className={`${cta} mt-7 h-14 w-full bg-[#e52429] px-6 text-base text-white shadow-xl shadow-red-200 sm:h-16 sm:w-auto sm:px-12 sm:text-lg`}>🚗 QUERO O MEU AGORA <ArrowRight className="size-5"/></button>
