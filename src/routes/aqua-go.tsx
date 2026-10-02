@@ -224,13 +224,28 @@ function Page() {
           </div>
         </section>
 
-        <section className="border-y border-[#d8edf3] bg-[#f7fdff] px-5 py-16 sm:py-20">
+        <section className="border-y border-[#d8edf3] bg-[#f7fdff] px-4 py-14 sm:px-5 sm:py-20">
           <div className="mx-auto max-w-4xl text-center">
             <span className="rounded-full bg-[#E9FAFF] px-3 py-1.5 text-[11px] font-black text-[#008FE5]">DEMONSTRAÇÃO</span>
-            <h2 className="mt-5 text-3xl font-black sm:text-5xl">VEJA O AQUA GO EM AÇÃO 🚿</h2>
-            <p className="mt-3 text-[#547286]">Em breve, este espaço poderá receber o vídeo demonstrativo do produto.</p>
-            <div className="mx-auto mt-8 grid aspect-video max-w-3xl place-items-center rounded-[2rem] bg-[#063B5C] shadow-2xl">
-              <div className="text-center text-white/80"><Droplets className="mx-auto size-12 text-[#19BFEA]"/><p className="mt-3 font-bold">Vídeo do produto</p><p className="text-xs text-white/50">Espaço preparado para inserir a URL do vídeo</p></div>
+            <h2 className="mt-5 text-3xl font-black leading-tight tracking-tight sm:text-5xl">🎥 VEJA O AQUA GO EM AÇÃO 🚿</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-[#547286] sm:text-base sm:leading-7">
+              Mais praticidade para os seus momentos ao ar livre, tudo num único equipamento. 💧
+            </p>
+            <div className="mx-auto mt-8 max-w-3xl">
+              <div className="overflow-hidden rounded-[18px] bg-[#063B5C] p-2 shadow-[0_20px_60px_rgba(6,59,92,.22)] ring-1 ring-[#bceefa] sm:rounded-[24px] sm:p-3">
+                <video
+                  src="https://files.catbox.moe/e7jo84.mp4"
+                  controls
+                  preload="metadata"
+                  playsInline
+                  controlsList="nodownload"
+                  className="aspect-video w-full rounded-[12px] bg-black object-contain sm:rounded-[18px]"
+                />
+              </div>
+              <button onClick={buy} className={`${CTA} mt-6 h-14 w-full bg-[#008FE5] px-6 text-base text-white shadow-xl shadow-[#008FE5]/25 sm:mx-auto sm:h-16 sm:w-auto sm:max-w-xl sm:px-10 sm:text-lg`}>
+                🚿 QUERO O MEU AGORA <ArrowRight className="size-5" />
+              </button>
+              <p className="mt-3 text-[11px] font-bold text-[#547286] sm:text-xs">💵 Pague somente quando receber • 🚚 Entrega ao domicílio</p>
             </div>
           </div>
         </section>
