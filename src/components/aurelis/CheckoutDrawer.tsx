@@ -25,6 +25,7 @@ type Props = {
   onQuantityChange: (quantity: number) => void;
   onPlaced: (order: PlacedOrder) => void;
   minQuantity?: number;
+  theme?: "default" | "aqua-go";
 };
 
 type FieldKey = "fullName" | "phone" | "address" | "reference" | "email";
@@ -83,7 +84,9 @@ export function CheckoutDrawer({
   onQuantityChange,
   onPlaced,
   minQuantity = 1,
+  theme = "default",
 }: Props) {
+  const isAqua = theme === "aqua-go";
   const [values, setValues] = useState<Record<FieldKey, string>>({
     fullName: "",
     phone: "",
@@ -200,11 +203,11 @@ export function CheckoutDrawer({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent
         side="bottom"
-        className="flex h-[100dvh] max-h-[100dvh] flex-col gap-0 rounded-t-3xl border-0 bg-background p-0 sm:h-[96dvh] sm:max-h-[96dvh] sm:mx-auto sm:max-w-lg"
+        className={`flex h-[100dvh] max-h-[100dvh] flex-col gap-0 rounded-t-3xl border-0 p-0 sm:h-[96dvh] sm:max-h-[96dvh] sm:mx-auto sm:max-w-lg ${isAqua ? "bg-[#F7F0E7] text-[#4A2C1C]" : "bg-background"}`}
       >
-        <div className="flex items-center justify-between border-b border-border bg-sky px-4 py-3">
+        <div className={`flex items-center justify-between border-b px-4 py-3 ${isAqua ? "border-[#D8C2AE] bg-[#5A351F] text-white" : "border-border bg-sky"}`}>
           <div className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-full bg-ink text-ink-foreground">
+            <span className={`grid size-9 place-items-center rounded-full ${isAqua ? "bg-white/15 text-white" : "bg-ink text-ink-foreground"}`}>
               <Home className="size-4" />
             </span>
             <span className="font-display text-sm font-bold uppercase tracking-wide">
@@ -215,7 +218,7 @@ export function CheckoutDrawer({
             type="button"
             aria-label="Fechar checkout"
             onClick={() => onOpenChange(false)}
-            className="grid size-9 place-items-center rounded-full border border-border bg-background text-foreground transition hover:bg-muted"
+            className={`grid size-9 place-items-center rounded-full border transition ${isAqua ? "border-white/30 bg-white/10 text-white hover:bg-white/20" : "border-border bg-background text-foreground hover:bg-muted"}`}
           >
             <X className="size-4" />
           </button>
@@ -223,13 +226,13 @@ export function CheckoutDrawer({
 
         <form onSubmit={handleSubmit} noValidate className="flex min-h-0 flex-1 flex-col">
           <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 py-4 pb-6 sm:space-y-5 sm:pb-4">
-            <div className="rounded-2xl border border-border bg-card p-3 shadow-soft">
+            <div className={`rounded-2xl border p-3 shadow-soft ${isAqua ? "border-[#D8C2AE] bg-white" : "border-border bg-card"}`}>
               <div className="flex gap-3">
                 {thumb && (
                   <img
                     src={thumb}
                     alt=""
-                    className="size-16 shrink-0 rounded-xl border border-border object-contain"
+                    className={`size-16 shrink-0 rounded-xl border object-contain ${isAqua ? "border-[#D8C2AE] bg-[#F7F0E7]" : "border-border"}`}
                   />
                 )}
                 <p className="text-sm font-semibold leading-snug">{product.name}</p>
@@ -238,7 +241,7 @@ export function CheckoutDrawer({
                 <span className="text-sm font-medium text-muted-foreground">Quantidade</span>
                 <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} />
               </div>
-              <dl className="mt-3 space-y-1.5 border-t border-border pt-3 text-sm">
+              <dl className={`mt-3 space-y-1.5 border-t pt-3 text-sm ${isAqua ? "border-[#E5D6C8]" : "border-border"}`}>
                 <div className="flex justify-between">
                   <dt className="text-muted-foreground">Subtotal</dt>
                   <dd className="font-semibold">{formatKz(subtotal)}</dd>
@@ -254,8 +257,8 @@ export function CheckoutDrawer({
               </dl>
             </div>
 
-            <div className="rounded-2xl border border-primary/25 bg-primary/8 p-3">
-              <p className="flex items-center gap-2 text-sm font-bold text-primary">
+            <div className={`rounded-2xl border p-3 ${isAqua ? "border-[#D8C2AE] bg-[#EFE2D3]" : "border-primary/25 bg-primary/8"}`}>
+              <p className={`flex items-center gap-2 text-sm font-bold ${isAqua ? "text-[#5A351F]" : "text-primary"}`}>
                 <Truck className="size-4" /> 🚚 FRETE GRÁTIS
               </p>
               <p className="mt-1 text-xs text-foreground">
@@ -278,7 +281,7 @@ export function CheckoutDrawer({
                     autoComplete={key === "fullName" ? "name" : undefined}
                     value={values[key]}
                     onChange={(e) => set(key, e.target.value)}
-                    className="h-12 min-h-12 w-full rounded-xl text-base"
+                    className={`h-12 min-h-12 w-full rounded-xl text-base ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C] placeholder:text-[#9B806B] focus-visible:ring-[#8B5E3C]" : ""}`}
                   />
                   {errors[key] && (
                     <p className="text-xs font-medium text-destructive">{errors[key]}</p>
@@ -294,7 +297,7 @@ export function CheckoutDrawer({
                   id="province"
                   value={province}
                   onChange={(e) => setProvince(e.target.value)}
-                  className="h-12 min-h-12 w-full rounded-xl border border-input bg-background px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className={`h-12 min-h-12 w-full rounded-xl border px-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5E3C] ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C]" : "border-input bg-background focus-visible:ring-ring"}`}
                   required
                 >
                   <option value="" disabled>
@@ -321,7 +324,7 @@ export function CheckoutDrawer({
                   placeholder="Email"
                   value={values.email}
                   onChange={(e) => set("email", e.target.value)}
-                  className="h-12 rounded-xl text-base"
+                  className={`h-12 rounded-xl text-base ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C] placeholder:text-[#9B806B] focus-visible:ring-[#8B5E3C]" : ""}`}
                 />
                 {errors.email && (
                   <p className="text-xs font-medium text-destructive">{errors.email}</p>
@@ -329,7 +332,7 @@ export function CheckoutDrawer({
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-sky/60 p-3">
+            <div className={`rounded-2xl border p-3 ${isAqua ? "border-[#D8C2AE] bg-[#EFE2D3]" : "border-border bg-sky/60"}`}>
               <label className="flex cursor-pointer items-start gap-3 text-xs leading-relaxed">
                 <Checkbox
                   checked={confirmed}
@@ -347,7 +350,7 @@ export function CheckoutDrawer({
               )}
             </div>
 
-            <div className="rounded-2xl border border-border bg-card p-3 text-center">
+            <div className={`rounded-2xl border p-3 text-center ${isAqua ? "border-[#D8C2AE] bg-white" : "border-border bg-card"}`}>
               <p className="font-display text-sm font-bold">Pagamento na Entrega</p>
               <p className="text-xs text-muted-foreground">
                 Você só paga quando receber o produto.
@@ -355,7 +358,7 @@ export function CheckoutDrawer({
             </div>
           </div>
 
-          <div className="space-y-2 border-t border-border bg-background px-4 pb-4 pt-3">
+          <div className={`space-y-2 border-t px-4 pb-4 pt-3 ${isAqua ? "border-[#D8C2AE] bg-[#F7F0E7]" : "border-border bg-background"}`}>
             {serverError && (
               <p className="rounded-lg bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
                 {serverError}
@@ -365,7 +368,7 @@ export function CheckoutDrawer({
               type="submit"
               variant="ghost"
               disabled={submitting}
-              className="h-14 min-h-14 w-full rounded-2xl bg-ink text-base font-bold text-ink-foreground shadow-ink hover:bg-ink/90 hover:text-ink-foreground sm:h-14"
+              className={`h-14 min-h-14 w-full rounded-2xl text-base font-bold shadow-xl sm:h-14 ${isAqua ? "bg-[#5A351F] text-white hover:bg-[#4A2C1C] hover:text-white" : "bg-ink text-ink-foreground shadow-ink hover:bg-ink/90 hover:text-ink-foreground"}`}
             >
               {submitting ? (
                 <>
