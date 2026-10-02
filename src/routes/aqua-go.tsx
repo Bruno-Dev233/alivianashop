@@ -189,7 +189,7 @@ function Page() {
             </div>
 
             <div className="mt-7 space-y-3">
-              {BUNDLE_OFFERS.map((offer) => {
+              {offers.map((offer) => {
                 const selected = offer.id === selectedOffer.id;
                 const savings = Math.max(0, offer.referencePrice - offer.price);
                 const savingsPercent = offer.referencePrice > 0
@@ -221,7 +221,7 @@ function Page() {
                       </span>
                       <span className="mt-1 flex flex-wrap items-center gap-1.5">
                         <span className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase ${
-                          selected ? offer.badgeClass : "bg-[#F1F5F6] text-[#547286]"
+                          selected ? offer.badgeClass ?? "bg-[#5A351F] text-white" : "bg-[#F1F5F6] text-[#547286]"
                         }`}>
                           {offer.badge}
                         </span>
