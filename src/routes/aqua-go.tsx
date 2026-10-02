@@ -156,9 +156,15 @@ function Page() {
                 Conheça o Aqua Go, o chuveiro portátil pensado para trazer mais praticidade para viagens, campismo, praia, quintal e diferentes momentos do seu dia.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-3">
-                <span className="text-4xl font-black text-[#063B5C] sm:text-5xl">{formatKz(PRODUCT.price)}</span>
-                <span className="text-xl font-bold text-[#6b8795] line-through sm:text-2xl">{formatKz(PRODUCT.oldPrice)}</span>
-                <span className="rounded-full bg-[#063B5C] px-3 py-1.5 text-sm font-black text-white">-39% OFF</span>
+                <span className="text-4xl font-black text-[#063B5C] sm:text-5xl">{formatKz(selectedOffer.price)}</span>
+                {selectedOffer.quantity > 1 && (
+                  <span className="text-xl font-bold text-[#6b8795] line-through sm:text-2xl">{formatKz(selectedOffer.referencePrice)}</span>
+                )}
+                {selectedOffer.quantity > 1 && (
+                  <span className="rounded-full bg-[#063B5C] px-3 py-1.5 text-sm font-black text-white">
+                    -{Math.round(((selectedOffer.referencePrice - selectedOffer.price) / selectedOffer.referencePrice) * 100)}% OFF
+                  </span>
+                )}
               </div>
               <button onClick={buy} className={`${CTA} mt-6 h-16 w-full bg-[#008FE5] px-7 text-base text-white shadow-xl shadow-[#008FE5]/25 sm:max-w-xl sm:text-lg`}>
                 🚿 QUERO O MEU AQUA GO <ArrowRight className="size-5" />
@@ -421,7 +427,7 @@ function Page() {
             <span className="rounded-full bg-white/15 px-3 py-1.5 text-[11px] font-black tracking-wider">AQUA GO</span>
             <h2 className="mt-5 text-3xl font-black sm:text-5xl">TENHA MAIS LIBERDADE PARA UTILIZAR ÁGUA ONDE PRECISAR</h2>
             <p className="mt-4 text-white/90">AQUA GO — Chuveiro Portátil</p>
-            <div className="mt-4 text-4xl font-black">{formatKz(PRODUCT.price)}</div>
+            <div className="mt-4 text-4xl font-black">{formatKz(selectedOffer.price)}</div>
             <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-white px-8 text-base text-[#008FE5] shadow-2xl sm:w-auto sm:text-lg`}>🚿 ENCOMENDAR AGORA <ArrowRight className="size-5"/></button>
             <p className="mt-4 text-xs font-bold">💵 Pague somente quando receber • 🚚 Entrega ao domicílio • 🔒 Compra segura</p>
           </div>
@@ -448,7 +454,7 @@ function Page() {
             <Droplets className="mx-auto size-10 text-[#19BFEA]"/>
             <h2 className="mt-5 text-3xl font-black sm:text-5xl">🚿 LEVE O SEU BANHO PARA ONDE QUISER!</h2>
             <p className="mt-4 text-white/75">Aqua Go — Chuveiro Portátil</p>
-            <div className="mt-4 text-4xl font-black">{formatKz(PRODUCT.price)}</div>
+            <div className="mt-4 text-4xl font-black">{formatKz(selectedOffer.price)}</div>
             <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-[#19BFEA] px-8 text-base text-white shadow-xl sm:w-auto sm:text-lg`}>🚿 QUERO O MEU AQUA GO <ArrowRight className="size-5"/></button>
             <p className="mt-4 text-xs text-white/60">💵 Pague somente quando receber • 🚚 Entrega ao domicílio</p>
           </div>
@@ -457,7 +463,7 @@ function Page() {
 
       <div className="h-20 md:hidden" />
       <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t border-[#bceefa] bg-white/95 p-2.5 pb-[calc(.625rem+env(safe-area-inset-bottom))] shadow-[0_-10px_35px_rgba(6,59,92,.12)] backdrop-blur md:hidden">
-        <div className="min-w-0"><span className="block text-[9px] font-black uppercase text-[#547286]">AQUA GO</span><strong className="block text-base leading-none text-[#063B5C]">{formatKz(PRODUCT.price)}</strong></div>
+        <div className="min-w-0"><span className="block text-[9px] font-black uppercase text-[#547286]">AQUA GO</span><strong className="block text-base leading-none text-[#063B5C]">{formatKz(selectedOffer.price)}</strong></div>
         <button onClick={buy} className="ml-auto h-11 rounded-xl bg-[#008FE5] px-5 text-xs font-black text-white shadow-lg">ENCOMENDAR AGORA</button>
       </div>
 
