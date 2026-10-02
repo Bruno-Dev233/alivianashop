@@ -148,6 +148,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aqua-go': typeof AquaGoRoute
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
@@ -167,6 +168,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/aqua-go': typeof AquaGoRoute
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
@@ -211,6 +213,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/aqua-go'
     | '/aparador-sobrancelhas'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
@@ -229,6 +232,7 @@ export interface FileRouteTypes {
     | '/admin/landing'
   id:
     | '__root__'
+    | '/aqua-go'
     | '/'
     | '/admin'
     | '/aparador-sobrancelhas'
