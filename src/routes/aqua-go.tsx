@@ -1,6 +1,6 @@
 // Lovable/AURELIS: keep AQUA GO as an explicit file-based route for deployment synchronization.
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   ArrowRight, Backpack, Check, ChevronDown, Droplets, Lock, MapPin,
   ShoppingBag, Sparkles, Tent, Truck, Wallet, Waves, Zap
@@ -59,6 +59,8 @@ export const Route = createFileRoute("/aqua-go")({
 function Page() {
   const navigate = useNavigate();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoPaused, setVideoPaused] = useState(true);
   const buy = () => setCheckoutOpen(true);
 
   const benefits = [
@@ -130,7 +132,7 @@ function Page() {
             <div className="order-1 md:order-2">
               <div className="relative overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_25px_70px_rgba(0,143,229,.18)] sm:p-6">
                 <img src={PRODUCT.image} alt={PRODUCT.name} className="aspect-square w-full rounded-[1.5rem] object-contain" />
-                <div className="absolute bottom-5 right-5 rounded-full bg-[#063B5C] px-3 py-2 text-xs font-black text-white">
+                <div className="absolute left-5 top-5 z-10 rounded-full bg-[#5A351F] px-4 py-2.5 text-sm font-black text-white shadow-xl ring-2 ring-white/70">
                   {formatKz(PRODUCT.price)}
                 </div>
               </div>
@@ -230,14 +232,39 @@ function Page() {
             </p>
             <div className="mx-auto mt-8 max-w-3xl">
               <div className="overflow-hidden rounded-[18px] bg-[#063B5C] p-2 shadow-[0_20px_60px_rgba(6,59,92,.22)] ring-1 ring-[#bceefa] sm:rounded-[24px] sm:p-3">
-                <video
-                  src="https://files.catbox.moe/e7jo84.mp4"
-                  controls
-                  preload="metadata"
-                  playsInline
-                  controlsList="nodownload"
-                  className="aspect-video w-full rounded-[12px] bg-black object-contain sm:rounded-[18px]"
-                />
+                <div className="relative mx-auto aspect-[9/16] max-h-[78vh] w-full max-w-[420px] overflow-hidden rounded-[12px] bg-black sm:rounded-[18px]">
+                  <video
+                    ref={videoRef}
+                    src="https://files.catbox.moe/e7jo84.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    onPlay={() => setVideoPaused(false)}
+                    onPause={() => setVideoPaused(true)}
+                    onClick={() => {
+                      const video = videoRef.current;
+                      if (!video) return;
+                      if (video.paused) void video.play();
+                      else video.pause();
+                    }}
+                    className="h-full w-full cursor-pointer object-cover"
+                  />
+                  <button
+                    type="button"
+                    aria-label={videoPaused ? "Reproduzir vídeo" : "Pausar vídeo"}
+                    onClick={() => {
+                      const video = videoRef.current;
+                      if (!video) return;
+                      if (video.paused) void video.play();
+                      else video.pause();
+                    }}
+                    className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-5 py-2.5 text-xs font-black text-[#063B5C] shadow-xl backdrop-blur"
+                  >
+                    {videoPaused ? "▶ REPRODUZIR" : "Ⅱ PAUSAR"}
+                  </button>
+                </div>
               </div>
               <button onClick={buy} className={`${CTA} mt-6 h-14 w-full bg-[#008FE5] px-6 text-base text-white shadow-xl shadow-[#008FE5]/25 sm:mx-auto sm:h-16 sm:w-auto sm:max-w-xl sm:px-10 sm:text-lg`}>
                 🚿 QUERO O MEU AGORA <ArrowRight className="size-5" />
@@ -301,6 +328,7 @@ function Page() {
         quantity={1}
         onQuantityChange={() => {}}
         onPlaced={(order) => navigate({ to: "/obrigado", search: { produto: PRODUCT.name, qtd: order.quantity, total: order.total } })}
+        theme="aqua-go"
       />
     </div>
   );
