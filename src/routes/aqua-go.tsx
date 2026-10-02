@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   ArrowRight, Backpack, Check, ChevronDown, Droplets, Lock, MapPin,
@@ -54,6 +54,7 @@ export const Route = createFileRoute("/aqua-go")({
 });
 
 function Page() {
+  const navigate = useNavigate();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const buy = () => setCheckoutOpen(true);
 
@@ -282,7 +283,7 @@ function Page() {
         onOpenChange={setCheckoutOpen}
         quantity={1}
         onQuantityChange={() => {}}
-        onPlaced={() => {}}
+        onPlaced={(order) => navigate({ to: "/obrigado", search: { produto: PRODUCT.name, qtd: order.quantity, total: order.total } })}
       />
     </div>
   );
