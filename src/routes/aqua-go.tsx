@@ -9,7 +9,11 @@ import {
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
-import { DEFAULT_AQUA_BUNDLES, fetchAquaBundleConfig } from "@/lib/aqua-go-bundles";
+import {
+  DEFAULT_AQUA_BUNDLES,
+  fetchAquaBundleConfig,
+  pickAquaBundleOffer,
+} from "@/lib/aqua-go-bundles";
 
 const PRODUCT = {
   id: "aqua-go",
