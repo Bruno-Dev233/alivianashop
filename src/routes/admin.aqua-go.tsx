@@ -71,15 +71,19 @@ function AquaBundleEditor() {
       title: form.title.trim() || DEFAULT_AQUA_BUNDLES.title,
       subtitle: form.subtitle.trim() || DEFAULT_AQUA_BUNDLES.subtitle,
       offers: form.offers
-        .map((offer) => ({
-          ...offer,
-          title: offer.title.trim(),
-          badge: offer.badge.trim(),
-          shippingBadge: offer.shippingBadge?.trim() || undefined,
-          quantity: Math.max(1, Number(offer.quantity) || 1),
-          price: Math.max(0, Number(offer.price) || 0),
-          referencePrice: Math.max(0, Number(offer.referencePrice) || 0),
-        }))
+        .map((offer) => {
+          const { shippingBadge: rawShipping, ...rest } = offer;
+          const shippingBadge = rawShipping?.trim() ?? "";
+          return {
+            ...rest,
+            title: offer.title.trim(),
+            badge: offer.badge.trim(),
+            ...(shippingBadge ? { shippingBadge } : {}),
+            quantity: Math.max(1, Number(offer.quantity) || 1),
+            price: Math.max(0, Number(offer.price) || 0),
+            referencePrice: Math.max(0, Number(offer.referencePrice) || 0),
+          };
+        })
         .filter((offer) => offer.title && offer.price > 0),
     };
 
@@ -87,8 +91,9 @@ function AquaBundleEditor() {
       toast.error("Adicione pelo menos uma oferta válida.");
       return;
     }
-    if (!cleaned.offers.some((offer) => offer.id === cleaned.defaultOfferId)) {
-      cleaned.defaultOfferId = cleaned.offers[0].id;
+    const firstOffer = cleaned.offers[0];
+    if (firstOffer && !cleaned.offers.some((offer) => offer.id === cleaned.defaultOfferId)) {
+      cleaned.defaultOfferId = firstOffer.id;
     }
 
     setSaving(true);
