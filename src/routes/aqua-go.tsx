@@ -72,12 +72,15 @@ function Page() {
     queryFn: fetchAquaBundleConfig,
     staleTime: 30_000,
   });
-  const offers = bundleConfig?.offers ?? BUNDLE_OFFERS;
+  const config = bundleConfig ?? DEFAULT_AQUA_BUNDLES;
+  const offers = config.offers;
   const [selectedOfferId, setSelectedOfferId] = useState(DEFAULT_AQUA_BUNDLES.defaultOfferId);
   useEffect(() => {
     if (bundleConfig?.defaultOfferId) setSelectedOfferId(bundleConfig.defaultOfferId);
   }, [bundleConfig?.defaultOfferId]);
-  const selectedOffer = offers.find((offer) => offer.id === selectedOfferId) ?? offers[0];
+  const selectedOffer = pickAquaBundleOffer(config, selectedOfferId);
+  const heroOldPrice = selectedOffer.referencePrice > selectedOffer.price ? selectedOffer.referencePrice : PRODUCT.oldPrice;
+  const heroDiscount = heroOldPrice > selectedOffer.price ? Math.round(((heroOldPrice - selectedOffer.price) / heroOldPrice) * 100) : 0;
   const checkoutProduct: Product = {
     ...product,
     name: `${PRODUCT.name} — ${selectedOffer.quantity} unidade${selectedOffer.quantity > 1 ? "s" : ""}`,
