@@ -129,9 +129,6 @@ function Page() {
 
             <div className="order-1 md:order-2">
               <div className="relative overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_25px_70px_rgba(0,143,229,.18)] sm:p-6">
-                <div className="absolute left-5 top-5 z-10 rounded-full bg-[#19BFEA] px-3 py-2 text-xs font-black text-white shadow-lg">
-                  AQUA GO
-                </div>
                 <img src={PRODUCT.image} alt={PRODUCT.name} className="aspect-square w-full rounded-[1.5rem] object-contain" />
                 <div className="absolute bottom-5 right-5 rounded-full bg-[#063B5C] px-3 py-2 text-xs font-black text-white">
                   {formatKz(PRODUCT.price)}
