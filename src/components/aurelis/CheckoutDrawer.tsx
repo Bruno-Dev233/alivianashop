@@ -134,7 +134,9 @@ export function CheckoutDrawer({
     const { error } = await supabase
       .from("orders")
       .insert({
-        product_id: product.id || null,
+        // Static landing-page products may not exist in the products table yet.
+        // Keep the order independent from that FK so COD orders can always be registered.
+        product_id: null,
         product_name: product.name,
         customer_name: fullName,
         customer_phone: values.phone.trim(),
