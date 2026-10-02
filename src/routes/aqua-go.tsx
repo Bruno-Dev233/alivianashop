@@ -42,6 +42,37 @@ const product: Product = {
 
 const CTA = "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition hover:-translate-y-0.5 active:translate-y-0";
 
+const BUNDLE_OFFERS = [
+  {
+    id: "single",
+    quantity: 1,
+    title: "🔥 1 UNIDADE",
+    price: 27498,
+    referencePrice: 27498,
+    badge: "Preço normal",
+    badgeClass: "bg-[#EAF7EC] text-[#28713A]",
+  },
+  {
+    id: "double",
+    quantity: 2,
+    title: "💎 2 UNIDADES",
+    price: 49990,
+    referencePrice: 54996,
+    badge: "POUPE 5.006 Kz",
+    badgeClass: "bg-[#EAF7EC] text-[#28713A]",
+  },
+  {
+    id: "triple",
+    quantity: 3,
+    title: "👑 3 UNIDADES — MAIS VENDIDO",
+    price: 69990,
+    referencePrice: 82494,
+    badge: "Mais vendido",
+    badgeClass: "bg-[#FFF1D6] text-[#8A5A00]",
+    shippingBadge: "Envio grátis",
+  },
+] as const;
+
 export const Route = createFileRoute("/aqua-go")({
   head: () => ({
     meta: [
@@ -59,6 +90,14 @@ export const Route = createFileRoute("/aqua-go")({
 function Page() {
   const navigate = useNavigate();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [selectedOfferId, setSelectedOfferId] = useState("triple");
+  const selectedOffer = BUNDLE_OFFERS.find((offer) => offer.id === selectedOfferId) ?? BUNDLE_OFFERS[2];
+  const checkoutProduct: Product = {
+    ...product,
+    name: `${PRODUCT.name} — ${selectedOffer.quantity} unidade${selectedOffer.quantity > 1 ? "s" : ""}`,
+    price: Math.round(selectedOffer.price / selectedOffer.quantity),
+    old_price: selectedOffer.referencePrice,
+  };
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoPaused, setVideoPaused] = useState(true);
   const buy = () => setCheckoutOpen(true);
@@ -137,6 +176,109 @@ function Page() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section id="ofertas" className="bg-[#F7FBFC] px-4 py-12 sm:px-5 sm:py-16">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center">
+              <span className="inline-flex rounded-full bg-[#E7F8FC] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#008FE5]">
+                OFERTA ESPECIAL
+              </span>
+              <h2 className="mt-4 text-3xl font-black tracking-tight text-[#063B5C] sm:text-4xl">
+                PAGUE MENOS E LEVE MAIS
+              </h2>
+              <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-[#547286] sm:text-base">
+                Escolha quantos AQUA GO quer levar e aproveite um preço melhor nos kits.
+              </p>
+            </div>
+
+            <div className="mt-7 space-y-3">
+              {BUNDLE_OFFERS.map((offer) => {
+                const selected = offer.id === selectedOffer.id;
+                const savings = Math.max(0, offer.referencePrice - offer.price);
+                const savingsPercent = offer.referencePrice > 0
+                  ? Math.round((savings / offer.referencePrice) * 100)
+                  : 0;
+                const pricePerUnit = Math.round(offer.price / offer.quantity);
+
+                return (
+                  <button
+                    key={offer.id}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setSelectedOfferId(offer.id)}
+                    className={`relative flex w-full items-center gap-3 rounded-2xl border-2 p-4 text-left transition sm:gap-4 sm:p-5 ${
+                      selected
+                        ? "border-[#008FE5] bg-[#EAF8FC] shadow-[0_10px_30px_rgba(0,143,229,.12)]"
+                        : "border-[#D9E8ED] bg-white hover:border-[#8EDCF0]"
+                    }`}
+                  >
+                    <span className={`grid size-6 shrink-0 place-items-center rounded-full border-2 ${
+                      selected ? "border-[#008FE5] bg-[#008FE5]" : "border-[#A9C1CB] bg-white"
+                    }`}>
+                      {selected && <span className="size-2.5 rounded-full bg-white" />}
+                    </span>
+
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-black text-[#063B5C] sm:text-base">
+                        {offer.title}
+                      </span>
+                      <span className="mt-1 flex flex-wrap items-center gap-1.5">
+                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase ${
+                          selected ? offer.badgeClass : "bg-[#F1F5F6] text-[#547286]"
+                        }`}>
+                          {offer.badge}
+                        </span>
+                        {offer.shippingBadge && (
+                          <span className="rounded-full bg-[#EAF7EC] px-2 py-0.5 text-[10px] font-black uppercase text-[#28713A]">
+                            🚚 {offer.shippingBadge}
+                          </span>
+                        )}
+                        {offer.quantity > 1 && savings > 0 && (
+                          <span className="text-[10px] font-bold text-[#28713A]">
+                            -{savingsPercent}%
+                          </span>
+                        )}
+                      </span>
+                    </span>
+
+                    <span className="shrink-0 text-right">
+                      <span className="block text-lg font-black text-[#5A351F] sm:text-xl">
+                        {formatKz(offer.price)}
+                      </span>
+                      {offer.quantity > 1 ? (
+                        <>
+                          <span className="block text-xs font-semibold text-[#879BA4] line-through">
+                            {formatKz(offer.referencePrice)}
+                          </span>
+                          <span className="block text-[10px] font-bold text-[#547286]">
+                            {formatKz(pricePerUnit)}/un.
+                          </span>
+                        </>
+                      ) : (
+                        <span className="block text-xs font-semibold text-[#879BA4]">
+                          Preço normal
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-4 rounded-2xl border border-[#D8C2AE] bg-[#F7F0E7] px-4 py-3 text-center text-xs font-bold text-[#5A351F]">
+              💵 Pagamento na entrega • 🚚 Envio grátis • 🔒 Compra segura
+            </div>
+
+            <button
+              type="button"
+              onClick={buy}
+              className={`${CTA} mt-5 h-14 w-full bg-[#5A351F] px-6 text-base text-white shadow-xl shadow-[#5A351F]/20 sm:h-16 sm:text-lg`}
+            >
+              🚿 QUERO {selectedOffer.quantity} AQUA GO POR {formatKz(selectedOffer.price)}
+              <ArrowRight className="size-5" />
+            </button>
           </div>
         </section>
 
@@ -322,10 +464,10 @@ function Page() {
       <footer className="border-t border-[#d8edf3] px-5 py-8 text-center text-xs text-[#547286]">AURELIS • AQUA GO</footer>
 
       <CheckoutDrawer
-        product={product}
+        product={checkoutProduct}
         open={checkoutOpen}
         onOpenChange={setCheckoutOpen}
-        quantity={1}
+        quantity={selectedOffer.quantity}
         onQuantityChange={() => {}}
         onPlaced={(order) => navigate({ to: "/obrigado", search: { produto: PRODUCT.name, qtd: order.quantity, total: order.total } })}
         theme="aqua-go"
