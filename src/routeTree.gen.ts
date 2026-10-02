@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AparadorSobrancelhasRouteImport } from './routes/aparador-sobrancelhas'
 import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-partida'
+import { Route as AquaGoRouteImport } from './routes/aqua-go'
 import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal-shot'
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
 import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
@@ -46,6 +47,11 @@ const AparadorSobrancelhasRoute = AparadorSobrancelhasRouteImport.update({
 const AuxiliadorPartidaRoute = AuxiliadorPartidaRouteImport.update({
   id: '/auxiliador-partida',
   path: '/auxiliador-partida',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AquaGoRoute = AquaGoRouteImport.update({
+  id: '/aqua-go',
+  path: '/aqua-go',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CelimaxRetinalShotRoute = CelimaxRetinalShotRouteImport.update({
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
+  '/aqua-go': typeof AquaGoRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
@@ -186,6 +193,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/aparador-sobrancelhas'
     | '/auxiliador-partida'
+    | '/aqua-go'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
     | '/lancheira-eletrica'
@@ -246,6 +254,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   AuxiliadorPartidaRoute: typeof AuxiliadorPartidaRoute
+  AquaGoRoute: typeof AquaGoRoute
   CelimaxRetinalShotRoute: typeof CelimaxRetinalShotRoute
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
@@ -277,11 +286,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AparadorSobrancelhasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auxiliador-partida': {
-      id: '/auxiliador-partida'
-      path: '/auxiliador-partida'
-      fullPath: '/auxiliador-partida'
-      preLoaderRoute: typeof AuxiliadorPartidaRouteImport
+    '/aqua-go': {
+      id: '/aqua-go'
+      path: '/aqua-go'
+      fullPath: '/aqua-go'
+      preLoaderRoute: typeof AquaGoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/celimax-retinal-shot': {
@@ -414,6 +423,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AparadorSobrancelhasRoute: AparadorSobrancelhasRoute,
   AuxiliadorPartidaRoute: AuxiliadorPartidaRoute,
+  AquaGoRoute: AquaGoRoute,
   CelimaxRetinalShotRoute: CelimaxRetinalShotRoute,
   DepiladorEletricoRoute: DepiladorEletricoRoute,
   LancheiraEletricaRoute: LancheiraEletricaRoute,
