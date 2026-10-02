@@ -146,12 +146,12 @@ function Page() {
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <span className="text-4xl font-black text-[#063B5C] sm:text-5xl">{formatKz(selectedOffer.price)}</span>
-                {selectedOffer.quantity > 1 && (
-                  <span className="text-xl font-bold text-[#6b8795] line-through sm:text-2xl">{formatKz(selectedOffer.referencePrice)}</span>
+                {heroOldPrice > selectedOffer.price && (
+                  <span className="text-xl font-bold text-[#6b8795] line-through sm:text-2xl">{formatKz(heroOldPrice)}</span>
                 )}
-                {selectedOffer.quantity > 1 && (
+                {heroDiscount > 0 && (
                   <span className="rounded-full bg-[#063B5C] px-3 py-1.5 text-sm font-black text-white">
-                    -{Math.round(((selectedOffer.referencePrice - selectedOffer.price) / selectedOffer.referencePrice) * 100)}% OFF
+                    -{heroDiscount}% OFF
                   </span>
                 )}
               </div>
