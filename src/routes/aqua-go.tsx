@@ -12,6 +12,8 @@ const PRODUCT = {
   id: "aqua-go",
   name: "AQUA GO — Chuveiro Portátil",
   price: 27498,
+  oldPrice: 44950,
+  discount: 39,
   image: "https://files.catbox.moe/ynstfk.png",
   secondImage: "https://files.catbox.moe/svjyg2.png",
 };
@@ -20,7 +22,7 @@ const product: Product = {
   id: PRODUCT.id,
   name: PRODUCT.name,
   price: PRODUCT.price,
-  old_price: 0,
+  old_price: PRODUCT.oldPrice,
   cost_price: 0,
   description: "Chuveiro portátil pensado para trazer mais praticidade em viagens, campismo, praia, quintal e outros momentos ao ar livre.",
   social_proof_text: "",
@@ -111,8 +113,10 @@ function Page() {
               <p className="mt-5 max-w-xl text-base leading-7 text-[#35657b] sm:text-lg">
                 Conheça o Aqua Go, o chuveiro portátil pensado para trazer mais praticidade para viagens, campismo, praia, quintal e diferentes momentos do seu dia.
               </p>
-              <div className="mt-6 flex flex-wrap items-end gap-3">
+              <div className="mt-6 flex flex-wrap items-center gap-3">
                 <span className="text-4xl font-black text-[#063B5C] sm:text-5xl">{formatKz(PRODUCT.price)}</span>
+                <span className="text-xl font-bold text-[#6b8795] line-through sm:text-2xl">{formatKz(PRODUCT.oldPrice)}</span>
+                <span className="rounded-full bg-[#063B5C] px-3 py-1.5 text-sm font-black text-white">-39% OFF</span>
               </div>
               <button onClick={buy} className={`${CTA} mt-6 h-16 w-full bg-[#008FE5] px-7 text-base text-white shadow-xl shadow-[#008FE5]/25 sm:max-w-xl sm:text-lg`}>
                 🚿 QUERO O MEU AQUA GO <ArrowRight className="size-5" />
