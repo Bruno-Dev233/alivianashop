@@ -1,6 +1,7 @@
 // Lovable/AURELIS: keep AQUA GO as an explicit file-based route for deployment synchronization.
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import {
   ArrowRight, Backpack, Check, ChevronDown, Droplets, Lock, MapPin,
   ShoppingBag, Sparkles, Tent, Truck, Wallet, Waves, Zap
@@ -8,6 +9,7 @@ import {
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
+import { DEFAULT_AQUA_BUNDLES, fetchAquaBundleConfig } from "@/lib/aqua-go-bundles";
 
 const PRODUCT = {
   id: "aqua-go",
@@ -42,36 +44,8 @@ const product: Product = {
 
 const CTA = "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition hover:-translate-y-0.5 active:translate-y-0";
 
-const BUNDLE_OFFERS = [
-  {
-    id: "single",
-    quantity: 1,
-    title: "🔥 1 UNIDADE",
-    price: 27498,
-    referencePrice: 27498,
-    badge: "Preço normal",
-    badgeClass: "bg-[#EAF7EC] text-[#28713A]",
-  },
-  {
-    id: "double",
-    quantity: 2,
-    title: "💎 2 UNIDADES",
-    price: 49990,
-    referencePrice: 54996,
-    badge: "POUPE 5.006 Kz",
-    badgeClass: "bg-[#EAF7EC] text-[#28713A]",
-  },
-  {
-    id: "triple",
-    quantity: 3,
-    title: "👑 3 UNIDADES — MAIS VENDIDO",
-    price: 69990,
-    referencePrice: 82494,
-    badge: "Mais vendido",
-    badgeClass: "bg-[#FFF1D6] text-[#8A5A00]",
-    shippingBadge: "Envio grátis",
-  },
-] as const;
+const BUNDLE_OFFERS = DEFAULT_AQUA_BUNDLES.offers;
+
 
 export const Route = createFileRoute("/aqua-go")({
   head: () => ({
@@ -90,8 +64,17 @@ export const Route = createFileRoute("/aqua-go")({
 function Page() {
   const navigate = useNavigate();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [selectedOfferId, setSelectedOfferId] = useState("triple");
-  const selectedOffer = BUNDLE_OFFERS.find((offer) => offer.id === selectedOfferId) ?? BUNDLE_OFFERS[2];
+  const { data: bundleConfig } = useQuery({
+    queryKey: ["aqua-go-bundles"],
+    queryFn: fetchAquaBundleConfig,
+    staleTime: 30_000,
+  });
+  const offers = bundleConfig?.offers ?? BUNDLE_OFFERS;
+  const [selectedOfferId, setSelectedOfferId] = useState(DEFAULT_AQUA_BUNDLES.defaultOfferId);
+  useEffect(() => {
+    if (bundleConfig?.defaultOfferId) setSelectedOfferId(bundleConfig.defaultOfferId);
+  }, [bundleConfig?.defaultOfferId]);
+  const selectedOffer = offers.find((offer) => offer.id === selectedOfferId) ?? offers[0];
   const checkoutProduct: Product = {
     ...product,
     name: `${PRODUCT.name} — ${selectedOffer.quantity} unidade${selectedOffer.quantity > 1 ? "s" : ""}`,
@@ -192,10 +175,10 @@ function Page() {
                 OFERTA ESPECIAL
               </span>
               <h2 className="mt-4 text-3xl font-black tracking-tight text-[#063B5C] sm:text-4xl">
-                PAGUE MENOS E LEVE MAIS
+                {bundleConfig?.title ?? DEFAULT_AQUA_BUNDLES.title}
               </h2>
               <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-[#547286] sm:text-base">
-                Escolha quantos AQUA GO quer levar e aproveite um preço melhor nos kits.
+                {bundleConfig?.subtitle ?? DEFAULT_AQUA_BUNDLES.subtitle}
               </p>
             </div>
 
