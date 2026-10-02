@@ -1,3 +1,4 @@
+// Lovable/AURELIS: keep AQUA GO as an explicit file-based route for deployment synchronization.
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import {
