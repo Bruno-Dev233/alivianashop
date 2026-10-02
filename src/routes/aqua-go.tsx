@@ -48,7 +48,6 @@ const product: Product = {
 
 const CTA = "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition hover:-translate-y-0.5 active:translate-y-0";
 
-const BUNDLE_OFFERS = DEFAULT_AQUA_BUNDLES.offers;
 
 
 export const Route = createFileRoute("/aqua-go")({
