@@ -9,7 +9,11 @@ import {
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
-import { DEFAULT_AQUA_BUNDLES, fetchAquaBundleConfig } from "@/lib/aqua-go-bundles";
+import {
+  DEFAULT_AQUA_BUNDLES,
+  fetchAquaBundleConfig,
+  pickAquaBundleOffer,
+} from "@/lib/aqua-go-bundles";
 
 const PRODUCT = {
   id: "aqua-go",
@@ -44,7 +48,6 @@ const product: Product = {
 
 const CTA = "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition hover:-translate-y-0.5 active:translate-y-0";
 
-const BUNDLE_OFFERS = DEFAULT_AQUA_BUNDLES.offers;
 
 
 export const Route = createFileRoute("/aqua-go")({
@@ -69,12 +72,15 @@ function Page() {
     queryFn: fetchAquaBundleConfig,
     staleTime: 30_000,
   });
-  const offers = bundleConfig?.offers ?? BUNDLE_OFFERS;
+  const config = bundleConfig ?? DEFAULT_AQUA_BUNDLES;
+  const offers = config.offers;
   const [selectedOfferId, setSelectedOfferId] = useState(DEFAULT_AQUA_BUNDLES.defaultOfferId);
   useEffect(() => {
     if (bundleConfig?.defaultOfferId) setSelectedOfferId(bundleConfig.defaultOfferId);
   }, [bundleConfig?.defaultOfferId]);
-  const selectedOffer = offers.find((offer) => offer.id === selectedOfferId) ?? offers[0];
+  const selectedOffer = pickAquaBundleOffer(config, selectedOfferId);
+  const heroOldPrice = selectedOffer.referencePrice > selectedOffer.price ? selectedOffer.referencePrice : PRODUCT.oldPrice;
+  const heroDiscount = heroOldPrice > selectedOffer.price ? Math.round(((heroOldPrice - selectedOffer.price) / heroOldPrice) * 100) : 0;
   const checkoutProduct: Product = {
     ...product,
     name: `${PRODUCT.name} — ${selectedOffer.quantity} unidade${selectedOffer.quantity > 1 ? "s" : ""}`,
@@ -140,12 +146,12 @@ function Page() {
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-3">
                 <span className="text-4xl font-black text-[#063B5C] sm:text-5xl">{formatKz(selectedOffer.price)}</span>
-                {selectedOffer.quantity > 1 && (
-                  <span className="text-xl font-bold text-[#6b8795] line-through sm:text-2xl">{formatKz(selectedOffer.referencePrice)}</span>
+                {heroOldPrice > selectedOffer.price && (
+                  <span className="text-xl font-bold text-[#6b8795] line-through sm:text-2xl">{formatKz(heroOldPrice)}</span>
                 )}
-                {selectedOffer.quantity > 1 && (
+                {heroDiscount > 0 && (
                   <span className="rounded-full bg-[#063B5C] px-3 py-1.5 text-sm font-black text-white">
-                    -{Math.round(((selectedOffer.referencePrice - selectedOffer.price) / selectedOffer.referencePrice) * 100)}% OFF
+                    -{heroDiscount}% OFF
                   </span>
                 )}
               </div>
@@ -183,7 +189,7 @@ function Page() {
             </div>
 
             <div className="mt-7 space-y-3">
-              {BUNDLE_OFFERS.map((offer) => {
+              {offers.map((offer) => {
                 const selected = offer.id === selectedOffer.id;
                 const savings = Math.max(0, offer.referencePrice - offer.price);
                 const savingsPercent = offer.referencePrice > 0
@@ -215,7 +221,7 @@ function Page() {
                       </span>
                       <span className="mt-1 flex flex-wrap items-center gap-1.5">
                         <span className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase ${
-                          selected ? offer.badgeClass : "bg-[#F1F5F6] text-[#547286]"
+                          selected ? offer.badgeClass ?? "bg-[#5A351F] text-white" : "bg-[#F1F5F6] text-[#547286]"
                         }`}>
                           {offer.badge}
                         </span>

@@ -21,6 +21,7 @@ import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAquaGoRouteImport } from './routes/admin.aqua-go'
 import { Route as AdminFinancasRouteImport } from './routes/admin.financas'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminMaisRouteImport } from './routes/admin.mais'
@@ -89,6 +90,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAquaGoRoute = AdminAquaGoRouteImport.update({
+  id: '/aqua-go',
+  path: '/aqua-go',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminFinancasRoute = AdminFinancasRouteImport.update({
   id: '/financas',
   path: '/financas',
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
+  '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
+  '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
+  '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
@@ -202,6 +211,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/privacidade'
     | '/termos'
+    | '/admin/aqua-go'
     | '/admin/financas'
     | '/admin/login'
     | '/admin/mais'
@@ -222,6 +232,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/privacidade'
     | '/termos'
+    | '/admin/aqua-go'
     | '/admin/financas'
     | '/admin/login'
     | '/admin/mais'
@@ -243,6 +254,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/privacidade'
     | '/termos'
+    | '/admin/aqua-go'
     | '/admin/financas'
     | '/admin/login'
     | '/admin/mais'
@@ -353,6 +365,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/aqua-go': {
+      id: '/admin/aqua-go'
+      path: '/aqua-go'
+      fullPath: '/admin/aqua-go'
+      preLoaderRoute: typeof AdminAquaGoRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/financas': {
       id: '/admin/financas'
       path: '/financas'
@@ -406,6 +425,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAquaGoRoute: typeof AdminAquaGoRoute
   AdminFinancasRoute: typeof AdminFinancasRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMaisRoute: typeof AdminMaisRoute
@@ -417,6 +437,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAquaGoRoute: AdminAquaGoRoute,
   AdminFinancasRoute: AdminFinancasRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMaisRoute: AdminMaisRoute,
