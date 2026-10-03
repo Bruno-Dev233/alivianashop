@@ -154,8 +154,6 @@ export interface FileRoutesByFullPath {
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
   '/irrigador-bucal': typeof IrrigadorBucalRoute
-  '/irrigador-bucal': typeof IrrigadorBucalRoute
-  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
@@ -178,6 +176,7 @@ export interface FileRoutesByTo {
   '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
+  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
@@ -202,6 +201,7 @@ export interface FileRoutesById {
   '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
+  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
