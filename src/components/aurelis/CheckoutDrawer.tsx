@@ -28,7 +28,7 @@ type Props = {
 };
 
 type FieldKey = "fullName" | "phone" | "address" | "reference";
-type Errors = Partial<Record<FieldKey | "province", string>>;
+type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
 
 const PROVINCES = ["Luanda"] as const;
 
@@ -74,6 +74,7 @@ export function CheckoutDrawer({
     reference: "",
   });
   const [province, setProvince] = useState<string>("Luanda");
+  const [confirmed, setConfirmed] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -88,6 +89,8 @@ export function CheckoutDrawer({
     if (!isValidPhone(values.phone)) next.phone = "Indique um número válido.";
     if (values.address.trim().length < 5) next.address = "Indique o bairro e a rua.";
     if (!province) next.province = "Selecione a província.";
+    if (!confirmed)
+      next.confirm = "Confirme que vai receber o pedido nas próximas 24 ou 48 horas.";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -166,6 +169,7 @@ export function CheckoutDrawer({
       reference: "",
     });
     setProvince("Luanda");
+    setConfirmed(false);
   };
 
   const thumb = product.main_image_1 ?? product.main_image_2 ?? undefined;
@@ -284,6 +288,27 @@ export function CheckoutDrawer({
                   <p className="text-xs font-medium text-destructive">{errors.province}</p>
                 )}
               </div>
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="delivery-confirm"
+                  className={`flex cursor-pointer items-start gap-3 rounded-2xl border-2 p-4 transition ${isAqua ? "border-[#CDB5A0] bg-white" : "border-primary/40 bg-primary/5"} ${confirmed ? "ring-2 ring-[#8B5E3C] ring-offset-1" : ""}`}
+                >
+                  <input
+                    id="delivery-confirm"
+                    type="checkbox"
+                    checked={confirmed}
+                    onChange={(e) => setConfirmed(e.target.checked)}
+                    className="mt-0.5 size-6 shrink-0 cursor-pointer rounded accent-[#8B5E3C]"
+                  />
+                  <span className="text-base font-semibold leading-snug">
+                    Confirmo que vou receber o pedido nas próximas{" "}
+                    <strong>24 ou 48 horas</strong>.
+                  </span>
+                </label>
+                {errors.confirm && (
+                  <p className="text-xs font-medium text-destructive">{errors.confirm}</p>
+                )}
+              </div>
 
             </div>
 
@@ -313,7 +338,7 @@ export function CheckoutDrawer({
                   <Loader2 className="size-5 animate-spin" /> A registar o pedido...
                 </>
               ) : (
-                `🚚 COMPRE AGORA & PAGUE DEPOIS — ${formatKz(subtotal)}`
+                `🚚 ENCOMENDAR AGORA — ${formatKz(subtotal)}`
               )}
             </Button>
             <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
