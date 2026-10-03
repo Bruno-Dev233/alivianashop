@@ -28,7 +28,7 @@ type Props = {
 };
 
 type FieldKey = "fullName" | "phone" | "address" | "reference";
-type Errors = Partial<Record<FieldKey | "province", string>>;
+type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
 
 const PROVINCES = ["Luanda"] as const;
 
