@@ -338,7 +338,7 @@ export function CheckoutDrawer({
                   <Loader2 className="size-5 animate-spin" /> A registar o pedido...
                 </>
               ) : (
-                `🚚 COMPRE AGORA & PAGUE DEPOIS — ${formatKz(subtotal)}`
+                `🚚 ENCOMENDAR AGORA — ${formatKz(subtotal)}`
               )}
             </Button>
             <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
