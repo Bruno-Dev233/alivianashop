@@ -169,6 +169,7 @@ export function CheckoutDrawer({
       reference: "",
     });
     setProvince("Luanda");
+    setConfirmed(false);
   };
 
   const thumb = product.main_image_1 ?? product.main_image_2 ?? undefined;
