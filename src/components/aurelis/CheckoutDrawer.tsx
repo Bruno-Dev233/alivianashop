@@ -101,12 +101,10 @@ export function CheckoutDrawer({
 
     const fullName = values.fullName.trim().replace(/\s+/g, " ");
     const reference = values.reference.trim();
-    const email = values.email.trim();
     const addressLines = [
       values.address.trim(),
       reference ? `Ponto de referência: ${reference}` : null,
       `Província: ${province}`,
-      email ? `Email: ${email}` : null,
     ].filter(Boolean) as string[];
 
     setSubmitting(true);
@@ -140,7 +138,7 @@ export function CheckoutDrawer({
         customer_phone: values.phone.trim(),
         customer_address: values.address.trim(),
         province,
-        email: email || null,
+        email: null,
         reference: reference || null,
         quantity,
         unit_price: product.price,
@@ -167,10 +165,8 @@ export function CheckoutDrawer({
       phone: "",
       address: "",
       reference: "",
-      email: "",
     });
     setProvince("Luanda");
-    setConfirmed(false);
   };
 
   const thumb = product.main_image_1 ?? product.main_image_2 ?? undefined;
@@ -213,9 +209,9 @@ export function CheckoutDrawer({
                 )}
                 <p className="text-sm font-semibold leading-snug">{product.name}</p>
               </div>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-sm font-medium text-muted-foreground">Quantidade</span>
-                <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} />
+              <div className="mt-3 flex items-center justify-between gap-2">
+                <span className="text-sm font-bold">Quantidade</span>
+                <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} large />
               </div>
               <dl className={`mt-3 space-y-1.5 border-t pt-3 text-sm ${isAqua ? "border-[#E5D6C8]" : "border-border"}`}>
                 <div className="flex justify-between">
@@ -290,23 +286,8 @@ export function CheckoutDrawer({
                 )}
               </div>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="email" className="text-sm font-semibold">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Email"
-                  value={values.email}
-                  onChange={(e) => set("email", e.target.value)}
-                  className={`h-12 rounded-xl text-base ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C] placeholder:text-[#9B806B] focus-visible:ring-[#8B5E3C]" : ""}`}
-                />
-                {errors.email && (
-                  <p className="text-xs font-medium text-destructive">{errors.email}</p>
-                )}
-              </div>
             </div>
+
 
             <div className={`rounded-2xl border p-3 ${isAqua ? "border-[#D8C2AE] bg-[#EFE2D3]" : "border-border bg-sky/60"}`}>
               <label className="flex cursor-pointer items-start gap-3 text-xs leading-relaxed">
