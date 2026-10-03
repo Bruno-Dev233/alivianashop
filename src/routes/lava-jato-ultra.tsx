@@ -335,6 +335,45 @@ function Page() {
           </div>
         </section>
 
+        <section className="bg-white px-5 py-16 sm:py-20">
+          <div className="mx-auto max-w-5xl">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="rounded-full bg-[#e9f5ff] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#087EF5]">
+                VEJA O LAVA JATO ULTRA EM AÇÃO
+              </span>
+              <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">
+                POTÊNCIA E PRATICIDADE NA HORA DA LIMPEZA
+              </h2>
+              <p className="mt-4 leading-7 text-[#607481]">
+                Veja como o Lava Jato Ultra pode tornar a limpeza do seu dia a dia mais prática.
+              </p>
+            </div>
+            <div className="relative mx-auto mt-9 max-w-3xl overflow-hidden rounded-[2rem] border border-[#dce8ee] bg-[#101820] shadow-[0_25px_70px_rgba(8,126,245,.16)]">
+              <video
+                src="https://ia601905.us.archive.org/0/items/whats-app-video-2026-10-03-at-12.09.21/WhatsApp%20Video%202026-10-03%20at%2012.09.21.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Lava Jato Ultra em funcionamento"
+                className="block max-h-[720px] w-full object-contain"
+                onClick={(event) => {
+                  const video = event.currentTarget;
+                  if (video.paused) {
+                    void video.play();
+                  } else {
+                    video.pause();
+                  }
+                }}
+              />
+              <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/65 px-4 py-2 text-xs font-bold text-white backdrop-blur">
+                Toque no vídeo para pausar ou continuar
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="bg-[#f7fbfe] px-5 py-14 sm:py-18">
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-5 md:grid-cols-2">
