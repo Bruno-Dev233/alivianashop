@@ -3,7 +3,6 @@ import { Home, Loader2, Lock, Truck, X } from "lucide-react";
 
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
@@ -288,24 +287,6 @@ export function CheckoutDrawer({
 
             </div>
 
-
-            <div className={`rounded-2xl border p-3 ${isAqua ? "border-[#D8C2AE] bg-[#EFE2D3]" : "border-border bg-sky/60"}`}>
-              <label className="flex cursor-pointer items-start gap-3 text-xs leading-relaxed">
-                <Checkbox
-                  checked={confirmed}
-                  onCheckedChange={(v) => setConfirmed(v === true)}
-                  className="mt-1 shrink-0"
-                />
-                <span>
-                  Por favor, finalize a sua compra apenas se tiver disponibilidade para receber a
-                  sua encomenda nas próximas{" "}
-                  <strong className="font-bold text-primary">24 ou 48 horas</strong>.
-                </span>
-              </label>
-              {errors.confirm && (
-                <p className="mt-2 text-xs font-medium text-destructive">{errors.confirm}</p>
-              )}
-            </div>
 
             <div className={`rounded-2xl border p-3 text-center ${isAqua ? "border-[#D8C2AE] bg-white" : "border-border bg-card"}`}>
               <p className="font-display text-sm font-bold">Pagamento na Entrega</p>

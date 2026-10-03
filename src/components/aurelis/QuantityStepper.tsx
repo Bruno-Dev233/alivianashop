@@ -5,11 +5,14 @@ type Props = {
   onChange: (value: number) => void;
   max?: number;
   min?: number;
+  large?: boolean;
 };
 
-export function QuantityStepper({ value, onChange, max = 10, min = 1 }: Props) {
+export function QuantityStepper({ value, onChange, max = 10, min = 1, large = false }: Props) {
   return (
-    <div className="inline-flex items-center rounded-full border border-border bg-background p-1 shadow-soft">
+    <div
+      className={`inline-flex items-center rounded-full border bg-background shadow-soft ${large ? "border-2 border-foreground/70 p-1.5" : "border-border p-1"}`}
+    >
       <button
         type="button"
         aria-label="Diminuir quantidade"
