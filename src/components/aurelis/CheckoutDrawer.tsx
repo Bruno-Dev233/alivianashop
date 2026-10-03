@@ -74,6 +74,7 @@ export function CheckoutDrawer({
     reference: "",
   });
   const [province, setProvince] = useState<string>("Luanda");
+  const [confirmed, setConfirmed] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
