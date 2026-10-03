@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 
@@ -53,9 +53,6 @@ function ThankYou() {
         <p className="mt-5 rounded-2xl bg-rose-soft p-3 text-sm font-medium">
           📱 Mantenha o telefone disponível para confirmarmos a entrega.
         </p>
-        <Link to="/depilador-eletrico" className="mt-5 inline-block text-sm font-semibold text-rose">
-          Voltar à loja
-        </Link>
       </div>
     </div>
   );
