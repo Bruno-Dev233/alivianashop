@@ -89,6 +89,8 @@ export function CheckoutDrawer({
     if (!isValidPhone(values.phone)) next.phone = "Indique um número válido.";
     if (values.address.trim().length < 5) next.address = "Indique o bairro e a rua.";
     if (!province) next.province = "Selecione a província.";
+    if (!confirmed)
+      next.confirm = "Confirme que vai receber o pedido nas próximas 24 ou 48 horas.";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
