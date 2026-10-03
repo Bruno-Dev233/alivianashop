@@ -18,6 +18,7 @@ import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
 import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
 import { Route as LavaJatoUltraRouteImport } from './routes/lava-jato-ultra'
+import { Route as IrrigadorBucalRouteImport } from './routes/irrigador-bucal'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
@@ -74,6 +75,11 @@ const LancheiraEletricaRoute = LancheiraEletricaRouteImport.update({
 const LavaJatoUltraRoute = LavaJatoUltraRouteImport.update({
   id: '/lava-jato-ultra',
   path: '/lava-jato-ultra',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IrrigadorBucalRoute = IrrigadorBucalRouteImport.update({
+  id: '/irrigador-bucal',
+  path: '/irrigador-bucal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObrigadoRoute = ObrigadoRouteImport.update({
@@ -147,6 +153,9 @@ export interface FileRoutesByFullPath {
   '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
+  '/irrigador-bucal': typeof IrrigadorBucalRoute
+  '/irrigador-bucal': typeof IrrigadorBucalRoute
+  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
@@ -218,6 +227,7 @@ export interface FileRouteTypes {
     | '/depilador-eletrico'
     | '/lancheira-eletrica'
     | '/lava-jato-ultra'
+    | '/irrigador-bucal'
     | '/obrigado'
     | '/privacidade'
     | '/termos'
@@ -287,6 +297,7 @@ export interface RootRouteChildren {
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
   LavaJatoUltraRoute: typeof LavaJatoUltraRoute
+  IrrigadorBucalRoute: typeof IrrigadorBucalRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   TermosRoute: typeof TermosRoute
@@ -480,6 +491,7 @@ const rootRouteChildren: RootRouteChildren = {
   DepiladorEletricoRoute: DepiladorEletricoRoute,
   LancheiraEletricaRoute: LancheiraEletricaRoute,
   LavaJatoUltraRoute: LavaJatoUltraRoute,
+  IrrigadorBucalRoute: IrrigadorBucalRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   TermosRoute: TermosRoute,
