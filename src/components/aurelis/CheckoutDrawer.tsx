@@ -3,7 +3,6 @@ import { Home, Loader2, Lock, Truck, X } from "lucide-react";
 
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
@@ -28,29 +27,10 @@ type Props = {
   theme?: "default" | "aqua-go";
 };
 
-type FieldKey = "fullName" | "phone" | "address" | "reference" | "email";
-type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
+type FieldKey = "fullName" | "phone" | "address" | "reference";
+type Errors = Partial<Record<FieldKey | "province", string>>;
 
-const PROVINCES = [
-  "Bengo",
-  "Benguela",
-  "Bié",
-  "Cabinda",
-  "Cuando Cubango",
-  "Cuanza Norte",
-  "Cuanza Sul",
-  "Cunene",
-  "Huambo",
-  "Huíla",
-  "Luanda",
-  "Lunda Norte",
-  "Lunda Sul",
-  "Malanje",
-  "Moxico",
-  "Namibe",
-  "Uíge",
-  "Zaire",
-] as const;
+const PROVINCES = ["Luanda"] as const;
 
 const FIELDS: {
   key: FieldKey;
@@ -92,10 +72,8 @@ export function CheckoutDrawer({
     phone: "",
     address: "",
     reference: "",
-    email: "",
   });
   const [province, setProvince] = useState<string>("Luanda");
-  const [confirmed, setConfirmed] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -110,9 +88,6 @@ export function CheckoutDrawer({
     if (!isValidPhone(values.phone)) next.phone = "Indique um número válido.";
     if (values.address.trim().length < 5) next.address = "Indique o bairro e a rua.";
     if (!province) next.province = "Selecione a província.";
-    if (values.email.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.email.trim()))
-      next.email = "Email inválido.";
-    if (!confirmed) next.confirm = "Confirme a disponibilidade para receber a encomenda.";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -125,12 +100,10 @@ export function CheckoutDrawer({
 
     const fullName = values.fullName.trim().replace(/\s+/g, " ");
     const reference = values.reference.trim();
-    const email = values.email.trim();
     const addressLines = [
       values.address.trim(),
       reference ? `Ponto de referência: ${reference}` : null,
       `Província: ${province}`,
-      email ? `Email: ${email}` : null,
     ].filter(Boolean) as string[];
 
     setSubmitting(true);
@@ -164,7 +137,7 @@ export function CheckoutDrawer({
         customer_phone: values.phone.trim(),
         customer_address: values.address.trim(),
         province,
-        email: email || null,
+        email: null,
         reference: reference || null,
         quantity,
         unit_price: product.price,
@@ -191,10 +164,8 @@ export function CheckoutDrawer({
       phone: "",
       address: "",
       reference: "",
-      email: "",
     });
     setProvince("Luanda");
-    setConfirmed(false);
   };
 
   const thumb = product.main_image_1 ?? product.main_image_2 ?? undefined;
@@ -237,9 +208,9 @@ export function CheckoutDrawer({
                 )}
                 <p className="text-sm font-semibold leading-snug">{product.name}</p>
               </div>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-sm font-medium text-muted-foreground">Quantidade</span>
-                <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} />
+              <div className="mt-3 flex items-center justify-between gap-2">
+                <span className="text-sm font-bold">Quantidade</span>
+                <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} large />
               </div>
               <dl className={`mt-3 space-y-1.5 border-t pt-3 text-sm ${isAqua ? "border-[#E5D6C8]" : "border-border"}`}>
                 <div className="flex justify-between">
@@ -314,41 +285,8 @@ export function CheckoutDrawer({
                 )}
               </div>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="email" className="text-sm font-semibold">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Email"
-                  value={values.email}
-                  onChange={(e) => set("email", e.target.value)}
-                  className={`h-12 rounded-xl text-base ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C] placeholder:text-[#9B806B] focus-visible:ring-[#8B5E3C]" : ""}`}
-                />
-                {errors.email && (
-                  <p className="text-xs font-medium text-destructive">{errors.email}</p>
-                )}
-              </div>
             </div>
 
-            <div className={`rounded-2xl border p-3 ${isAqua ? "border-[#D8C2AE] bg-[#EFE2D3]" : "border-border bg-sky/60"}`}>
-              <label className="flex cursor-pointer items-start gap-3 text-xs leading-relaxed">
-                <Checkbox
-                  checked={confirmed}
-                  onCheckedChange={(v) => setConfirmed(v === true)}
-                  className="mt-1 shrink-0"
-                />
-                <span>
-                  Por favor, finalize a sua compra apenas se tiver disponibilidade para receber a
-                  sua encomenda nas próximas{" "}
-                  <strong className="font-bold text-primary">24 ou 48 horas</strong>.
-                </span>
-              </label>
-              {errors.confirm && (
-                <p className="mt-2 text-xs font-medium text-destructive">{errors.confirm}</p>
-              )}
-            </div>
 
             <div className={`rounded-2xl border p-3 text-center ${isAqua ? "border-[#D8C2AE] bg-white" : "border-border bg-card"}`}>
               <p className="font-display text-sm font-bold">Pagamento na Entrega</p>
