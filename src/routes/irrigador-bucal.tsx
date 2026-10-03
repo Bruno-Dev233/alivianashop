@@ -15,7 +15,7 @@ import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
 
 // A imagem do produto será adicionada aqui posteriormente.
-const PRODUCT_IMAGE = "";
+const PRODUCT_IMAGE = "https://archive.org/download/IRRIGADOR/IRRIGADOR.jpg";
 
 const PRODUCT = {
   id: "irrigador-bucal",
