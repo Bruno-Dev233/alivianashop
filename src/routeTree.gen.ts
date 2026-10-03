@@ -17,6 +17,7 @@ import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-parti
 import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal-shot'
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
 import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
+import { Route as LavaJatoUltraRouteImport } from './routes/lava-jato-ultra'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
@@ -68,6 +69,11 @@ const DepiladorEletricoRoute = DepiladorEletricoRouteImport.update({
 const LancheiraEletricaRoute = LancheiraEletricaRouteImport.update({
   id: '/lancheira-eletrica',
   path: '/lancheira-eletrica',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LavaJatoUltraRoute = LavaJatoUltraRouteImport.update({
+  id: '/lava-jato-ultra',
+  path: '/lava-jato-ultra',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObrigadoRoute = ObrigadoRouteImport.update({
@@ -140,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
+  '/lava-jato-ultra': typeof LavaJatoUltraRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
@@ -274,6 +281,7 @@ export interface RootRouteChildren {
   CelimaxRetinalShotRoute: typeof CelimaxRetinalShotRoute
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
+  LavaJatoUltraRoute: typeof LavaJatoUltraRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   TermosRoute: typeof TermosRoute
@@ -335,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/lancheira-eletrica'
       fullPath: '/lancheira-eletrica'
       preLoaderRoute: typeof LancheiraEletricaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lava-jato-ultra': {
+      id: '/lava-jato-ultra'
+      path: '/lava-jato-ultra'
+      fullPath: '/lava-jato-ultra'
+      preLoaderRoute: typeof LavaJatoUltraRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/obrigado': {
@@ -459,6 +474,7 @@ const rootRouteChildren: RootRouteChildren = {
   CelimaxRetinalShotRoute: CelimaxRetinalShotRoute,
   DepiladorEletricoRoute: DepiladorEletricoRoute,
   LancheiraEletricaRoute: LancheiraEletricaRoute,
+  LavaJatoUltraRoute: LavaJatoUltraRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   TermosRoute: TermosRoute,
