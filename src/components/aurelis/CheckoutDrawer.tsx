@@ -28,29 +28,10 @@ type Props = {
   theme?: "default" | "aqua-go";
 };
 
-type FieldKey = "fullName" | "phone" | "address" | "reference" | "email";
-type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
+type FieldKey = "fullName" | "phone" | "address" | "reference";
+type Errors = Partial<Record<FieldKey | "province", string>>;
 
-const PROVINCES = [
-  "Bengo",
-  "Benguela",
-  "Bié",
-  "Cabinda",
-  "Cuando Cubango",
-  "Cuanza Norte",
-  "Cuanza Sul",
-  "Cunene",
-  "Huambo",
-  "Huíla",
-  "Luanda",
-  "Lunda Norte",
-  "Lunda Sul",
-  "Malanje",
-  "Moxico",
-  "Namibe",
-  "Uíge",
-  "Zaire",
-] as const;
+const PROVINCES = ["Luanda"] as const;
 
 const FIELDS: {
   key: FieldKey;
@@ -92,10 +73,8 @@ export function CheckoutDrawer({
     phone: "",
     address: "",
     reference: "",
-    email: "",
   });
   const [province, setProvince] = useState<string>("Luanda");
-  const [confirmed, setConfirmed] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -110,9 +89,6 @@ export function CheckoutDrawer({
     if (!isValidPhone(values.phone)) next.phone = "Indique um número válido.";
     if (values.address.trim().length < 5) next.address = "Indique o bairro e a rua.";
     if (!province) next.province = "Selecione a província.";
-    if (values.email.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.email.trim()))
-      next.email = "Email inválido.";
-    if (!confirmed) next.confirm = "Confirme a disponibilidade para receber a encomenda.";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
