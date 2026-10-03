@@ -53,9 +53,6 @@ function ThankYou() {
         <p className="mt-5 rounded-2xl bg-rose-soft p-3 text-sm font-medium">
           📱 Mantenha o telefone disponível para confirmarmos a entrega.
         </p>
-        <Link to="/depilador-eletrico" className="mt-5 inline-block text-sm font-semibold text-rose">
-          Voltar à loja
-        </Link>
       </div>
     </div>
   );
