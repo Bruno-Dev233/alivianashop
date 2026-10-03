@@ -368,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LavaJatoUltraRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/irrigador-bucal': {
+      id: '/irrigador-bucal'
+      path: '/irrigador-bucal'
+      fullPath: '/irrigador-bucal'
+      preLoaderRoute: typeof IrrigadorBucalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/obrigado': {
       id: '/obrigado'
       path: '/obrigado'
