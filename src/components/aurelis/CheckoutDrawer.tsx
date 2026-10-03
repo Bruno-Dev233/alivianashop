@@ -288,6 +288,27 @@ export function CheckoutDrawer({
                   <p className="text-xs font-medium text-destructive">{errors.province}</p>
                 )}
               </div>
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="delivery-confirm"
+                  className={`flex cursor-pointer items-start gap-3 rounded-2xl border-2 p-4 transition ${isAqua ? "border-[#CDB5A0] bg-white" : "border-primary/40 bg-primary/5"} ${confirmed ? "ring-2 ring-[#8B5E3C] ring-offset-1" : ""}`}
+                >
+                  <input
+                    id="delivery-confirm"
+                    type="checkbox"
+                    checked={confirmed}
+                    onChange={(e) => setConfirmed(e.target.checked)}
+                    className="mt-0.5 size-6 shrink-0 cursor-pointer rounded accent-[#8B5E3C]"
+                  />
+                  <span className="text-base font-semibold leading-snug">
+                    Confirmo que vou receber o pedido nas próximas{" "}
+                    <strong>24 ou 48 horas</strong>.
+                  </span>
+                </label>
+                {errors.confirm && (
+                  <p className="text-xs font-medium text-destructive">{errors.confirm}</p>
+                )}
+              </div>
 
             </div>
 
