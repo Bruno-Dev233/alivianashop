@@ -22,7 +22,7 @@ const PRODUCT = {
   price: 44998,
   oldPrice: 84998,
   discount: 47,
-  image: "https://files.catbox.moe/4x53om.avif",
+  image: "https://ia600701.us.archive.org/8/items/captura-de-ecra-2026-10-03-114940/Captura%20de%20ecr%C3%A3%202026-10-03%20114940.png",
 };
 
 const product: Product = {
@@ -327,10 +327,31 @@ function Page() {
 
             <div className="rounded-[2rem] border border-white bg-white p-4 shadow-[0_20px_60px_rgba(8,126,245,.14)]">
               <img
-                src={PRODUCT.image}
-                alt="Lava Jato Ultra em destaque"
-                className="mx-auto aspect-square w-full object-contain"
+                src="https://ia600701.us.archive.org/8/items/captura-de-ecra-2026-10-03-114940/Kit%20Lava-Jato%20Ultra_%20Pot%C3%AAncia%20Port%C3%A1til.png"
+                alt="Kit Lava Jato Ultra — Potência Portátil"
+                className="mx-auto max-h-[620px] w-full object-contain"
               />
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-[#f7fbfe] px-5 py-14 sm:py-18">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-5 md:grid-cols-2">
+              <div className="overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_18px_55px_rgba(8,126,245,.10)]">
+                <img
+                  src="https://ia600701.us.archive.org/8/items/captura-de-ecra-2026-10-03-114940/Kit%20Lava-Jato%20Ultra_%20Pot%C3%AAncia%20Port%C3%A1til.png"
+                  alt="Kit Lava Jato Ultra"
+                  className="h-full min-h-[280px] w-full object-contain"
+                />
+              </div>
+              <div className="overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_18px_55px_rgba(8,126,245,.10)]">
+                <img
+                  src={PRODUCT.image}
+                  alt="Lava Jato Ultra"
+                  className="h-full min-h-[280px] w-full object-contain"
+                />
+              </div>
             </div>
           </div>
         </section>
