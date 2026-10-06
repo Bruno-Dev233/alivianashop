@@ -54,12 +54,12 @@ const CTA = "inline-flex items-center justify-center gap-2 rounded-2xl font-blac
 export const Route = createFileRoute("/prancha-flexoes")({
   head: () => ({
     meta: [
-      { title: "Prancha de Flexões | AURELIS" },
+      { title: "🔥🔥🔥 Prancha push-up multifuncional Equipamento de treino abdominal e peitoral para homem" },
       {
         name: "description",
         content: "Prancha de Flexões AURELIS: varie as posições de apoio e treine peito, ombros, braços e costas em casa.",
       },
-      { property: "og:title", content: "Prancha de Flexões — AURELIS" },
+      { property: "og:title", content: "🔥🔥🔥 Prancha push-up multifuncional Equipamento de treino abdominal e peitoral para homem" },
       { property: "og:description", content: "Um sistema prático para variar as suas flexões e organizar o treino em casa." },
       { property: "og:image", content: ASSETS.productPhoto },
       { property: "og:type", content: "product" },
@@ -100,8 +100,8 @@ function Page() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-[#111]">
-      <div className="bg-[#111] px-4 py-2 text-center text-[10px] font-black uppercase tracking-[.08em] text-white sm:text-xs">
-        AURELIS • ENTREGA GRÁTIS EM LUANDA • PAGAMENTO NA ENTREGA
+      <div className="bg-[#e11d48] px-4 py-3 text-center text-sm font-black uppercase leading-snug tracking-[.02em] text-white sm:text-lg">
+        🔥 PEÇA AGORA. RECEBA EM CASA. PAGUE SÓ NA ENTREGA!
       </div>
 
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur">
@@ -113,9 +113,6 @@ function Page() {
         </div>
       </header>
 
-      <div className="bg-[#e11d48] px-4 py-3 text-center text-sm font-black uppercase leading-snug tracking-[.02em] text-white sm:text-lg">
-        🔥 PEÇA AGORA. RECEBA EM CASA. PAGUE SÓ NA ENTREGA!
-      </div>
 
       <main>
         <section className="bg-[#f5f5f3]">
