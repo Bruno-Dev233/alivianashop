@@ -14,6 +14,7 @@ export type PlacedOrder = {
   productName: string;
   quantity: number;
   total: number;
+  customerPhone: string;
 };
 
 type Props = {
@@ -161,7 +162,12 @@ export function CheckoutDrawer({
     }
 
     onOpenChange(false);
-    onPlaced({ productName: product.name, quantity, total: subtotal });
+    onPlaced({
+      productName: product.name,
+      quantity,
+      total: subtotal,
+      customerPhone: values.phone.trim(),
+    });
     setValues({
       fullName: "",
       phone: "",
