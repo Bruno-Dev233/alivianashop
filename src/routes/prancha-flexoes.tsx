@@ -372,7 +372,18 @@ function Page() {
         onOpenChange={setCheckoutOpen}
         quantity={1}
         onQuantityChange={() => {}}
-        onPlaced={(order) => navigate({ to: "/obrigado", search: { produto: PRODUCT.name, qtd: order.quantity, total: order.total } })}
+        onPlaced={(order) => {
+          const message = encodeURIComponent(
+            `Olá! Acabei de fazer um pedido da ${order.productName} AURELIS. 📦
+Quantidade: ${order.quantity}
+Total: ${formatKz(order.total)}
+O meu WhatsApp/telefone é: ${order.customerPhone}
+
+Quero confirmar a minha encomenda. Obrigado!`
+          );
+          window.open(`https://wa.me/244950532879?text=${message}`, "_blank", "noopener,noreferrer");
+          navigate({ to: "/obrigado", search: { produto: PRODUCT.name, qtd: order.quantity, total: order.total } });
+        }}
       />
     </div>
   );
