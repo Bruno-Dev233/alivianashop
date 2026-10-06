@@ -163,7 +163,6 @@ export interface FileRoutesByFullPath {
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
-  '/prancha-flexoes': typeof PranchaFlexoesRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -187,6 +186,7 @@ export interface FileRoutesByTo {
   '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/prancha-flexoes': typeof PranchaFlexoesRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -212,6 +212,7 @@ export interface FileRoutesById {
   '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/prancha-flexoes': typeof PranchaFlexoesRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -238,6 +239,7 @@ export interface FileRouteTypes {
     | '/irrigador-bucal'
     | '/obrigado'
     | '/privacidade'
+    | '/prancha-flexoes'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
@@ -260,6 +262,7 @@ export interface FileRouteTypes {
     | '/lava-jato-ultra'
     | '/obrigado'
     | '/privacidade'
+    | '/prancha-flexoes'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
@@ -283,6 +286,7 @@ export interface FileRouteTypes {
     | '/lava-jato-ultra'
     | '/obrigado'
     | '/privacidade'
+    | '/prancha-flexoes'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
