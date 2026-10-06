@@ -6,8 +6,10 @@ import {
 } from "lucide-react";
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
+import mainPhotoAsset from "@/assets/prancha-main.webp.asset.json";
 
 const ASSETS = {
+  mainPhoto: mainPhotoAsset.url,
   mainVideo: "https://cdn.shoppaas.com/uploads/7d6319191df1d2fb/4fb5b604a4448269773764c43bb1e04e.gif?format=webp&width=500",
   video2: "https://cdn.shoppaas.com/uploads/7d6319191df1d2fb/291a5bc6d75390f1fe11c9a31e6cf65d.gif?format=webp&width=500",
   video3: "https://cdn.shoppaas.com/uploads/7d6319191df1d2fb/e64d67a40540fcb23ac37c9d4ca24009.gif?format=webp&width=500",
@@ -23,7 +25,7 @@ const PRODUCT = {
   name: "Prancha de Flexões",
   price: 26500,
   oldPrice: 49000,
-  image: ASSETS.productPhoto,
+  image: ASSETS.mainPhoto,
 };
 
 const product: Product = {
@@ -143,8 +145,8 @@ function Page() {
             </div>
 
             <div className="order-1 md:order-2">
-              <div className="relative mx-auto max-w-[560px] overflow-hidden rounded-[2rem] bg-[#111] shadow-[0_30px_80px_rgba(0,0,0,.18)]">
-                <img src={ASSETS.mainVideo} alt="Demonstração da Prancha de Flexões AURELIS" className="block aspect-[4/5] w-full object-cover sm:aspect-square" />
+              <div className="relative mx-auto max-w-[560px] overflow-hidden rounded-[2rem] bg-white shadow-[0_30px_80px_rgba(0,0,0,.18)] ring-1 ring-black/5">
+                <img src={ASSETS.mainPhoto} alt="Prancha de Flexões AURELIS com pegas, elásticos e posições de apoio por cores" className="block aspect-square w-full object-contain" />
                 <div className="absolute left-4 top-4 rounded-full bg-white px-4 py-2 text-sm font-black shadow-xl">
                   {formatKz(PRODUCT.price)}
                 </div>
@@ -238,6 +240,7 @@ function Page() {
               <MediaCard src={ASSETS.video2} alt="Demonstração de exercício com a prancha" className="aspect-[4/5]" />
               <MediaCard src={ASSETS.video3} alt="Demonstração de treino com a prancha" className="aspect-[4/5]" />
               <MediaCard src={ASSETS.video4} alt="Demonstração adicional da prancha" className="aspect-[4/5]" />
+              <MediaCard src={ASSETS.mainVideo} alt="Demonstração da Prancha de Flexões em ação" className="aspect-[4/5]" />
             </div>
           </div>
         </section>

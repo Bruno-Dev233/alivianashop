@@ -16,12 +16,12 @@ import { Route as AquaGoRouteImport } from './routes/aqua-go'
 import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-partida'
 import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal-shot'
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
+import { Route as IrrigadorBucalRouteImport } from './routes/irrigador-bucal'
 import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
 import { Route as LavaJatoUltraRouteImport } from './routes/lava-jato-ultra'
-import { Route as IrrigadorBucalRouteImport } from './routes/irrigador-bucal'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
-import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as PranchaFlexoesRouteImport } from './routes/prancha-flexoes'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAquaGoRouteImport } from './routes/admin.aqua-go'
@@ -68,6 +68,11 @@ const DepiladorEletricoRoute = DepiladorEletricoRouteImport.update({
   path: '/depilador-eletrico',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IrrigadorBucalRoute = IrrigadorBucalRouteImport.update({
+  id: '/irrigador-bucal',
+  path: '/irrigador-bucal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LancheiraEletricaRoute = LancheiraEletricaRouteImport.update({
   id: '/lancheira-eletrica',
   path: '/lancheira-eletrica',
@@ -78,24 +83,19 @@ const LavaJatoUltraRoute = LavaJatoUltraRouteImport.update({
   path: '/lava-jato-ultra',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IrrigadorBucalRoute = IrrigadorBucalRouteImport.update({
-  id: '/irrigador-bucal',
-  path: '/irrigador-bucal',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ObrigadoRoute = ObrigadoRouteImport.update({
   id: '/obrigado',
   path: '/obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacidadeRoute = PrivacidadeRouteImport.update({
-  id: '/privacidade',
-  path: '/privacidade',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PranchaFlexoesRoute = PranchaFlexoesRouteImport.update({
   id: '/prancha-flexoes',
   path: '/prancha-flexoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermosRoute = TermosRouteImport.update({
@@ -157,12 +157,12 @@ export interface FileRoutesByFullPath {
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
-  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
-  '/privacidade': typeof PrivacidadeRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -181,12 +181,12 @@ export interface FileRoutesByTo {
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
-  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
-  '/privacidade': typeof PrivacidadeRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -207,12 +207,12 @@ export interface FileRoutesById {
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
-  '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
-  '/privacidade': typeof PrivacidadeRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -234,12 +234,12 @@ export interface FileRouteTypes {
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
+    | '/irrigador-bucal'
     | '/lancheira-eletrica'
     | '/lava-jato-ultra'
-    | '/irrigador-bucal'
     | '/obrigado'
-    | '/privacidade'
     | '/prancha-flexoes'
+    | '/privacidade'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
@@ -258,11 +258,12 @@ export interface FileRouteTypes {
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
+    | '/irrigador-bucal'
     | '/lancheira-eletrica'
     | '/lava-jato-ultra'
     | '/obrigado'
-    | '/privacidade'
     | '/prancha-flexoes'
+    | '/privacidade'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
@@ -282,11 +283,12 @@ export interface FileRouteTypes {
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
+    | '/irrigador-bucal'
     | '/lancheira-eletrica'
     | '/lava-jato-ultra'
     | '/obrigado'
-    | '/privacidade'
     | '/prancha-flexoes'
+    | '/privacidade'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
@@ -307,12 +309,12 @@ export interface RootRouteChildren {
   AuxiliadorPartidaRoute: typeof AuxiliadorPartidaRoute
   CelimaxRetinalShotRoute: typeof CelimaxRetinalShotRoute
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
+  IrrigadorBucalRoute: typeof IrrigadorBucalRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
   LavaJatoUltraRoute: typeof LavaJatoUltraRoute
-  IrrigadorBucalRoute: typeof IrrigadorBucalRoute
   ObrigadoRoute: typeof ObrigadoRoute
-  PrivacidadeRoute: typeof PrivacidadeRoute
   PranchaFlexoesRoute: typeof PranchaFlexoesRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
   TermosRoute: typeof TermosRoute
 }
 
@@ -367,6 +369,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DepiladorEletricoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/irrigador-bucal': {
+      id: '/irrigador-bucal'
+      path: '/irrigador-bucal'
+      fullPath: '/irrigador-bucal'
+      preLoaderRoute: typeof IrrigadorBucalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lancheira-eletrica': {
       id: '/lancheira-eletrica'
       path: '/lancheira-eletrica'
@@ -381,13 +390,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LavaJatoUltraRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/irrigador-bucal': {
-      id: '/irrigador-bucal'
-      path: '/irrigador-bucal'
-      fullPath: '/irrigador-bucal'
-      preLoaderRoute: typeof IrrigadorBucalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/obrigado': {
       id: '/obrigado'
       path: '/obrigado'
@@ -395,18 +397,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ObrigadoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/privacidade': {
-      id: '/privacidade'
-      path: '/privacidade'
-      fullPath: '/privacidade'
-      preLoaderRoute: typeof PrivacidadeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/prancha-flexoes': {
       id: '/prancha-flexoes'
       path: '/prancha-flexoes'
       fullPath: '/prancha-flexoes'
       preLoaderRoute: typeof PranchaFlexoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/termos': {
@@ -516,12 +518,12 @@ const rootRouteChildren: RootRouteChildren = {
   AuxiliadorPartidaRoute: AuxiliadorPartidaRoute,
   CelimaxRetinalShotRoute: CelimaxRetinalShotRoute,
   DepiladorEletricoRoute: DepiladorEletricoRoute,
+  IrrigadorBucalRoute: IrrigadorBucalRoute,
   LancheiraEletricaRoute: LancheiraEletricaRoute,
   LavaJatoUltraRoute: LavaJatoUltraRoute,
-  IrrigadorBucalRoute: IrrigadorBucalRoute,
   ObrigadoRoute: ObrigadoRoute,
-  PrivacidadeRoute: PrivacidadeRoute,
   PranchaFlexoesRoute: PranchaFlexoesRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
   TermosRoute: TermosRoute,
 }
 export const routeTree = rootRouteImport
