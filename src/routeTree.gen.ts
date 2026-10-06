@@ -21,6 +21,7 @@ import { Route as LavaJatoUltraRouteImport } from './routes/lava-jato-ultra'
 import { Route as IrrigadorBucalRouteImport } from './routes/irrigador-bucal'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as PranchaFlexoesRouteImport } from './routes/prancha-flexoes'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAquaGoRouteImport } from './routes/admin.aqua-go'
@@ -92,6 +93,11 @@ const PrivacidadeRoute = PrivacidadeRouteImport.update({
   path: '/privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PranchaFlexoesRoute = PranchaFlexoesRouteImport.update({
+  id: '/prancha-flexoes',
+  path: '/prancha-flexoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermosRoute = TermosRouteImport.update({
   id: '/termos',
   path: '/termos',
@@ -156,6 +162,8 @@ export interface FileRoutesByFullPath {
   '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/prancha-flexoes': typeof PranchaFlexoesRoute
+  '/prancha-flexoes': typeof PranchaFlexoesRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -300,6 +308,7 @@ export interface RootRouteChildren {
   IrrigadorBucalRoute: typeof IrrigadorBucalRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
+  PranchaFlexoesRoute: typeof PranchaFlexoesRoute
   TermosRoute: typeof TermosRoute
 }
 
@@ -387,6 +396,13 @@ declare module '@tanstack/react-router' {
       path: '/privacidade'
       fullPath: '/privacidade'
       preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prancha-flexoes': {
+      id: '/prancha-flexoes'
+      path: '/prancha-flexoes'
+      fullPath: '/prancha-flexoes'
+      preLoaderRoute: typeof PranchaFlexoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/termos': {
@@ -501,6 +517,7 @@ const rootRouteChildren: RootRouteChildren = {
   IrrigadorBucalRoute: IrrigadorBucalRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
+  PranchaFlexoesRoute: PranchaFlexoesRoute,
   TermosRoute: TermosRoute,
 }
 export const routeTree = rootRouteImport
