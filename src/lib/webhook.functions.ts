@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 
-const WEBHOOK_URL = "https://api.webhooky.app/uaYmKAMXOAEkXiG0VhYcNzj2CPDAhXN1";
+const WEBHOOK_URL = "https://api.webhooky.app/j3t0caexd6mdp256k1syhj3h";
 
 export type OrderWebhookPayload = {
   event: string;
