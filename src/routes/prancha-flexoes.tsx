@@ -113,6 +113,10 @@ function Page() {
         </div>
       </header>
 
+      <div className="bg-[#e11d48] px-4 py-3 text-center text-sm font-black uppercase leading-snug tracking-[.02em] text-white sm:text-lg">
+        🔥 PEÇA AGORA. RECEBA EM CASA. PAGUE SÓ NA ENTREGA!
+      </div>
+
       <main>
         <section className="bg-[#f5f5f3]">
           <div className="mx-auto grid max-w-7xl items-center gap-7 px-4 py-6 sm:py-10 md:grid-cols-2 md:py-14">
@@ -120,8 +124,8 @@ function Page() {
               <span className="inline-flex rounded-full bg-[#111] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-white">
                 AURELIS FITNESS
               </span>
-              <h1 className="mt-5 text-[2.55rem] font-black leading-[.94] tracking-[-.05em] sm:text-5xl lg:text-6xl">
-                MAXIMIZA O TEU TREINO DE FLEXÕES. 💪
+              <h1 className="mt-5 text-[1.75rem] font-black leading-[1.05] tracking-[-.035em] sm:text-4xl lg:text-[2.9rem]">
+                🔥🔥🔥 Prancha push-up multifuncional Equipamento de treino abdominal e peitoral para homem
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-[#555] sm:text-lg">
                 Uma prancha com diferentes posições de apoio para variar o treino de peito, ombros, braços e costas — em casa, no teu ritmo.
