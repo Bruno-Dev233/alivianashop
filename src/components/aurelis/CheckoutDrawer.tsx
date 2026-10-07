@@ -40,7 +40,7 @@ const FIELDS: {
   type?: string;
   placeholder: string;
 }[] = [
-  { key: "fullName", label: "Nome Completo", required: true, placeholder: "Ex: João (não precisa de apelido)" },
+  { key: "fullName", label: "Nome Completo", required: true, placeholder: "Ex: João" },
   {
     key: "phone",
     label: "WhatsApp/Telefone",
