@@ -40,7 +40,7 @@ const FIELDS: {
   type?: string;
   placeholder: string;
 }[] = [
-  { key: "fullName", label: "Nome Completo", required: true, placeholder: "Ex: João Manuel" },
+  { key: "fullName", label: "Nome Completo", required: true, placeholder: "Ex: João" },
   {
     key: "phone",
     label: "WhatsApp/Telefone",
@@ -85,8 +85,8 @@ export function CheckoutDrawer({
 
   const validate = () => {
     const next: Errors = {};
-    if (values.fullName.trim().length < 3 || !values.fullName.trim().includes(" "))
-      next.fullName = "Indique o nome e apelido.";
+    if (values.fullName.trim().length < 2)
+      next.fullName = "Indique o seu nome.";
     if (!isValidPhone(values.phone)) next.phone = "Indique um número válido.";
     if (values.address.trim().length < 5) next.address = "Indique o bairro e a rua.";
     if (!province) next.province = "Selecione a província.";
