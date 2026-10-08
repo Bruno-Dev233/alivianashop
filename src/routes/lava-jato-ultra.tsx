@@ -4,6 +4,9 @@ import {
   ArrowRight,
   Car,
   Check,
+  Droplets,
+  Sparkles,
+  Zap,
 } from "lucide-react";
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
@@ -475,6 +478,7 @@ function Page() {
           })
         }
       />
+      </main>
     </div>
   );
 }
