@@ -83,42 +83,42 @@ function Page() {
   const [offerQuantity, setOfferQuantity] = useState(1);
 
   useEffect(() => {
-    if (document.querySelector('script[data-aurelis-meta-pixel="true"]')) return;
+    if (typeof window === "undefined") return;
 
-    const win = window;
-    const existingFbq = win.fbq;
+    const existing = document.querySelector(
+      'script[data-aurelis-meta-pixel="true"]',
+    );
 
-    if (!existingFbq) {
-      const fbq = function (...args: any[]) {
-        if (!win.fbq) return;
-        win.fbq(...args);
-      };
+    if (window.fbq) {
+      window.fbq("init", META_PIXEL_ID);
+      window.fbq("track", "PageView");
+      return;
+    }
 
-      (fbq as any).loaded = true;
-      (fbq as any).version = "2.0";
-      (fbq as any).queue = [];
+    const fbq = function (...args: any[]) {
+      fbq.queue = fbq.queue || [];
+      fbq.queue.push(args);
+    } as typeof window.fbq & {
+      queue?: any[][];
+      loaded?: boolean;
+      version?: string;
+    };
 
-      const base = win.fbq;
-      win.fbq = base;
+    fbq.loaded = true;
+    fbq.version = "2.0";
+    fbq.queue = [];
+    window.fbq = fbq;
 
+    if (!existing) {
       const script = document.createElement("script");
       script.async = true;
       script.src = "https://connect.facebook.net/en_US/fbevents.js";
       script.dataset.aurelisMetaPixel = "true";
-      script.onload = () => {
-        win.fbq?.("init", META_PIXEL_ID);
-        win.fbq?.("track", "PageView");
-      };
       document.head.appendChild(script);
-
-      const queue = (win.fbq as any)?.queue;
-      if (queue) queue.push(["init", META_PIXEL_ID]);
-    } else {
-      win.fbq("init", META_PIXEL_ID);
-      win.fbq("track", "PageView");
     }
 
-    return () => undefined;
+    window.fbq("init", META_PIXEL_ID);
+    window.fbq("track", "PageView");
   }, []);
 
   const buy = () => setCheckoutOpen(true);
