@@ -124,6 +124,7 @@ function Page() {
 
   const checkoutProduct: Product = {
     ...product,
+    // O preço da oferta é o total do pack, não o preço unitário.
     price: selectedOffer.price,
     old_price: selectedOffer.old,
   };
@@ -518,6 +519,8 @@ function Page() {
         onOpenChange={setCheckoutOpen}
         quantity={offerQuantity}
         minQuantity={offerQuantity}
+        maxQuantity={offerQuantity}
+        totalPriceOverride={selectedOffer.price}
         onQuantityChange={setOfferQuantity}
         onPlaced={(order) => {
           trackPurchase(order);
