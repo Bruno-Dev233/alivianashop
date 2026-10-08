@@ -18,9 +18,9 @@ const META_PIXEL_ID = "1759106692011159";
 const PRODUCT = {
   id: "lava-jato-ultra",
   name: "HydroForce",
-  price: 44998,
-  oldPrice: 84998,
-  discount: 47,
+  price: 54990,
+  oldPrice: 89990,
+  discount: 39,
   image: "https://ia600701.us.archive.org/8/items/captura-de-ecra-2026-10-03-114940/Captura%20de%20ecr%C3%A3%202026-10-03%20114940.png",
 };
 
@@ -115,6 +115,18 @@ function Page() {
     fbq("init", META_PIXEL_ID);
     fbq("track", "PageView");
   }, []);
+
+  const selectedOffer = [
+    { quantity: 1, price: 54990, old: 89990 },
+    { quantity: 2, price: 89990, old: 179980 },
+    { quantity: 3, price: 119990, old: 269970 },
+  ].find((offer) => offer.quantity === offerQuantity) ?? { quantity: 1, price: 54990, old: 89990 };
+
+  const checkoutProduct: Product = {
+    ...product,
+    price: selectedOffer.price,
+    old_price: selectedOffer.old,
+  };
 
   const buy = () => setCheckoutOpen(true);
 
@@ -388,7 +400,7 @@ function Page() {
               </div>
             </div>
 
-            <div className="mt-9 overflow-hidden rounded-xl bg-[#173b24] py-3 text-white">
+            <div className="relative left-1/2 mt-9 w-screen -translate-x-1/2 overflow-hidden bg-[#173b24] py-3 text-white">
               <div className="lava-marquee flex w-max whitespace-nowrap">
                 <span className="px-5 text-sm font-black sm:text-base">
                   ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
@@ -501,7 +513,7 @@ function Page() {
       </footer>
 
       <CheckoutDrawer
-        product={product}
+        product={checkoutProduct}
         open={checkoutOpen}
         onOpenChange={setCheckoutOpen}
         quantity={offerQuantity}
