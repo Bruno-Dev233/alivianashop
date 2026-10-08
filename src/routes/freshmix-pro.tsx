@@ -102,9 +102,32 @@ function Page() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-[#172018]">
-      <div className="bg-[#facc15] px-4 py-3 text-center text-sm font-black uppercase tracking-[.02em] text-white sm:text-base">
-        🍊 FRESHMIX PRO 4 EM 1 • FAÇA SUMOS NATURAIS EM SEGUNDOS
-      </div>
+      <section className="overflow-hidden border-b border-green-100 bg-white">
+        <div className="px-4 py-4 text-center">
+          <h1 className="text-xl font-black tracking-[-.03em] text-[#16a34a] sm:text-3xl">
+            Enviamos para todo o território nacional ao
+          </h1>
+        </div>
+        <div className="overflow-hidden bg-[#173b24] py-3 text-white">
+          <div className="freshmix-marquee flex w-max whitespace-nowrap">
+            <span className="px-5 text-sm font-black uppercase italic tracking-[.02em] sm:text-base">
+              30 DIAS DE GARANTIA EM TODOS OS PRODUTOS . PRODUTOS ORIGINAIS SELECIONADOS COM CONFIANÇA . ENVIO RÁPIDO EM 12HORAS .
+            </span>
+            <span className="px-5 text-sm font-black uppercase italic tracking-[.02em] sm:text-base" aria-hidden="true">
+              30 DIAS DE GARANTIA EM TODOS OS PRODUTOS . PRODUTOS ORIGINAIS SELECIONADOS COM CONFIANÇA . ENVIO RÁPIDO EM 12HORAS .
+            </span>
+          </div>
+        </div>
+        <style>{`
+          @keyframes freshmix-marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+          .freshmix-marquee {
+            animation: freshmix-marquee 18s linear infinite;
+          }
+        `}</style>
+      </section>
 
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
