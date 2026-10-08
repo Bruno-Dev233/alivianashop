@@ -45,6 +45,7 @@ const product: Product = {
 
 const CTA = "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition hover:-translate-y-0.5 active:translate-y-0";
 
+// FreshMix Pro landing page — /freshmix-pro
 export const Route = createFileRoute("/freshmix-pro")({
   head: () => ({
     meta: [
