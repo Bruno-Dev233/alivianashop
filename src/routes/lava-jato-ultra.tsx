@@ -280,10 +280,10 @@ function Page() {
             </div>
 
             <div className="mt-7 space-y-4">
-              {[
-                { quantity: 1, label: "1× HYDROFORCE", price: PRODUCT.price, old: PRODUCT.oldPrice, saving: PRODUCT.oldPrice - PRODUCT.price },
-                { quantity: 2, label: "2× HYDROFORCE", price: PRODUCT.price * 2, old: PRODUCT.oldPrice * 2, saving: (PRODUCT.oldPrice - PRODUCT.price) * 2, badge: "Mais Popular" },
-                { quantity: 3, label: "3× HYDROFORCE", price: PRODUCT.price * 3, old: PRODUCT.oldPrice * 3, saving: (PRODUCT.oldPrice - PRODUCT.price) * 3, badge: "Melhor Valor" },
+              [
+                { quantity: 1, label: "🥇 1 UNIDADE", price: 54990, old: 89990, saving: 35000 },
+                { quantity: 2, label: "🥈 PACK 2", price: 89990, old: 179980, saving: 89990, badge: "Mais Popular", sublabel: "➡️ 2 unidades por 89.990 Kz" },
+                { quantity: 3, label: "🥉 PACK 3", price: 119990, old: 269970, saving: 149980, badge: "Melhor Valor", sublabel: "➡️ 3 unidades por 119.990 Kz" },
               ].map((offer) => {
                 const selected = offerQuantity === offer.quantity;
                 return (
@@ -305,10 +305,11 @@ function Page() {
                       <div className="min-w-0 flex-1">
                         <span className="block text-lg font-black text-[#111111] sm:text-xl">{offer.label}</span>
                         <span className="mt-1 block text-sm font-bold text-[#111111] sm:text-base">💰 Poupe {formatKz(offer.saving)}</span>
+                        {offer.sublabel && <span className="mt-1 block text-sm font-black text-[#174F46] sm:text-base">{offer.sublabel}</span>}
                       </div>
                       <div className="text-right">
                         <span className="block text-lg font-black text-[#111111] sm:text-xl">{formatKz(offer.price)}</span>
-                        <span className="block text-sm font-bold text-[#222222] line-through sm:text-base">{formatKz(offer.old)}</span>
+                        <span className="block text-sm font-bold text-red-600 line-through sm:text-base">{formatKz(offer.old)}</span>
                       </div>
                     </div>
                   </button>
