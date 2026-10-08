@@ -462,7 +462,7 @@ function Page() {
 
               <button
                 onClick={buy}
-                className={`${CTA} mt-7 h-15 w-full border-2 border-white/70 bg-[#173b24] px-7 py-4 text-white shadow-xl hover:bg-[#1f5233] sm:w-auto`}
+                className={`${CTA} mt-7 h-15 w-full bg-white px-7 py-4 text-[#173b24] shadow-xl hover:bg-[#eef8ff] sm:w-auto`}
               >
                 🚗 QUERO O LAVA JATO ULTRA <ArrowRight className="size-5" />
               </button>
@@ -520,7 +520,7 @@ function Page() {
             </div>
             <button
               onClick={buy}
-              className={`${CTA} mt-7 h-16 w-full border-2 border-white/70 bg-[#173b24] px-8 text-base text-white shadow-xl hover:bg-[#1f5233] sm:w-auto sm:text-lg`}
+              className={`${CTA} mt-7 h-16 w-full bg-white px-8 text-base text-[#173b24] shadow-xl hover:bg-[#eef8ff] sm:w-auto sm:text-lg`}
             >
               🚗 QUERO O MEU LAVA JATO ULTRA
               <ArrowRight className="size-5" />
