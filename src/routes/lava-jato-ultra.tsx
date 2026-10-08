@@ -75,6 +75,7 @@ export const Route = createFileRoute("/lava-jato-ultra")({
 function Page() {
   const navigate = useNavigate();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [offerQuantity, setOfferQuantity] = useState(1);
 
   const buy = () => setCheckoutOpen(true);
 
@@ -137,121 +138,134 @@ function Page() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-[#101820]">
-      <div className="bg-[#101820] px-4 py-2 text-center text-[11px] font-black uppercase tracking-wide text-white sm:text-sm">
-        🚗 LAVA JATO ULTRA • 🚚 ENTREGA AO DOMICÍLIO • 💵 PAGUE NA ENTREGA
-      </div>
+      <section className="border-b border-green-100 bg-white text-[#173b24]">
+        <div className="px-4 py-3 text-center">
+          <h1 className="whitespace-nowrap text-[clamp(1.05rem,4.5vw,1.9rem)] font-black leading-none tracking-[-.035em] text-[#173b24]">
+            Enviamos para todo o território nacional 🇦🇴
+          </h1>
+        </div>
+        <div className="overflow-hidden bg-[#173b24] py-3 text-white">
+          <div className="lava-marquee flex w-max whitespace-nowrap">
+            <span className="px-5 text-sm font-black tracking-[.01em] sm:text-base">
+              ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
+            </span>
+            <span className="px-5 text-sm font-black tracking-[.01em] sm:text-base" aria-hidden="true">
+              ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
+            </span>
+          </div>
+        </div>
+        <style>{`
+          @keyframes lava-marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+          .lava-marquee {
+            animation: lava-marquee 18s linear infinite;
+          }
+        `}</style>
+      </section>
 
-      <header className="sticky top-0 z-40 border-b border-[#e5edf2] bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-[#dce8ee] bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
-          <img
-            src={alivianaLogo}
-            alt="AURELIS"
-            className="h-8 w-auto object-contain sm:h-9"
-          />
-          <button
-            onClick={buy}
-            className={`${CTA} h-11 bg-[#087EF5] px-5 text-sm text-white shadow-lg shadow-[#087EF5]/25`}
-          >
+          <img src={alivianaLogo} alt="AURELIS" className="h-8 w-auto object-contain sm:h-9" />
+          <button onClick={buy} className={`${CTA} h-11 bg-[#087EF5] px-5 text-sm text-white shadow-lg shadow-[#087EF5]/25`}>
             <Car className="size-4" /> ENCOMENDAR
           </button>
         </div>
       </header>
 
       <main>
-        <section className="relative overflow-hidden bg-gradient-to-br from-[#eef8ff] via-white to-[#d9edff]">
-          <div className="absolute -right-40 -top-40 size-[30rem] rounded-full bg-[#087EF5]/10 blur-3xl" />
-          <div className="absolute -bottom-40 -left-32 size-[28rem] rounded-full bg-[#00B8D9]/10 blur-3xl" />
-
-          <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-8 sm:py-12 md:grid-cols-2 md:py-16">
-            <div className="order-2 md:order-1">
+        <section className="bg-gradient-to-b from-[#eef8ff] via-white to-white px-4 pb-10 pt-7 sm:pb-14 sm:pt-10">
+          <div className="mx-auto max-w-3xl">
+            <div className="text-center">
               <span className="inline-flex rounded-full bg-[#dff1ff] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#087EF5]">
                 🚗 LAVA JATO PORTÁTIL
               </span>
-
-              <h1 className="mt-5 max-w-2xl text-4xl font-black leading-[.98] tracking-tight sm:text-5xl lg:text-6xl">
-                LIMPE O SEU CARRO COM MAIS PRATICIDADE
-              </h1>
-
-              <p className="mt-5 max-w-xl text-base leading-7 text-[#506574] sm:text-lg">
-                O <strong>Lava Jato Ultra</strong> ajuda a remover poeira,
-                barro e sujeira com um jato de água, sem a complicação de
-                equipamentos grandes.
+              <h2 className="mt-4 text-4xl font-black leading-[.98] tracking-[-.04em] text-[#173b24] sm:text-5xl lg:text-6xl">
+                LAVA JATO ULTRA
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-base font-medium leading-7 text-[#506574] sm:text-lg">
+                Potência e praticidade para limpar o seu carro, moto, bicicleta e diferentes superfícies com muito menos complicação.
               </p>
-
-              <div className="mt-6 flex flex-wrap items-end gap-3">
-                <div>
-                  <span className="block text-xs font-bold uppercase text-[#687b88]">
-                    Oferta de hoje
-                  </span>
-                  <span className="text-4xl font-black text-[#101820] sm:text-5xl">
-                    {formatKz(PRODUCT.price)}
-                  </span>
-                </div>
-                <span className="mb-1 text-xl font-bold text-[#82919a] line-through">
-                  {formatKz(PRODUCT.oldPrice)}
-                </span>
-                <span className="mb-1 rounded-full bg-[#101820] px-3 py-1.5 text-sm font-black text-white">
-                  -{PRODUCT.discount}%
-                </span>
-              </div>
-
-              <button
-                onClick={buy}
-                className={`${CTA} mt-6 h-16 w-full bg-[#087EF5] px-7 text-base text-white shadow-xl shadow-[#087EF5]/25 sm:max-w-xl sm:text-lg`}
-              >
-                🚗 QUERO O MEU LAVA JATO ULTRA
-                <ArrowRight className="size-5" />
-              </button>
-
-              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs font-bold text-[#506574]">
-                <span>💵 Pague somente quando receber</span>
-                <span>🚚 Entrega ao domicílio</span>
-                <span>🔒 Pedido seguro</span>
-              </div>
             </div>
 
-            <div className="order-1 md:order-2">
-              <div className="relative overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_25px_70px_rgba(8,126,245,.18)] sm:p-6">
-                <div className="absolute left-5 top-5 z-10 rounded-full bg-[#101820] px-4 py-2 text-sm font-black text-white shadow-xl">
-                  -{PRODUCT.discount}% OFF
-                </div>
-                <img
-                  src={PRODUCT.image}
-                  alt="Lava Jato Ultra"
-                  className="aspect-square w-full rounded-[1.5rem] object-contain"
-                />
+            <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_25px_70px_rgba(8,126,245,.18)] sm:mt-8 sm:p-6">
+              <div className="absolute left-5 top-5 z-10 rounded-full bg-[#101820] px-4 py-2 text-sm font-black text-white shadow-xl">
+                -{PRODUCT.discount}% OFF
               </div>
+              <img src={PRODUCT.image} alt="Lava Jato Ultra" className="aspect-square w-full rounded-[1.5rem] object-contain" />
+            </div>
+
+            <div className="mt-6">
+              <div className="flex flex-wrap items-end gap-3">
+                <span className="text-4xl font-black text-[#4B91A5] sm:text-5xl">{formatKz(PRODUCT.price)}</span>
+                <span className="text-2xl font-bold text-[#222222] line-through">{formatKz(PRODUCT.oldPrice)}</span>
+              </div>
+              <p className="mt-3 text-sm font-bold text-[#222222] sm:text-base">
+                ⭐ 4,7/5 | Mais de 12.000 clientes satisfeitos em todo o território nacional
+              </p>
+            </div>
+
+            <div className="mt-7 space-y-3">
+              <p className="text-xl font-black italic uppercase leading-tight text-[#111111] sm:text-2xl">❤️ UMA MÁQUINA PARA MUITO MAIS DO QUE CARROS</p>
+              <p className="text-xl font-black italic uppercase leading-tight text-[#111111] sm:text-2xl">✨ 6 MODOS DE JATO PARA DIFERENTES TAREFAS</p>
+              <p className="text-xl font-black italic uppercase leading-tight text-[#111111] sm:text-2xl">🧸 LEVE A LIMPEZA PARA QUALQUER LUGAR</p>
+            </div>
+
+            <div className="mt-10 flex items-center gap-3">
+              <div className="h-[2px] flex-1 bg-[#174B43]" />
+              <span className="shrink-0 text-center text-lg font-black uppercase text-[#111111] sm:text-xl">PAGUE MENOS E LEVE MAIS</span>
+              <div className="h-[2px] flex-1 bg-[#174B43]" />
+            </div>
+
+            <div className="mt-7 space-y-4">
+              {[
+                { quantity: 1, label: "1× Lava Jato Ultra", price: PRODUCT.price, old: PRODUCT.oldPrice, saving: PRODUCT.oldPrice - PRODUCT.price },
+                { quantity: 2, label: "2× Lava Jato Ultra", price: PRODUCT.price * 2, old: PRODUCT.oldPrice * 2, saving: (PRODUCT.oldPrice - PRODUCT.price) * 2, badge: "Mais Popular" },
+                { quantity: 3, label: "3× Lava Jato Ultra", price: PRODUCT.price * 3, old: PRODUCT.oldPrice * 3, saving: (PRODUCT.oldPrice - PRODUCT.price) * 3, badge: "Melhor Valor" },
+              ].map((offer) => {
+                const selected = offerQuantity === offer.quantity;
+                return (
+                  <button
+                    key={offer.quantity}
+                    type="button"
+                    onClick={() => setOfferQuantity(offer.quantity)}
+                    className={`relative w-full rounded-[20px] border-2 p-5 text-left transition active:scale-[.99] ${selected ? "border-[#174F46] bg-[#8BB7AD]" : "border-[#AFAFAF] bg-white hover:border-[#174F46]"}`}
+                  >
+                    {offer.badge && (
+                      <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#174F46] bg-white px-4 py-1.5 text-xs font-black text-[#111111]">
+                        {offer.badge}
+                      </span>
+                    )}
+                    <div className="flex items-center gap-3">
+                      <span className={`grid size-9 shrink-0 place-items-center rounded-full border-2 ${selected ? "border-[#174F46] bg-[#174F46] text-white" : "border-[#555] bg-white"}`}>
+                        {selected && <Check className="size-5" />}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <span className="block text-lg font-black text-[#111111] sm:text-xl">{offer.label}</span>
+                        <span className="mt-1 block text-sm font-bold text-[#111111] sm:text-base">💰 Poupe {formatKz(offer.saving)}</span>
+                      </div>
+                      <div className="text-right">
+                        <span className="block text-lg font-black text-[#111111] sm:text-xl">{formatKz(offer.price)}</span>
+                        <span className="block text-sm font-bold text-[#222222] line-through sm:text-base">{formatKz(offer.old)}</span>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-[#087EF5] px-7 text-base text-white shadow-xl shadow-[#087EF5]/25 sm:text-lg`}>
+              🚗 QUERO O MEU LAVA JATO ULTRA <ArrowRight className="size-5" />
+            </button>
+
+            <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs font-bold text-[#506574]">
+              <span>💵 Pague somente quando receber</span>
+              <span>🚚 Entrega ao domicílio</span>
+              <span>🔒 Pedido seguro</span>
             </div>
           </div>
         </section>
-
-        <section className="border-y border-[#d9edf7] bg-[#101820] text-white">
-          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-1 px-4 py-5 md:grid-cols-4">
-            {[
-              [Droplets, "JATO DE ÁGUA", "Para facilitar a limpeza"],
-              [Zap, "SEM FIOS", "Mais liberdade de utilização"],
-              [Car, "IDEAL PARA CARROS", "Também para motos e bikes"],
-              [Truck, "PAGUE NA ENTREGA", "Compre sem pagamento antecipado"],
-            ].map(([Icon, title, text]) => {
-              const I = Icon as typeof Droplets;
-              return (
-                <div
-                  key={title as string}
-                  className="flex gap-2 p-3 sm:items-center sm:justify-center"
-                >
-                  <I className="mt-0.5 size-5 shrink-0 text-[#32b6ff]" />
-                  <div>
-                    <b className="block text-[10px] sm:text-xs">{title as string}</b>
-                    <span className="text-[10px] text-white/65 sm:text-xs">
-                      {text as string}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
         <section className="bg-white px-5 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-3xl text-center">
@@ -550,8 +564,8 @@ function Page() {
         product={product}
         open={checkoutOpen}
         onOpenChange={setCheckoutOpen}
-        quantity={1}
-        onQuantityChange={() => {}}
+        quantity={offerQuantity}
+        onQuantityChange={setOfferQuantity}
         onPlaced={(order) =>
           navigate({
             to: "/obrigado",
