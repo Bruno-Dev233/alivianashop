@@ -102,22 +102,24 @@ function Page() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-[#172018]">
-      <section className="overflow-hidden border-b border-green-100 bg-white">
+      <section className="border-b border-green-100 bg-white text-[#173b24]">
         <div className="px-4 py-4 text-center">
-          <h1 className="text-xl font-black tracking-[-.03em] text-[#16a34a] sm:text-3xl">
-            Enviamos para todo o território nacional ao
+          <h1 className="text-xl font-black tracking-[-.03em] sm:text-3xl">
+            Enviamos para todo o território nacional 🇦🇴
           </h1>
         </div>
-        <div className="overflow-hidden bg-[#173b24] py-3 text-white">
+
+        <div className="overflow-hidden py-3">
           <div className="freshmix-marquee flex w-max whitespace-nowrap">
-            <span className="px-5 text-sm font-black uppercase italic tracking-[.02em] sm:text-base">
-              30 DIAS DE GARANTIA EM TODOS OS PRODUTOS . PRODUTOS ORIGINAIS SELECIONADOS COM CONFIANÇA . ENVIO RÁPIDO EM 12HORAS .
+            <span className="px-5 text-sm font-black tracking-[.01em] sm:text-base">
+              ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
             </span>
-            <span className="px-5 text-sm font-black uppercase italic tracking-[.02em] sm:text-base" aria-hidden="true">
-              30 DIAS DE GARANTIA EM TODOS OS PRODUTOS . PRODUTOS ORIGINAIS SELECIONADOS COM CONFIANÇA . ENVIO RÁPIDO EM 12HORAS .
+            <span className="px-5 text-sm font-black tracking-[.01em] sm:text-base" aria-hidden="true">
+              ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
             </span>
           </div>
         </div>
+
         <style>{`
           @keyframes freshmix-marquee {
             from { transform: translateX(0); }
