@@ -4,13 +4,6 @@ import {
   ArrowRight,
   Car,
   Check,
-  Droplets,
-  Home,
-  Lock,
-  ShieldCheck,
-  Sparkles,
-  Truck,
-  Zap,
 } from "lucide-react";
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
@@ -296,241 +289,151 @@ function Page() {
         </section>
 
         <section className="bg-[#eef8ff] px-5 py-16 sm:py-20">
-          <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
-            <div>
-              <span className="rounded-full bg-white px-3 py-1.5 text-[11px] font-black tracking-wider text-[#087EF5]">
-                ADEUS À COMPLICAÇÃO
-              </span>
-              <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">
-                UM EQUIPAMENTO PRÁTICO PARA O SEU DIA A DIA
-              </h2>
-              <p className="mt-5 leading-7 text-[#506574]">
-                O Lava Jato Ultra foi pensado para quem quer mais praticidade
-                na hora de cuidar do carro e de outras superfícies. Compacto e
-                portátil, pode acompanhar diferentes momentos da sua rotina.
-              </p>
-
-              <ul className="mt-7 space-y-3">
-                {[
-                  "Ajuda a remover poeira e sujeira",
-                  "Prático para levar e guardar",
-                  "Ideal para diferentes superfícies laváveis",
-                  "Mais liberdade durante a limpeza",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 font-bold">
-                    <span className="grid size-7 shrink-0 place-items-center rounded-full bg-[#087EF5] text-white">
-                      <Check className="size-4" />
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                onClick={buy}
-                className={`${CTA} mt-8 h-14 bg-[#173b24] px-7 text-white shadow-xl shadow-[#173b24]/25 hover:bg-[#1f5233]`}
-              >
-                🚗 QUERO O MEU AGORA <ArrowRight className="size-5" />
-              </button>
+          <div className="mx-auto max-w-5xl">
+            <div className="grid items-center gap-6 md:grid-cols-[1.15fr_.85fr]">
+              <div className="overflow-hidden rounded-[2rem] bg-white shadow-[0_20px_60px_rgba(23,79,70,.14)]">
+                <video
+                  src="https://files.catbox.moe/l48q5u.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="HydroForce 21V em funcionamento"
+                  className="block aspect-video w-full object-cover"
+                  onClick={(event) => {
+                    const video = event.currentTarget;
+                    if (video.paused) void video.play();
+                    else video.pause();
+                  }}
+                />
+              </div>
+              <div className="overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_20px_60px_rgba(23,79,70,.14)]">
+                <img
+                  src="https://files.catbox.moe/bba2ty.jpeg"
+                  alt="Tamanho da HydroForce 21V"
+                  className="w-full object-contain"
+                />
+              </div>
             </div>
 
-            <div className="rounded-[2rem] border border-white bg-white p-4 shadow-[0_20px_60px_rgba(8,126,245,.14)]">
+            <div className="mt-8 text-left">
+              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">
+                🚗💦 LAVE O SEU CARRO SEM PRECISAR DE TORNEIRA
+              </h2>
+              <h3 className="mt-2 text-xl font-black text-[#174F46] sm:text-2xl">
+                Conheça a HydroForce™ 21 V
+              </h3>
+              <div className="mt-5 space-y-4 text-base leading-7 text-[#33443f] sm:text-lg">
+                <p>A lavadora portátil que permite levar a limpeza até onde você precisa.</p>
+                <p>Tem um balde, bidão ou tanque com água?</p>
+                <p className="font-black text-[#173b24]">Então você já tem o que precisa para começar.</p>
+                <p>A HydroForce™ puxa água diretamente do seu reservatório e transforma-a em um poderoso jato de limpeza — sem depender de uma torneira próxima.</p>
+              </div>
+            </div>
+
+            <div className="mt-9 overflow-hidden rounded-xl bg-[#173b24] py-3 text-white">
+              <div className="hydroforce-marquee flex w-max whitespace-nowrap">
+                <span className="px-5 text-sm font-black sm:text-base">
+                  ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
+                </span>
+                <span className="px-5 text-sm font-black sm:text-base" aria-hidden="true">
+                  ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-7 overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_20px_60px_rgba(23,79,70,.12)]">
               <img
-                src="https://ia600701.us.archive.org/8/items/captura-de-ecra-2026-10-03-114940/Kit%20Lava-Jato%20Ultra_%20Pot%C3%AAncia%20Port%C3%A1til.png"
-                alt="Kit Lava Jato Ultra — Potência Portátil"
-                className="mx-auto max-h-[620px] w-full object-contain"
+                src="https://files.catbox.moe/z6pelq.jpeg"
+                alt="Kit completo HydroForce"
+                className="w-full object-contain"
               />
             </div>
           </div>
         </section>
 
         <section className="bg-white px-5 py-16 sm:py-20">
-          <div className="mx-auto max-w-5xl">
-            <div className="mx-auto max-w-3xl text-center">
-              <span className="rounded-full bg-[#e9f5ff] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#087EF5]">
-                VEJA O LAVA JATO ULTRA EM AÇÃO
-              </span>
-              <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-5xl">
-                POTÊNCIA E PRATICIDADE NA HORA DA LIMPEZA
-              </h2>
-              <p className="mt-4 leading-7 text-[#607481]">
-                Veja como o Lava Jato Ultra pode tornar a limpeza do seu dia a dia mais prática.
-              </p>
-            </div>
-            <div className="relative mx-auto mt-9 max-w-3xl overflow-hidden rounded-[2rem] border border-[#dce8ee] bg-[#101820] shadow-[0_25px_70px_rgba(8,126,245,.16)]">
+          <div className="mx-auto max-w-4xl">
+            <div className="overflow-hidden rounded-[2rem] bg-[#101820] shadow-[0_25px_70px_rgba(23,79,70,.16)]">
               <video
-                src="https://ia601905.us.archive.org/0/items/whats-app-video-2026-10-03-at-12.09.21/WhatsApp%20Video%202026-10-03%20at%2012.09.21.mp4"
+                src="https://files.catbox.moe/gh2amw.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="metadata"
-                aria-label="Lava Jato Ultra em funcionamento"
+                aria-label="HydroForce removendo sujeira"
                 className="block max-h-[720px] w-full object-contain"
                 onClick={(event) => {
                   const video = event.currentTarget;
-                  if (video.paused) {
-                    void video.play();
-                  } else {
-                    video.pause();
-                  }
+                  if (video.paused) void video.play();
+                  else video.pause();
                 }}
               />
-              <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/65 px-4 py-2 text-xs font-bold text-white backdrop-blur">
-                Toque no vídeo para pausar ou continuar
+            </div>
+
+            <div className="mt-8">
+              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">
+                🚗 VEJA A SUJEIRA SAIR DO SEU CARRO
+              </h2>
+              <p className="mt-4 text-base leading-7 text-[#33443f] sm:text-lg">
+                A HydroForce™ coloca um jato direcionado de água nas suas mãos para facilitar a limpeza de:
+              </p>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {[
+                  "🚗 CARROS",
+                  "🏍️ MOTAS",
+                  "🔘 JANTES E PNEUS",
+                  "🏠 QUINTAIS",
+                  "🧱 PAVIMENTOS",
+                  "🌿 JARDINS",
+                  "🚪 PORTÕES",
+                  "🪑 ÁREAS EXTERIORES",
+                ].map((item) => (
+                  <div key={item} className="rounded-2xl border border-[#dce8e4] bg-[#f7fbfa] px-5 py-4 text-base font-black text-[#173b24] sm:text-lg">
+                    {item}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-[#f7fbfe] px-5 py-14 sm:py-18">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-5 md:grid-cols-2">
-              <div className="overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_18px_55px_rgba(8,126,245,.10)]">
-                <img
-                  src="https://ia600701.us.archive.org/8/items/captura-de-ecra-2026-10-03-114940/Kit%20Lava-Jato%20Ultra_%20Pot%C3%AAncia%20Port%C3%A1til.png"
-                  alt="Kit Lava Jato Ultra"
-                  className="h-full min-h-[280px] w-full object-contain"
-                />
-              </div>
-              <div className="overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_18px_55px_rgba(8,126,245,.10)]">
-                <img
-                  src={PRODUCT.image}
-                  alt="Lava Jato Ultra"
-                  className="h-full min-h-[280px] w-full object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="px-5 py-16 sm:py-20">
-          <div className="mx-auto max-w-6xl text-center">
-            <span className="rounded-full bg-[#e9f5ff] px-3 py-1.5 text-[11px] font-black text-[#087EF5]">
-              MUITO ALÉM DO CARRO
-            </span>
-            <h2 className="mt-5 text-3xl font-black sm:text-5xl">
-              USE ONDE A LIMPEZA FOR NECESSÁRIA
-            </h2>
-
-            <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {uses.map(([emoji, title, text]) => (
-                <div
-                  key={title}
-                  className="rounded-3xl border border-[#e1ebf0] bg-white p-7 shadow-sm"
-                >
-                  <div className="text-4xl">{emoji}</div>
-                  <h3 className="mt-3 font-black">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#607481]">{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-[#101820] px-5 py-16 text-white sm:py-20">
-          <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
-            <div className="overflow-hidden rounded-[2rem] bg-white p-4">
-              <img
-                src={PRODUCT.image}
-                alt="Lava Jato Ultra"
-                className="aspect-square w-full object-contain"
+        <section className="bg-[#eef8ff] px-5 py-16 sm:py-20">
+          <div className="mx-auto max-w-4xl">
+            <div className="overflow-hidden rounded-[2rem] bg-[#101820] shadow-[0_25px_70px_rgba(23,79,70,.16)]">
+              <video
+                src="https://files.catbox.moe/eo4ds6.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="HydroForce 21V sem fios"
+                className="block max-h-[720px] w-full object-contain"
+                onClick={(event) => {
+                  const video = event.currentTarget;
+                  if (video.paused) void video.play();
+                  else video.pause();
+                }}
               />
             </div>
 
-            <div>
-              <span className="rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-black tracking-wider text-[#32b6ff]">
-                OFERTA ESPECIAL
-              </span>
-              <h2 className="mt-5 text-3xl font-black sm:text-5xl">
-                TENHA MAIS PRATICIDADE POR APENAS
+            <div className="mt-8">
+              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">
+                ⚡ SEM FIOS. MAIS LIBERDADE.
               </h2>
-
-              <div className="mt-6 flex flex-wrap items-end gap-3">
-                <span className="text-4xl font-black text-[#32b6ff] sm:text-5xl">
-                  {formatKz(PRODUCT.price)}
-                </span>
-                <span className="text-xl font-bold text-white/40 line-through">
-                  {formatKz(PRODUCT.oldPrice)}
-                </span>
-              </div>
-
-              <p className="mt-4 text-white/65">
-                Aproveite a oferta atual e faça o seu pedido com pagamento
-                somente no momento da entrega.
-              </p>
-
-              <button
-                onClick={buy}
-                className={`${CTA} mt-7 h-15 w-full bg-white px-7 py-4 text-[#173b24] shadow-xl hover:bg-[#eef8ff] sm:w-auto`}
-              >
-                🚗 QUERO O LAVA JATO ULTRA <ArrowRight className="size-5" />
-              </button>
-
-              <div className="mt-5 flex flex-wrap gap-4 text-xs font-bold text-white/70">
-                <span className="flex items-center gap-1.5">
-                  <ShieldCheck className="size-4 text-[#32b6ff]" /> Pedido seguro
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Truck className="size-4 text-[#32b6ff]" /> Entrega ao domicílio
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <Lock className="size-4 text-[#32b6ff]" /> Pague na entrega
-                </span>
+              <div className="mt-5 space-y-4 text-base leading-7 text-[#33443f] sm:text-lg">
+                <p>A HydroJato™ funciona com bateria de <strong>21V</strong>.</p>
+                <p>Sem depender de uma tomada durante a utilização.</p>
+                <p>Isso significa que você pode utilizá-la em diferentes locais com muito mais liberdade.</p>
+                <p className="font-black text-[#173b24]">🔋 E A OFERTA INCLUI 2 BATERIAS.</p>
+                <p>Tenha uma segunda bateria disponível para prolongar a utilização.</p>
               </div>
             </div>
           </div>
         </section>
-
-        <section className="bg-[#f7fbfe] px-5 py-16 sm:py-20">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-center text-3xl font-black sm:text-5xl">
-              PERGUNTAS FREQUENTES
-            </h2>
-
-            <div className="mt-8 divide-y divide-[#dce8ee] rounded-3xl border border-[#dce8ee] bg-white px-5">
-              {faqs.map(([question, answer]) => (
-                <details key={question} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-black">
-                    <span>❓ {question}</span>
-                    <span className="text-[#087EF5] transition group-open:rotate-45">
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-3 pr-8 text-sm leading-6 text-[#607481]">
-                    {answer}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="bg-gradient-to-br from-[#174F46] to-[#0f3933] px-5 py-16 text-center text-white sm:py-20">
-          <div className="mx-auto max-w-3xl">
-            <Droplets className="mx-auto size-10" />
-            <h2 className="mt-5 text-3xl font-black sm:text-5xl">
-              SEU CARRO LIMPO COM MAIS PRATICIDADE
-            </h2>
-            <p className="mt-4 text-white/80">
-              Lava Jato Ultra — portátil, prático e fácil de usar.
-            </p>
-            <div className="mt-5 text-4xl font-black">
-              {formatKz(PRODUCT.price)}
-            </div>
-            <button
-              onClick={buy}
-              className={`${CTA} mt-7 h-16 w-full bg-white px-8 text-base text-[#173b24] shadow-xl hover:bg-[#eef8ff] sm:w-auto sm:text-lg`}
-            >
-              🚗 QUERO O MEU LAVA JATO ULTRA
-              <ArrowRight className="size-5" />
-            </button>
-            <p className="mt-4 text-xs text-white/70">
-              💵 Pague somente quando receber • 🚚 Entrega ao domicílio
-            </p>
-          </div>
-        </section>
-      </main>
 
       <div className="h-20 md:hidden" />
 
@@ -552,7 +455,7 @@ function Page() {
       </div>
 
       <footer className="border-t border-[#dce8ee] px-5 py-8 text-center text-xs text-[#607481]">
-        AURELIS • LAVA JATO ULTRA
+        AURELIS • HYDROFORCE
       </footer>
 
       <CheckoutDrawer
