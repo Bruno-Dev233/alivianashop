@@ -181,9 +181,6 @@ function Page() {
               <span className="inline-flex rounded-full bg-[#dff1ff] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#087EF5]">
                 🚗 LAVA JATO PORTÁTIL
               </span>
-              <h2 className="mt-4 text-4xl font-black leading-[.98] tracking-[-.04em] text-[#173b24] sm:text-5xl lg:text-6xl">
-                LAVA JATO ULTRA
-              </h2>
               <p className="mx-auto mt-3 max-w-2xl text-base font-medium leading-7 text-[#506574] sm:text-lg">
                 Potência e praticidade para limpar o seu carro, moto, bicicleta e diferentes superfícies com muito menos complicação.
               </p>
@@ -193,10 +190,16 @@ function Page() {
               <div className="absolute left-5 top-5 z-10 rounded-full bg-[#101820] px-4 py-2 text-sm font-black text-white shadow-xl">
                 -{PRODUCT.discount}% OFF
               </div>
-              <img src={PRODUCT.image} alt="Lava Jato Ultra" className="aspect-square w-full rounded-[1.5rem] object-contain" />
+              <img src={PRODUCT.image} alt="HydroForce — Lavadora de Pressão Portátil" className="aspect-square w-full rounded-[1.5rem] object-contain" />
             </div>
 
-            <div className="mt-6">
+            <div className="mt-5 text-center">
+              <h2 className="text-3xl font-black leading-tight tracking-[-.03em] text-[#173b24] sm:text-4xl">
+                HydroForce — Lavadora de Pressão Portátil
+              </h2>
+            </div>
+
+            <div className="mt-4">
               <div className="flex flex-wrap items-end gap-3">
                 <span className="text-4xl font-black text-[#4B91A5] sm:text-5xl">{formatKz(PRODUCT.price)}</span>
                 <span className="text-2xl font-bold text-[#222222] line-through">{formatKz(PRODUCT.oldPrice)}</span>
