@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Car,
@@ -11,6 +11,15 @@ import {
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
+
+declare global {
+  interface Window {
+    fbq?: (...args: any[]) => void;
+    _fbq?: (...args: any[]) => void;
+  }
+}
+
+const META_PIXEL_ID = "1604460464671095";
 
 const PRODUCT = {
   id: "lava-jato-ultra",
@@ -73,7 +82,68 @@ function Page() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [offerQuantity, setOfferQuantity] = useState(1);
 
+  useEffect(() => {
+    if (document.querySelector('script[data-aurelis-meta-pixel="true"]')) return;
+
+    const win = window;
+    const existingFbq = win.fbq;
+
+    if (!existingFbq) {
+      const fbq = function (...args: any[]) {
+        if (!win.fbq) return;
+        win.fbq(...args);
+      };
+
+      (fbq as any).loaded = true;
+      (fbq as any).version = "2.0";
+      (fbq as any).queue = [];
+
+      const base = win.fbq;
+      win.fbq = base;
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://connect.facebook.net/en_US/fbevents.js";
+      script.dataset.aurelisMetaPixel = "true";
+      script.onload = () => {
+        win.fbq?.("init", META_PIXEL_ID);
+        win.fbq?.("track", "PageView");
+      };
+      document.head.appendChild(script);
+
+      const queue = (win.fbq as any)?.queue;
+      if (queue) queue.push(["init", META_PIXEL_ID]);
+    } else {
+      win.fbq("init", META_PIXEL_ID);
+      win.fbq("track", "PageView");
+    }
+
+    return () => undefined;
+  }, []);
+
   const buy = () => setCheckoutOpen(true);
+
+  const trackPurchase = (order: { quantity: number; total: number }) => {
+    if (typeof window === "undefined") return;
+
+    const sendPurchase = () => {
+      window.fbq?.("track", "Purchase", {
+        value: Number(order.total),
+        currency: "AOA",
+        content_name: PRODUCT.name,
+        content_ids: [PRODUCT.id],
+        content_type: "product",
+        num_items: order.quantity,
+      });
+    };
+
+    if (window.fbq) {
+      sendPurchase();
+      return;
+    }
+
+    window.setTimeout(sendPurchase, 1000);
+  };
 
   const benefits = [
     {
@@ -174,7 +244,6 @@ function Page() {
       <main>
         <section className="bg-gradient-to-b from-[#eef8ff] via-white to-white px-4 pb-10 pt-7 sm:pb-14 sm:pt-10">
           <div className="mx-auto max-w-3xl">
-
             <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_25px_70px_rgba(23,79,70,.18)] sm:mt-8 sm:p-6">
               <div className="absolute left-5 top-5 z-10 rounded-full bg-[#101820] px-4 py-2 text-sm font-black text-white shadow-xl">
                 -{PRODUCT.discount}% OFF
@@ -275,17 +344,12 @@ function Page() {
 
             <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {benefits.map(({ icon: Icon, title, text }) => (
-                <article
-                  key={title}
-                  className="rounded-3xl border border-[#dfeaf0] bg-white p-6 shadow-[0_12px_35px_rgba(16,24,32,.06)]"
-                >
+                <article key={title} className="rounded-3xl border border-[#dfeaf0] bg-white p-6 shadow-[0_12px_35px_rgba(16,24,32,.06)]">
                   <span className="grid size-12 place-items-center rounded-2xl bg-[#e9f5ff] text-[#087EF5]">
                     <Icon className="size-6" />
                   </span>
                   <h3 className="mt-4 font-black">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#607481]">
-                    {text}
-                  </p>
+                  <p className="mt-2 text-sm leading-6 text-[#607481]">{text}</p>
                 </article>
               ))}
             </div>
@@ -313,21 +377,13 @@ function Page() {
                 />
               </div>
               <div className="overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_20px_60px_rgba(23,79,70,.14)]">
-                <img
-                  src="https://files.catbox.moe/bba2ty.jpeg"
-                  alt="Tamanho da HydroForce 21V"
-                  className="w-full object-contain"
-                />
+                <img src="https://files.catbox.moe/bba2ty.jpeg" alt="Tamanho da HydroForce 21V" className="w-full object-contain" />
               </div>
             </div>
 
             <div className="mt-8 text-left">
-              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">
-                🚗💦 LAVE O SEU CARRO SEM PRECISAR DE TORNEIRA
-              </h2>
-              <h3 className="mt-2 text-xl font-black text-[#174F46] sm:text-2xl">
-                Conheça a HydroForce™ 21 V
-              </h3>
+              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">🚗💦 LAVE O SEU CARRO SEM PRECISAR DE TORNEIRA</h2>
+              <h3 className="mt-2 text-xl font-black text-[#174F46] sm:text-2xl">Conheça a HydroForce™ 21 V</h3>
               <div className="mt-5 space-y-4 text-base leading-7 text-[#33443f] sm:text-lg">
                 <p>A lavadora portátil que permite levar a limpeza até onde você precisa.</p>
                 <p>Tem um balde, bidão ou tanque com água?</p>
@@ -348,11 +404,7 @@ function Page() {
             </div>
 
             <div className="mt-7 overflow-hidden rounded-[2rem] bg-white p-3 shadow-[0_20px_60px_rgba(23,79,70,.12)]">
-              <img
-                src="https://files.catbox.moe/z6pelq.jpeg"
-                alt="Kit completo HydroForce"
-                className="w-full object-contain"
-              />
+              <img src="https://files.catbox.moe/z6pelq.jpeg" alt="Kit completo HydroForce" className="w-full object-contain" />
             </div>
           </div>
         </section>
@@ -378,9 +430,7 @@ function Page() {
             </div>
 
             <div className="mt-8">
-              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">
-                🚗 VEJA A SUJEIRA SAIR DO SEU CARRO
-              </h2>
+              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">🚗 VEJA A SUJEIRA SAIR DO SEU CARRO</h2>
               <p className="mt-4 text-base leading-7 text-[#33443f] sm:text-lg">
                 A HydroForce™ coloca um jato direcionado de água nas suas mãos para facilitar a limpeza de:
               </p>
@@ -415,7 +465,7 @@ function Page() {
                 playsInline
                 preload="metadata"
                 aria-label="HydroForce 21V sem fios"
-                className="block max-h-[720px] w-full object-contain"
+                className="mx-auto block aspect-[9/16] max-h-[720px] w-full object-contain"
                 onClick={(event) => {
                   const video = event.currentTarget;
                   if (video.paused) void video.play();
@@ -425,9 +475,7 @@ function Page() {
             </div>
 
             <div className="mt-8">
-              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">
-                ⚡ SEM FIOS. MAIS LIBERDADE.
-              </h2>
+              <h2 className="text-2xl font-black leading-tight tracking-tight sm:text-4xl">⚡ SEM FIOS. MAIS LIBERDADE.</h2>
               <div className="mt-5 space-y-4 text-base leading-7 text-[#33443f] sm:text-lg">
                 <p>A HydroJato™ funciona com bateria de <strong>21V</strong>.</p>
                 <p>Sem depender de uma tomada durante a utilização.</p>
@@ -438,22 +486,16 @@ function Page() {
             </div>
           </div>
         </section>
+      </main>
 
       <div className="h-20 md:hidden" />
 
       <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t border-[#dce8ee] bg-white/95 p-2.5 pb-[calc(.625rem+env(safe-area-inset-bottom))] shadow-[0_-10px_35px_rgba(16,24,32,.12)] backdrop-blur md:hidden">
         <div className="min-w-0">
-          <span className="block text-[9px] font-black uppercase text-[#607481]">
-            HYDROFORCE
-          </span>
-          <strong className="block text-base leading-none text-[#101820]">
-            {formatKz(PRODUCT.price)}
-          </strong>
+          <span className="block text-[9px] font-black uppercase text-[#607481]">HYDROFORCE</span>
+          <strong className="block text-base leading-none text-[#101820]">{formatKz(PRODUCT.price)}</strong>
         </div>
-        <button
-          onClick={buy}
-          className="ml-auto h-11 rounded-xl bg-[#173b24] px-5 text-xs font-black text-white shadow-lg hover:bg-[#1f5233]"
-        >
+        <button onClick={buy} className="ml-auto h-11 rounded-xl bg-[#173b24] px-5 text-xs font-black text-white shadow-lg hover:bg-[#1f5233]">
           ENCOMENDAR AGORA
         </button>
       </div>
@@ -468,7 +510,8 @@ function Page() {
         onOpenChange={setCheckoutOpen}
         quantity={offerQuantity}
         onQuantityChange={setOfferQuantity}
-        onPlaced={(order) =>
+        onPlaced={(order) => {
+          trackPurchase(order);
           navigate({
             to: "/obrigado",
             search: {
@@ -476,10 +519,9 @@ function Page() {
               qtd: order.quantity,
               total: order.total,
             },
-          })
-        }
+          });
+        }}
       />
-      </main>
     </div>
   );
 }
