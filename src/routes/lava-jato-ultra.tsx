@@ -12,12 +12,6 @@ import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
 
-declare global {
-  interface Window {
-    fbq?: (...args: any[]) => void;
-    _fbq?: (...args: any[]) => void;
-  }
-}
 
 const META_PIXEL_ID = "1759106692011159";
 
@@ -95,13 +89,14 @@ function Page() {
       return;
     }
 
-    const fbq = function (...args: any[]) {
-      fbq.queue = fbq.queue || [];
-      fbq.queue.push(args);
-    } as typeof window.fbq & {
-      queue?: any[][];
+    type FbqStub = ((...args: unknown[]) => void) & {
+      queue?: unknown[][];
       loaded?: boolean;
       version?: string;
+    };
+    const fbq: FbqStub = function (...args: unknown[]) {
+      fbq.queue = fbq.queue || [];
+      fbq.queue.push(args);
     };
 
     fbq.loaded = true;
@@ -113,12 +108,12 @@ function Page() {
       const script = document.createElement("script");
       script.async = true;
       script.src = "https://connect.facebook.net/en_US/fbevents.js";
-      script.dataset.aurelisMetaPixel = "true";
+      script.dataset["aurelisMetaPixel"] = "true";
       document.head.appendChild(script);
     }
 
-    window.fbq("init", META_PIXEL_ID);
-    window.fbq("track", "PageView");
+    fbq("init", META_PIXEL_ID);
+    fbq("track", "PageView");
   }, []);
 
   const buy = () => setCheckoutOpen(true);
