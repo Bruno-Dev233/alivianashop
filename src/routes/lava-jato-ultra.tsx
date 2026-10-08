@@ -177,14 +177,6 @@ function Page() {
       <main>
         <section className="bg-gradient-to-b from-[#eef8ff] via-white to-white px-4 pb-10 pt-7 sm:pb-14 sm:pt-10">
           <div className="mx-auto max-w-3xl">
-            <div className="text-center">
-              <span className="inline-flex rounded-full bg-[#dff1ff] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#174F46]">
-                🚗 HYDROFORCE
-              </span>
-              <p className="mx-auto mt-3 max-w-2xl text-base font-medium leading-7 text-[#506574] sm:text-lg">
-                Potência e praticidade para limpar o seu carro, moto, bicicleta e diferentes superfícies com muito menos complicação.
-              </p>
-            </div>
 
             <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_25px_70px_rgba(23,79,70,.18)] sm:mt-8 sm:p-6">
               <div className="absolute left-5 top-5 z-10 rounded-full bg-[#101820] px-4 py-2 text-sm font-black text-white shadow-xl">
@@ -223,9 +215,9 @@ function Page() {
 
             <div className="mt-7 space-y-4">
               {[
-                { quantity: 1, label: "1× Lava Jato Ultra", price: PRODUCT.price, old: PRODUCT.oldPrice, saving: PRODUCT.oldPrice - PRODUCT.price },
-                { quantity: 2, label: "2× Lava Jato Ultra", price: PRODUCT.price * 2, old: PRODUCT.oldPrice * 2, saving: (PRODUCT.oldPrice - PRODUCT.price) * 2, badge: "Mais Popular" },
-                { quantity: 3, label: "3× Lava Jato Ultra", price: PRODUCT.price * 3, old: PRODUCT.oldPrice * 3, saving: (PRODUCT.oldPrice - PRODUCT.price) * 3, badge: "Melhor Valor" },
+                { quantity: 1, label: "1× HYDROFORCE", price: PRODUCT.price, old: PRODUCT.oldPrice, saving: PRODUCT.oldPrice - PRODUCT.price },
+                { quantity: 2, label: "2× HYDROFORCE", price: PRODUCT.price * 2, old: PRODUCT.oldPrice * 2, saving: (PRODUCT.oldPrice - PRODUCT.price) * 2, badge: "Mais Popular" },
+                { quantity: 3, label: "3× HYDROFORCE", price: PRODUCT.price * 3, old: PRODUCT.oldPrice * 3, saving: (PRODUCT.oldPrice - PRODUCT.price) * 3, badge: "Melhor Valor" },
               ].map((offer) => {
                 const selected = offerQuantity === offer.quantity;
                 return (
