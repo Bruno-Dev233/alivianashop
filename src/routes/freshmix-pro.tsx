@@ -105,7 +105,7 @@ function Page() {
     <div className="min-h-screen overflow-x-hidden bg-white text-[#172018]">
       <section className="border-b border-green-100 bg-white text-[#173b24]">
         <div className="px-4 py-3 text-center">
-          <h1 className="whitespace-nowrap text-[clamp(1.05rem,4.5vw,1.9rem)] font-black leading-none tracking-[-.035em]">
+          <h1 className="whitespace-nowrap text-[clamp(1.05rem,4.5vw,1.9rem)] font-black leading-none tracking-[-.035em] text-[#173b24]">
             Enviamos para todo o território nacional 🇦🇴
           </h1>
         </div>
@@ -148,7 +148,7 @@ function Page() {
               <span className="inline-flex rounded-full bg-[#173b24] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-white">
                 FRESHMIX PRO 4 EM 1
               </span>
-              <h1 className="mt-5 text-[2rem] font-black leading-[1.02] tracking-[-.045em] sm:text-5xl lg:text-[3.8rem]">
+              <h1 className="mt-5 text-[2rem] font-black leading-[1.02] tracking-[-.045em] text-[#173b24] sm:text-5xl lg:text-[3.8rem]">
                 🍊 FAÇA SUMOS NATURAIS EM SEGUNDOS.
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-[#4b5563] sm:text-lg">
