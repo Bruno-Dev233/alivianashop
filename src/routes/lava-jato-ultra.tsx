@@ -475,6 +475,7 @@ function Page() {
           })
         }
       />
+      </main>
     </div>
   );
 }
