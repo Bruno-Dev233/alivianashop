@@ -273,6 +273,7 @@ export interface FileRouteTypes {
     | '/lava-jato-ultra'
     | '/obrigado'
     | '/prancha-flexoes'
+    | '/freshmix-pro'
     | '/privacidade'
     | '/termos'
     | '/admin/aqua-go'
