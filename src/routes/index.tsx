@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AlertTriangle, Lock, ShieldCheck, Star, Truck, Wallet } from "lucide-react";
 
@@ -80,6 +80,15 @@ function LandingPage() {
         logoUrl={product.logo_url}
         onOrder={() => setCheckoutOpen(true)}
       />
+      <div className="mx-auto max-w-7xl px-4 pt-3">
+        <Link
+          to="/freshmix-pro"
+          className="flex items-center justify-between gap-3 rounded-2xl bg-gradient-to-r from-[#f97316] via-[#facc15] to-[#16a34a] px-4 py-3 text-sm font-black text-[#173b24] shadow-sm transition hover:-translate-y-0.5"
+        >
+          <span>🍊 NOVO PRODUTO: FreshMix Pro 4 em 1 — Faça Sumos Naturais em Segundos</span>
+          <span className="shrink-0 rounded-xl bg-white px-3 py-2 text-xs font-black text-[#16a34a]">VER PRODUTO →</span>
+        </Link>
+      </div>
 
       <main className="shell pb-8 pt-5">
         <div className="relative overflow-hidden rounded-3xl bg-card p-2 shadow-card sm:p-3">
