@@ -416,6 +416,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PranchaFlexoesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/freshmix-pro': {
+      id: '/freshmix-pro'
+      path: '/freshmix-pro'
+      fullPath: '/freshmix-pro'
+      preLoaderRoute: typeof FreshmixProRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacidade': {
       id: '/privacidade'
       path: '/privacidade'
