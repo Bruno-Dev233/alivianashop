@@ -152,7 +152,7 @@ function Page() {
                 🍊 FAÇA SUMOS NATURAIS EM SEGUNDOS.
               </h1>
               <p className="mt-5 max-w-xl text-base leading-7 text-[#4b5563] sm:text-lg">
-                Tenha uma forma mais prática de preparar os seus sumos em casa com a FreshMix Pro 4 em 1.
+                🥤 FreshMix Pro 4 em 1 — prepare sumos naturais, smoothies e bebidas frescas de forma rápida e prática. Ideal para transformar as suas frutas favoritas em deliciosas bebidas no dia a dia. 🍊✨
               </p>
 
               <div className="mt-6 flex flex-wrap items-end gap-3">
