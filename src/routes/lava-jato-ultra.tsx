@@ -18,7 +18,7 @@ import alivianaLogo from "@/assets/aliviana-logo.png";
 
 const PRODUCT = {
   id: "lava-jato-ultra",
-  name: "Lava Jato Ultra",
+  name: "HydroForce",
   price: 44998,
   oldPrice: 84998,
   discount: 47,
@@ -32,7 +32,7 @@ const product: Product = {
   old_price: PRODUCT.oldPrice,
   cost_price: 0,
   description:
-    "Lava jato portátil para facilitar a limpeza do carro, moto, bicicleta e diferentes superfícies laváveis.",
+    "HydroForce — lavadora de pressão portátil para facilitar a limpeza do carro, moto, bicicleta e diferentes superfícies laváveis.",
   social_proof_text: "",
   top_bar_text: "",
   top_bar_text_2: "",
@@ -53,13 +53,13 @@ const CTA =
 export const Route = createFileRoute("/lava-jato-ultra")({
   head: () => ({
     meta: [
-      { title: "Lava Jato Ultra | AURELIS" },
+      { title: "HydroForce | AURELIS" },
       {
         name: "description",
         content:
-          "Lava Jato Ultra — solução portátil para limpar carro, moto e bicicleta com mais praticidade.",
+          "HydroForce — lavadora de pressão portátil para limpar carro, moto e bicicleta com mais praticidade.",
       },
-      { property: "og:title", content: "Lava Jato Ultra" },
+      { property: "og:title", content: "HydroForce" },
       {
         property: "og:description",
         content:
@@ -111,7 +111,7 @@ function Page() {
 
   const faqs = [
     [
-      "O que é o Lava Jato Ultra?",
+      "O que é o HydroForce?",
       "É um equipamento portátil pensado para facilitar a limpeza de carros, motos, bicicletas e outras superfícies laváveis.",
     ],
     [
@@ -168,7 +168,7 @@ function Page() {
       <header className="sticky top-0 z-40 border-b border-[#dce8ee] bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
           <img src={alivianaLogo} alt="AURELIS" className="h-8 w-auto object-contain sm:h-9" />
-          <button onClick={buy} className={`${CTA} h-11 bg-[#087EF5] px-5 text-sm text-white shadow-lg shadow-[#087EF5]/25`}>
+          <button onClick={buy} className={`${CTA} h-11 bg-[#174F46] px-5 text-sm text-white shadow-lg shadow-[#174F46]/25`}>
             <Car className="size-4" /> ENCOMENDAR
           </button>
         </div>
@@ -178,15 +178,15 @@ function Page() {
         <section className="bg-gradient-to-b from-[#eef8ff] via-white to-white px-4 pb-10 pt-7 sm:pb-14 sm:pt-10">
           <div className="mx-auto max-w-3xl">
             <div className="text-center">
-              <span className="inline-flex rounded-full bg-[#dff1ff] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#087EF5]">
-                🚗 LAVA JATO PORTÁTIL
+              <span className="inline-flex rounded-full bg-[#dff1ff] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#174F46]">
+                🚗 HYDROFORCE
               </span>
               <p className="mx-auto mt-3 max-w-2xl text-base font-medium leading-7 text-[#506574] sm:text-lg">
                 Potência e praticidade para limpar o seu carro, moto, bicicleta e diferentes superfícies com muito menos complicação.
               </p>
             </div>
 
-            <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_25px_70px_rgba(8,126,245,.18)] sm:mt-8 sm:p-6">
+            <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_25px_70px_rgba(23,79,70,.18)] sm:mt-8 sm:p-6">
               <div className="absolute left-5 top-5 z-10 rounded-full bg-[#101820] px-4 py-2 text-sm font-black text-white shadow-xl">
                 -{PRODUCT.discount}% OFF
               </div>
@@ -259,7 +259,7 @@ function Page() {
             </div>
 
             <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-[#087EF5] px-7 text-base text-white shadow-xl shadow-[#087EF5]/25 sm:text-lg`}>
-              🚗 QUERO O MEU LAVA JATO ULTRA <ArrowRight className="size-5" />
+              🚗 QUERO O MEU HYDROFORCE <ArrowRight className="size-5" />
             </button>
 
             <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs font-bold text-[#506574]">
@@ -514,7 +514,7 @@ function Page() {
           </div>
         </section>
 
-        <section className="bg-gradient-to-br from-[#087EF5] to-[#0058b5] px-5 py-16 text-center text-white sm:py-20">
+        <section className="bg-gradient-to-br from-[#174F46] to-[#0f3933] px-5 py-16 text-center text-white sm:py-20">
           <div className="mx-auto max-w-3xl">
             <Droplets className="mx-auto size-10" />
             <h2 className="mt-5 text-3xl font-black sm:text-5xl">
