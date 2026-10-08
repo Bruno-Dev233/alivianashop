@@ -19,7 +19,7 @@ declare global {
   }
 }
 
-const META_PIXEL_ID = "1604460464671095";
+const META_PIXEL_ID = "1759106692011159";
 
 const PRODUCT = {
   id: "lava-jato-ultra",
