@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Home, Loader2, Lock, Truck, X } from "lucide-react";
 
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
@@ -85,6 +85,13 @@ export function CheckoutDrawer({
   const [serverError, setServerError] = useState<string | null>(null);
 
   const subtotal = totalPriceOverride ?? product.price * quantity;
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(
+      new CustomEvent("aurelis:checkout", { detail: { open, productName: product.name } }),
+    );
+  }, [open, product.name]);
   const set = (key: FieldKey, value: string) => setValues((v) => ({ ...v, [key]: value }));
 
   const validate = () => {
