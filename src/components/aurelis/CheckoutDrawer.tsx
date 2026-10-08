@@ -25,6 +25,8 @@ type Props = {
   onQuantityChange: (quantity: number) => void;
   onPlaced: (order: PlacedOrder) => void;
   minQuantity?: number;
+  maxQuantity?: number;
+  totalPriceOverride?: number;
   theme?: "default" | "aqua-go";
 };
 
@@ -65,6 +67,8 @@ export function CheckoutDrawer({
   onQuantityChange,
   onPlaced,
   minQuantity = 1,
+  maxQuantity = 10,
+  totalPriceOverride,
   theme = "default",
 }: Props) {
   const isAqua = theme === "aqua-go";
@@ -80,7 +84,7 @@ export function CheckoutDrawer({
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
-  const subtotal = product.price * quantity;
+  const subtotal = totalPriceOverride ?? product.price * quantity;
   const set = (key: FieldKey, value: string) => setValues((v) => ({ ...v, [key]: value }));
 
   const validate = () => {
@@ -122,7 +126,7 @@ export function CheckoutDrawer({
         customer_phone: values.phone.trim(),
         customer_address: addressLines.join(" | "),
         quantity,
-        unit_price: product.price,
+        unit_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price,
         total_price: subtotal,
       });
     setSubmitting(false);
@@ -144,7 +148,7 @@ export function CheckoutDrawer({
         email: null,
         reference: reference || null,
         quantity,
-        unit_price: product.price,
+        unit_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price,
         supplier_cost: unitCost,
         total_price: subtotal,
         estimated_profit: (product.price - unitCost) * quantity,
@@ -156,7 +160,7 @@ export function CheckoutDrawer({
       window.fbq("track", "Purchase", {
         value: subtotal,
         currency: "AOA",
-        contents: [{ id: product.id, quantity, item_price: product.price }],
+        contents: [{ id: product.id, quantity, item_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price }],
         content_type: "product",
       });
     }
@@ -220,7 +224,13 @@ export function CheckoutDrawer({
               </div>
               <div className="mt-3 flex items-center justify-between gap-2">
                 <span className="text-sm font-bold">Quantidade</span>
-                <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} large />
+                <QuantityStepper
+                  value={quantity}
+                  onChange={onQuantityChange}
+                  min={minQuantity}
+                  max={maxQuantity}
+                  large
+                />
               </div>
               <dl className={`mt-3 space-y-1.5 border-t pt-3 text-sm ${isAqua ? "border-[#E5D6C8]" : "border-border"}`}>
                 <div className="flex justify-between">
