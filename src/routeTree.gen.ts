@@ -21,6 +21,7 @@ import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletri
 import { Route as LavaJatoUltraRouteImport } from './routes/lava-jato-ultra'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PranchaFlexoesRouteImport } from './routes/prancha-flexoes'
+import { Route as FreshmixProRouteImport } from './routes/freshmix-pro'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -93,6 +94,11 @@ const PranchaFlexoesRoute = PranchaFlexoesRouteImport.update({
   path: '/prancha-flexoes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FreshmixProRoute = FreshmixProRouteImport.update({
+  id: '/freshmix-pro',
+  path: '/freshmix-pro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
   id: '/privacidade',
   path: '/privacidade',
@@ -162,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
   '/obrigado': typeof ObrigadoRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
+  '/freshmix-pro': typeof FreshmixProRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
@@ -186,6 +193,7 @@ export interface FileRoutesByTo {
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
   '/obrigado': typeof ObrigadoRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
+  '/freshmix-pro': typeof FreshmixProRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
@@ -212,6 +220,7 @@ export interface FileRoutesById {
   '/lava-jato-ultra': typeof LavaJatoUltraRoute
   '/obrigado': typeof ObrigadoRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
+  '/freshmix-pro': typeof FreshmixProRoute
   '/privacidade': typeof PrivacidadeRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
@@ -239,6 +248,7 @@ export interface FileRouteTypes {
     | '/lava-jato-ultra'
     | '/obrigado'
     | '/prancha-flexoes'
+    | '/freshmix-pro'
     | '/privacidade'
     | '/termos'
     | '/admin/aqua-go'
@@ -314,6 +324,7 @@ export interface RootRouteChildren {
   LavaJatoUltraRoute: typeof LavaJatoUltraRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PranchaFlexoesRoute: typeof PranchaFlexoesRoute
+  FreshmixProRoute: typeof FreshmixProRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   TermosRoute: typeof TermosRoute
 }
@@ -523,6 +534,7 @@ const rootRouteChildren: RootRouteChildren = {
   LavaJatoUltraRoute: LavaJatoUltraRoute,
   ObrigadoRoute: ObrigadoRoute,
   PranchaFlexoesRoute: PranchaFlexoesRoute,
+  FreshmixProRoute: FreshmixProRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   TermosRoute: TermosRoute,
 }
