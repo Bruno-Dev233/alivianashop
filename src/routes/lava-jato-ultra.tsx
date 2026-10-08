@@ -152,11 +152,12 @@ function Page() {
         </div>
         <style>{`
           @keyframes lava-marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(-50%, 0, 0); }
           }
           .lava-marquee {
             animation: lava-marquee 18s linear infinite;
+            will-change: transform;
           }
         `}</style>
       </section>
@@ -303,7 +304,7 @@ function Page() {
                   playsInline
                   preload="metadata"
                   aria-label="HydroForce 21V em funcionamento"
-                  className="block aspect-video w-full object-cover"
+                  className="mx-auto block aspect-[9/16] max-h-[720px] w-full object-contain"
                   onClick={(event) => {
                     const video = event.currentTarget;
                     if (video.paused) void video.play();
@@ -336,7 +337,7 @@ function Page() {
             </div>
 
             <div className="mt-9 overflow-hidden rounded-xl bg-[#173b24] py-3 text-white">
-              <div className="hydroforce-marquee flex w-max whitespace-nowrap">
+              <div className="lava-marquee flex w-max whitespace-nowrap">
                 <span className="px-5 text-sm font-black sm:text-base">
                   ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
                 </span>
@@ -367,7 +368,7 @@ function Page() {
                 playsInline
                 preload="metadata"
                 aria-label="HydroForce removendo sujeira"
-                className="block max-h-[720px] w-full object-contain"
+                className="mx-auto block aspect-[9/16] max-h-[720px] w-full object-contain"
                 onClick={(event) => {
                   const video = event.currentTarget;
                   if (video.paused) void video.play();
@@ -443,7 +444,7 @@ function Page() {
       <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t border-[#dce8ee] bg-white/95 p-2.5 pb-[calc(.625rem+env(safe-area-inset-bottom))] shadow-[0_-10px_35px_rgba(16,24,32,.12)] backdrop-blur md:hidden">
         <div className="min-w-0">
           <span className="block text-[9px] font-black uppercase text-[#607481]">
-            LAVA JATO ULTRA
+            HYDROFORCE
           </span>
           <strong className="block text-base leading-none text-[#101820]">
             {formatKz(PRODUCT.price)}
