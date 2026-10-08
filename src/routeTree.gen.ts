@@ -30,6 +30,7 @@ import { Route as AdminFinancasRouteImport } from './routes/admin.financas'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminMaisRouteImport } from './routes/admin.mais'
 import { Route as AdminPedidosRouteImport } from './routes/admin.pedidos'
+import { Route as AdminRastreamentoRouteImport } from './routes/admin.rastreamento'
 import { Route as AdminProductRouteImport } from './routes/admin.product'
 import { Route as AdminLandingIndexRouteImport } from './routes/admin.landing.index'
 import { Route as AdminLandingSlugRouteImport } from './routes/admin.landing.$slug'
@@ -139,6 +140,11 @@ const AdminPedidosRoute = AdminPedidosRouteImport.update({
   path: '/pedidos',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminRastreamentoRoute = AdminRastreamentoRouteImport.update({
+  id: '/rastreamento',
+  path: '/rastreamento',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminProductRoute = AdminProductRouteImport.update({
   id: '/product',
   path: '/product',
@@ -176,6 +182,9 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
+  '/admin/rastreamento': typeof AdminRastreamentoRoute
+  '/admin/rastreamento': typeof AdminRastreamentoRoute
+  '/admin/rastreamento': typeof AdminRastreamentoRoute
   '/admin/product': typeof AdminProductRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/landing/$slug': typeof AdminLandingSlugRoute
@@ -510,6 +519,7 @@ interface AdminRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMaisRoute: typeof AdminMaisRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
+  AdminRastreamentoRoute: typeof AdminRastreamentoRoute
   AdminProductRoute: typeof AdminProductRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminLandingSlugRoute: typeof AdminLandingSlugRoute
@@ -522,6 +532,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminMaisRoute: AdminMaisRoute,
   AdminPedidosRoute: AdminPedidosRoute,
+  AdminRastreamentoRoute: AdminRastreamentoRoute,
   AdminProductRoute: AdminProductRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminLandingSlugRoute: AdminLandingSlugRoute,
