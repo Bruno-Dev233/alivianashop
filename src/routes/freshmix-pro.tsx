@@ -101,15 +101,15 @@ function Page() {
   ];
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-white text-[#171717]">
-      <div className="bg-[#f97316] px-4 py-3 text-center text-sm font-black uppercase tracking-[.02em] text-white sm:text-base">
+    <div className="min-h-screen overflow-x-hidden bg-white text-[#172018]">
+      <div className="bg-[#facc15] px-4 py-3 text-center text-sm font-black uppercase tracking-[.02em] text-white sm:text-base">
         🍊 FRESHMIX PRO 4 EM 1 • FAÇA SUMOS NATURAIS EM SEGUNDOS
       </div>
 
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-          <div className="text-2xl font-black tracking-[-.06em] text-[#f97316]">AURELIS</div>
-          <button onClick={buy} className={`${CTA} h-11 bg-[#171717] px-5 text-xs text-white shadow-lg sm:text-sm`}>
+          <div className="text-2xl font-black tracking-[-.06em] text-[#16a34a]">AURELIS</div>
+          <button onClick={buy} className={`${CTA} h-11 bg-[#173b24] px-5 text-xs text-white shadow-lg sm:text-sm`}>
             <ShoppingBag className="size-4" /> ENCOMENDAR
           </button>
         </div>
@@ -119,27 +119,27 @@ function Page() {
         <section className="bg-[#fff7ed]">
           <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-7 sm:py-10 md:grid-cols-2 md:py-14">
             <div className="order-2 md:order-1">
-              <span className="inline-flex rounded-full bg-[#171717] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-white">
+              <span className="inline-flex rounded-full bg-[#173b24] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-white">
                 FRESHMIX PRO 4 EM 1
               </span>
               <h1 className="mt-5 text-[2rem] font-black leading-[1.02] tracking-[-.045em] sm:text-5xl lg:text-[3.8rem]">
                 🍊 FAÇA SUMOS NATURAIS EM SEGUNDOS.
               </h1>
-              <p className="mt-5 max-w-xl text-base leading-7 text-[#5f5f5f] sm:text-lg">
+              <p className="mt-5 max-w-xl text-base leading-7 text-[#4b5563] sm:text-lg">
                 Tenha uma forma mais prática de preparar os seus sumos em casa com a FreshMix Pro 4 em 1.
               </p>
 
               <div className="mt-6 flex flex-wrap items-end gap-3">
                 <span className="text-4xl font-black sm:text-5xl">{formatKz(PRODUCT.price)}</span>
-                <span className="pb-1 text-xl font-bold text-[#999] line-through">{formatKz(PRODUCT.oldPrice)}</span>
+                <span className="pb-1 text-xl font-bold text-[#94a3b8] line-through">{formatKz(PRODUCT.oldPrice)}</span>
                 <span className="mb-1 rounded-full bg-[#f97316] px-3 py-1.5 text-sm font-black text-white">-{discount}%</span>
               </div>
 
-              <button onClick={buy} className={`${CTA} mt-6 h-16 w-full bg-[#f97316] px-6 text-base text-white shadow-xl shadow-orange-500/25 sm:max-w-xl sm:text-lg`}>
+              <button onClick={buy} className={`${CTA} mt-6 h-16 w-full bg-[#16a34a] px-6 text-base text-white shadow-xl shadow-green-600/25 sm:max-w-xl sm:text-lg`}>
                 🍊 QUERO A MINHA FRESHMIX PRO <ArrowRight className="size-5" />
               </button>
 
-              <div className="mt-4 grid grid-cols-1 gap-2 text-xs font-bold text-[#666] sm:grid-cols-3">
+              <div className="mt-4 grid grid-cols-1 gap-2 text-xs font-bold text-[#4b5563] sm:grid-cols-3">
                 <span>🚚 Entrega grátis</span>
                 <span>💵 Pague na entrega</span>
                 <span>📍 Luanda</span>
@@ -157,7 +157,7 @@ function Page() {
           </div>
         </section>
 
-        <section className="bg-[#171717] px-4 py-5 text-white">
+        <section className="bg-[#173b24] px-4 py-5 text-white">
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-2 md:grid-cols-4">
             {[
               ["🍊", "SUMOS NATURAIS", "Prepare em casa"],
@@ -177,9 +177,9 @@ function Page() {
         <section className="px-4 py-14 sm:py-20">
           <div className="mx-auto max-w-6xl">
             <div className="text-center">
-              <span className="rounded-full bg-[#fff0e1] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#ea580c]">VEJA EM AÇÃO</span>
+              <span className="rounded-full bg-[#fef9c3] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#dc2626]">VEJA EM AÇÃO</span>
               <h2 className="mt-5 text-3xl font-black tracking-[-.04em] sm:text-5xl">DO FRUTO AO COPO. 🍊</h2>
-              <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#666] sm:text-base">
+              <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#4b5563] sm:text-base">
                 Veja a FreshMix Pro em funcionamento e descubra como ela pode fazer parte da sua rotina.
               </p>
             </div>
@@ -202,10 +202,10 @@ function Page() {
               {benefits.map(([Icon, title, text]) => {
                 const I = Icon as typeof Zap;
                 return (
-                  <article key={title} className="rounded-3xl border border-orange-100 bg-white p-6 shadow-[0_12px_35px_rgba(0,0,0,.06)]">
-                    <span className="grid size-12 place-items-center rounded-2xl bg-[#f97316] text-white"><I className="size-6" /></span>
+                  <article key={title} className="rounded-3xl border border-green-100 bg-white p-6 shadow-[0_12px_35px_rgba(0,0,0,.06)]">
+                    <span className="grid size-12 place-items-center rounded-2xl bg-[#16a34a] text-white"><I className="size-6" /></span>
                     <h3 className="mt-4 text-sm font-black">{title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-[#666]">{text}</p>
+                    <p className="mt-2 text-sm leading-6 text-[#4b5563]">{text}</p>
                   </article>
                 );
               })}
@@ -216,11 +216,11 @@ function Page() {
         <section className="px-4 py-14 sm:py-20">
           <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
             <div>
-              <span className="rounded-full bg-[#fff0e1] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#ea580c]">4 EM 1</span>
+              <span className="rounded-full bg-[#fef9c3] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#dc2626]">4 EM 1</span>
               <h2 className="mt-5 text-3xl font-black tracking-[-.04em] sm:text-5xl">
                 UM SÓ EQUIPAMENTO PARA MAIS POSSIBILIDADES.
               </h2>
-              <p className="mt-5 text-sm leading-7 text-[#555] sm:text-base">
+              <p className="mt-5 text-sm leading-7 text-[#4b5563] sm:text-base">
                 A FreshMix Pro foi pensada para tornar o preparo mais simples e organizado. Conheça as peças, a embalagem e o modo de utilização na imagem abaixo.
               </p>
 
@@ -240,18 +240,18 @@ function Page() {
           </div>
         </section>
 
-        <section className="bg-[#171717] px-4 py-14 text-white sm:py-20">
+        <section className="bg-[#173b24] px-4 py-14 text-white sm:py-20">
           <div className="mx-auto max-w-6xl">
             <div className="grid items-center gap-10 md:grid-cols-[.8fr_1.2fr]">
               <div>
-                <Leaf className="size-10 text-[#fb923c]" />
+                <Leaf className="size-10 text-[#facc15]" />
                 <h2 className="mt-5 text-3xl font-black tracking-[-.04em] sm:text-5xl">
                   O SEU SUMO. DO SEU JEITO. 🍊
                 </h2>
                 <p className="mt-5 leading-7 text-white/70">
                   Prepare combinações de frutas de acordo com o seu gosto e transforme o momento de preparar uma bebida em uma tarefa mais prática.
                 </p>
-                <button onClick={buy} className={`${CTA} mt-7 h-14 w-full bg-[#f97316] px-7 text-white sm:w-auto`}>
+                <button onClick={buy} className={`${CTA} mt-7 h-14 w-full bg-[#dc2626] px-7 text-white sm:w-auto`}>
                   QUERO EXPERIMENTAR <ArrowRight className="size-5" />
                 </button>
               </div>
@@ -263,31 +263,31 @@ function Page() {
 
         <section className="px-4 py-14 sm:py-20">
           <div className="mx-auto max-w-4xl text-center">
-            <span className="rounded-full bg-[#fff0e1] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#ea580c]">OFERTA AURELIS</span>
+            <span className="rounded-full bg-[#fef9c3] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#dc2626]">OFERTA AURELIS</span>
             <h2 className="mt-5 text-3xl font-black tracking-[-.04em] sm:text-5xl">FRESHMIX PRO 4 EM 1</h2>
-            <p className="mt-3 text-base font-bold text-[#555]">Faça Sumos Naturais em Segundos.</p>
+            <p className="mt-3 text-base font-bold text-[#4b5563]">Faça Sumos Naturais em Segundos.</p>
             <div className="mt-5 flex items-center justify-center gap-3">
               <span className="text-4xl font-black">{formatKz(PRODUCT.price)}</span>
-              <span className="text-xl font-bold text-[#999] line-through">{formatKz(PRODUCT.oldPrice)}</span>
+              <span className="text-xl font-bold text-[#94a3b8] line-through">{formatKz(PRODUCT.oldPrice)}</span>
             </div>
-            <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-[#f97316] px-8 text-base text-white shadow-xl sm:w-auto sm:text-lg`}>
+            <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-[#16a34a] px-8 text-base text-white shadow-xl sm:w-auto sm:text-lg`}>
               🍊 ENCOMENDAR AGORA <ArrowRight className="size-5" />
             </button>
-            <p className="mt-4 text-xs font-bold text-[#666]">🚚 Entrega grátis em Luanda • 💵 Pagamento na entrega</p>
+            <p className="mt-4 text-xs font-bold text-[#4b5563]">🚚 Entrega grátis em Luanda • 💵 Pagamento na entrega</p>
           </div>
         </section>
 
         <section className="bg-[#fff7ed] px-4 py-14 sm:py-20">
           <div className="mx-auto max-w-3xl">
             <h2 className="text-center text-3xl font-black tracking-[-.04em] sm:text-5xl">PERGUNTAS FREQUENTES</h2>
-            <div className="mt-8 divide-y divide-orange-100 rounded-[2rem] border border-orange-100 bg-white px-5 shadow-sm">
+            <div className="mt-8 divide-y divide-green-100 rounded-[2rem] border border-green-100 bg-white px-5 shadow-sm">
               {faqs.map(([q, a]) => (
                 <details key={q} className="group py-5">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-black">
                     <span>{q}</span>
                     <ChevronDown className="size-5 shrink-0 text-[#f97316] transition group-open:rotate-180" />
                   </summary>
-                  <p className="mt-3 pr-8 text-sm leading-6 text-[#666]">{a}</p>
+                  <p className="mt-3 pr-8 text-sm leading-6 text-[#4b5563]">{a}</p>
                 </details>
               ))}
             </div>
@@ -301,7 +301,7 @@ function Page() {
             FreshMix Pro 4 em 1 — uma solução prática para preparar sumos naturais em casa.
           </p>
           <div className="mt-5 text-4xl font-black">{formatKz(PRODUCT.price)}</div>
-          <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-white px-8 text-base text-[#ea580c] shadow-2xl sm:w-auto sm:text-lg`}>
+          <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-white px-8 text-base text-[#16a34a] shadow-2xl sm:w-auto sm:text-lg`}>
             🍊 QUERO A FRESHMIX PRO <ArrowRight className="size-5" />
           </button>
           <p className="mt-4 text-xs font-bold text-white/80">📲 950 532 879 • 🚚 Entrega grátis em Luanda</p>
@@ -309,17 +309,17 @@ function Page() {
       </main>
 
       <div className="h-20 md:hidden" />
-      <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t border-orange-100 bg-white/95 p-2.5 pb-[calc(.625rem+env(safe-area-inset-bottom))] shadow-[0_-10px_35px_rgba(0,0,0,.12)] backdrop-blur md:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t border-green-100 bg-white/95 p-2.5 pb-[calc(.625rem+env(safe-area-inset-bottom))] shadow-[0_-10px_35px_rgba(0,0,0,.12)] backdrop-blur md:hidden">
         <div className="min-w-0">
-          <span className="block text-[9px] font-black uppercase text-[#777]">FRESHMIX PRO 4 EM 1</span>
+          <span className="block text-[9px] font-black uppercase text-[#64748b]">FRESHMIX PRO 4 EM 1</span>
           <strong className="block text-base leading-none">{formatKz(PRODUCT.price)}</strong>
         </div>
-        <button onClick={buy} className="ml-auto h-11 rounded-xl bg-[#f97316] px-5 text-xs font-black text-white shadow-lg">
+        <button onClick={buy} className="ml-auto h-11 rounded-xl bg-[#16a34a] px-5 text-xs font-black text-white shadow-lg">
           ENCOMENDAR
         </button>
       </div>
 
-      <footer className="border-t border-[#e5e5e5] px-5 py-8 text-center text-xs text-[#777]">
+      <footer className="border-t border-green-100 px-5 py-8 text-center text-xs text-[#64748b]">
         AURELIS • Contacto: 950 532 879
       </footer>
 
