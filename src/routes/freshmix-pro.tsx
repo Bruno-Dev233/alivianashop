@@ -103,13 +103,13 @@ function Page() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-[#172018]">
       <section className="border-b border-green-100 bg-white text-[#173b24]">
-        <div className="px-4 py-4 text-center">
-          <h1 className="text-xl font-black tracking-[-.03em] sm:text-3xl">
+        <div className="px-4 py-3 text-center">
+          <h1 className="whitespace-nowrap text-[clamp(1.05rem,4.5vw,1.9rem)] font-black leading-none tracking-[-.035em]">
             Enviamos para todo o território nacional 🇦🇴
           </h1>
         </div>
 
-        <div className="overflow-hidden py-3">
+        <div className="overflow-hidden bg-[#173b24] py-3 text-white">
           <div className="freshmix-marquee flex w-max whitespace-nowrap">
             <span className="px-5 text-sm font-black tracking-[.01em] sm:text-base">
               ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
