@@ -517,6 +517,7 @@ function Page() {
         open={checkoutOpen}
         onOpenChange={setCheckoutOpen}
         quantity={offerQuantity}
+        minQuantity={offerQuantity}
         onQuantityChange={setOfferQuantity}
         onPlaced={(order) => {
           trackPurchase(order);
