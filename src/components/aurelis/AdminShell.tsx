@@ -7,6 +7,7 @@ import {
   Loader2,
   LogOut,
   LayoutTemplate,
+  RadioTower,
   Menu,
   Package,
   ShoppingCart,
@@ -42,6 +43,7 @@ const FULL_NAV = [
   { to: "/admin/pedidos", label: "Pedidos", icon: ShoppingCart },
   { to: "/admin/product", label: "Produtos", icon: Package },
   { to: "/admin/landing", label: "Landing Pages", icon: LayoutTemplate },
+  { to: "/admin/rastreamento", label: "Rastreamento", icon: RadioTower },
   { to: "/admin/mais", label: "Mais", icon: MoreHorizontal },
 ] as const;
 
