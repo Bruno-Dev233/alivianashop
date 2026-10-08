@@ -168,7 +168,7 @@ function Page() {
       <header className="sticky top-0 z-40 border-b border-[#dce8ee] bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
           <img src={alivianaLogo} alt="AURELIS" className="h-8 w-auto object-contain sm:h-9" />
-          <button onClick={buy} className={`${CTA} h-11 bg-[#16A34A] px-5 text-sm text-white shadow-lg shadow-[#16A34A]/25 hover:bg-[#15803D]`}>
+          <button onClick={buy} className={`${CTA} h-11 bg-[#173b24] px-5 text-sm text-white shadow-lg shadow-[#173b24]/30 hover:bg-[#1f5233]`}>
             <Car className="size-4" /> ENCOMENDAR
           </button>
         </div>
@@ -250,7 +250,7 @@ function Page() {
               })}
             </div>
 
-            <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-[#16A34A] px-7 text-base text-white shadow-xl shadow-[#16A34A]/25 hover:bg-[#15803D] sm:text-lg`}>
+            <button onClick={buy} className={`${CTA} mt-7 h-16 w-full bg-[#173b24] px-7 text-base text-white shadow-xl shadow-[#173b24]/25 hover:bg-[#1f5233] sm:text-lg`}>
               🚗 QUERO O MEU HYDROFORCE <ArrowRight className="size-5" />
             </button>
 
@@ -328,7 +328,7 @@ function Page() {
 
               <button
                 onClick={buy}
-                className={`${CTA} mt-8 h-14 bg-[#16A34A] px-7 text-white shadow-xl shadow-[#16A34A]/25 hover:bg-[#15803D]`}
+                className={`${CTA} mt-8 h-14 bg-[#173b24] px-7 text-white shadow-xl shadow-[#173b24]/25 hover:bg-[#1f5233]`}
               >
                 🚗 QUERO O MEU AGORA <ArrowRight className="size-5" />
               </button>
@@ -462,7 +462,7 @@ function Page() {
 
               <button
                 onClick={buy}
-                className={`${CTA} mt-7 h-15 w-full bg-[#16A34A] px-7 py-4 text-white shadow-xl shadow-[#16A34A]/20 hover:bg-[#15803D] sm:w-auto`}
+                className={`${CTA} mt-7 h-15 w-full bg-white px-7 py-4 text-[#173b24] shadow-xl hover:bg-[#eef8ff] sm:w-auto`}
               >
                 🚗 QUERO O LAVA JATO ULTRA <ArrowRight className="size-5" />
               </button>
@@ -520,7 +520,7 @@ function Page() {
             </div>
             <button
               onClick={buy}
-              className={`${CTA} mt-7 h-16 w-full bg-[#16A34A] px-8 text-base text-white shadow-xl shadow-[#16A34A]/25 hover:bg-[#15803D] sm:w-auto sm:text-lg`}
+              className={`${CTA} mt-7 h-16 w-full bg-white px-8 text-base text-[#173b24] shadow-xl hover:bg-[#eef8ff] sm:w-auto sm:text-lg`}
             >
               🚗 QUERO O MEU LAVA JATO ULTRA
               <ArrowRight className="size-5" />
@@ -545,7 +545,7 @@ function Page() {
         </div>
         <button
           onClick={buy}
-          className="ml-auto h-11 rounded-xl bg-[#16A34A] px-5 text-xs font-black text-white shadow-lg hover:bg-[#15803D]"
+          className="ml-auto h-11 rounded-xl bg-[#173b24] px-5 text-xs font-black text-white shadow-lg hover:bg-[#1f5233]"
         >
           ENCOMENDAR AGORA
         </button>
