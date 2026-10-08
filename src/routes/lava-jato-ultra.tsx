@@ -280,7 +280,7 @@ function Page() {
             </div>
 
             <div className="mt-7 space-y-4">
-              [
+              {[
                 { quantity: 1, label: "🥇 1 UNIDADE", price: 54990, old: 89990, saving: 35000 },
                 { quantity: 2, label: "🥈 PACK 2", price: 89990, old: 179980, saving: 89990, badge: "Mais Popular", sublabel: "➡️ 2 unidades por 89.990 Kz" },
                 { quantity: 3, label: "🥉 PACK 3", price: 119990, old: 269970, saving: 149980, badge: "Melhor Valor", sublabel: "➡️ 3 unidades por 119.990 Kz" },
