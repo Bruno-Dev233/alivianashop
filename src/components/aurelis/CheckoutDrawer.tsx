@@ -163,12 +163,52 @@ export function CheckoutDrawer({
       },
     }).catch(() => undefined);
 
-    if (typeof window !== "undefined" && typeof window.fbq === "function") {
-      window.fbq("track", "Purchase", {
-        value: subtotal,
+    // Track Purchase only after the order was successfully saved to Supabase.
+    // Ensure the pixel is available on every landing page, not only pages that
+    // initialize it locally. If the pixel already exists, reuse it.
+    if (typeof window !== "undefined") {
+      const pixelId = "1759106692011159";
+      const w = window as Window & {
+        fbq?: ((...args: unknown[]) => void) & { queue?: unknown[][]; loaded?: boolean; version?: string };
+        _fbq?: unknown;
+      };
+
+      if (typeof w.fbq !== "function") {
+        type FbqStub = ((...args: unknown[]) => void) & { queue?: unknown[][]; loaded?: boolean; version?: string };
+        const fbq: FbqStub = function (...args: unknown[]) {
+          fbq.queue = fbq.queue || [];
+          fbq.queue.push(args);
+        };
+        fbq.queue = [];
+        fbq.loaded = true;
+        fbq.version = "2.0";
+        w.fbq = fbq;
+        w._fbq = fbq;
+
+        if (!document.querySelector('script[data-aurelis-meta-pixel="true"]')) {
+          const script = document.createElement("script");
+          script.async = true;
+          script.src = "https://connect.facebook.net/en_US/fbevents.js";
+          script.dataset["aurelisMetaPixel"] = "true";
+          document.head.appendChild(script);
+        }
+        fbq("init", pixelId);
+        fbq("track", "PageView");
+      }
+
+      const eventId = typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `aurelis-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+      w.fbq("track", "Purchase", {
+        value: Number(subtotal.toFixed(2)),
         currency: "AOA",
-        contents: [{ id: product.id, quantity, item_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price }],
+        content_name: product.name,
+        content_ids: [product.id],
+        contents: [{ id: product.id, quantity, item_price: Number((subtotal / quantity).toFixed(2)) }],
         content_type: "product",
+        num_items: quantity,
+        eventID: eventId,
       });
     }
 
