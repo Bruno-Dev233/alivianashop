@@ -208,8 +208,7 @@ export function CheckoutDrawer({
         contents: [{ id: product.id, quantity, item_price: Number((subtotal / quantity).toFixed(2)) }],
         content_type: "product",
         num_items: quantity,
-        eventID: eventId,
-      });
+      }, { eventID: eventId });
     }
 
     onOpenChange(false);
