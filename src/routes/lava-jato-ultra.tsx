@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ArrowRight,
   Car,
@@ -12,8 +12,6 @@ import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
 
-
-const META_PIXEL_ID = "1759106692011159";
 
 const PRODUCT = {
   id: "lava-jato-ultra",
@@ -76,46 +74,6 @@ function Page() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [offerQuantity, setOfferQuantity] = useState(1);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const existing = document.querySelector(
-      'script[data-aurelis-meta-pixel="true"]',
-    );
-
-    if (window.fbq) {
-      window.fbq("init", META_PIXEL_ID);
-      window.fbq("track", "PageView");
-      return;
-    }
-
-    type FbqStub = ((...args: unknown[]) => void) & {
-      queue?: unknown[][];
-      loaded?: boolean;
-      version?: string;
-    };
-    const fbq: FbqStub = function (...args: unknown[]) {
-      fbq.queue = fbq.queue || [];
-      fbq.queue.push(args);
-    };
-
-    fbq.loaded = true;
-    fbq.version = "2.0";
-    fbq.queue = [];
-    window.fbq = fbq;
-
-    if (!existing) {
-      const script = document.createElement("script");
-      script.async = true;
-      script.src = "https://connect.facebook.net/en_US/fbevents.js";
-      script.dataset["aurelisMetaPixel"] = "true";
-      document.head.appendChild(script);
-    }
-
-    fbq("init", META_PIXEL_ID);
-    fbq("track", "PageView");
-  }, []);
-
   const selectedOffer = [
     { quantity: 1, price: 54990, old: 89990 },
     { quantity: 2, price: 89990, old: 179980 },
@@ -130,28 +88,6 @@ function Page() {
   };
 
   const buy = () => setCheckoutOpen(true);
-
-  const trackPurchase = (order: { quantity: number; total: number }) => {
-    if (typeof window === "undefined") return;
-
-    const sendPurchase = () => {
-      window.fbq?.("track", "Purchase", {
-        value: Number(order.total),
-        currency: "AOA",
-        content_name: PRODUCT.name,
-        content_ids: [PRODUCT.id],
-        content_type: "product",
-        num_items: order.quantity,
-      });
-    };
-
-    if (window.fbq) {
-      sendPurchase();
-      return;
-    }
-
-    window.setTimeout(sendPurchase, 1000);
-  };
 
   const benefits = [
     {
@@ -523,7 +459,6 @@ function Page() {
         totalPriceOverride={selectedOffer.price}
         onQuantityChange={setOfferQuantity}
         onPlaced={(order) => {
-          trackPurchase(order);
           navigate({
             to: "/obrigado",
             search: {
