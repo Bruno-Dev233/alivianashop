@@ -167,7 +167,7 @@ export function CheckoutDrawer({
     // Ensure the pixel is available on every landing page, not only pages that
     // initialize it locally. If the pixel already exists, reuse it.
     if (typeof window !== "undefined") {
-      const pixelId = "1759106692011159";
+      const pixelId = "2683139542142425";
       const w = window as Window & {
         fbq?: ((...args: unknown[]) => void) & { queue?: unknown[][]; loaded?: boolean; version?: string };
         _fbq?: unknown;
@@ -193,7 +193,6 @@ export function CheckoutDrawer({
           document.head.appendChild(script);
         }
         fbq("init", pixelId);
-        fbq("track", "PageView");
       }
 
       const eventId = typeof crypto !== "undefined" && "randomUUID" in crypto
