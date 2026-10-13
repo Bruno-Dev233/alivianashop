@@ -16,9 +16,9 @@ import alivianaLogo from "@/assets/aliviana-logo.png";
 const PRODUCT = {
   id: "lava-jato-ultra",
   name: "HydroForce",
-  price: 54990,
-  oldPrice: 89990,
-  discount: 39,
+  price: 74990,
+  oldPrice: 109990,
+  discount: 32,
   image: "https://ia600701.us.archive.org/8/items/captura-de-ecra-2026-10-03-114940/Captura%20de%20ecr%C3%A3%202026-10-03%20114940.png",
 };
 
@@ -75,10 +75,10 @@ function Page() {
   const [offerQuantity, setOfferQuantity] = useState(1);
 
   const selectedOffer = [
-    { quantity: 1, price: 54990, old: 89990 },
-    { quantity: 2, price: 89990, old: 179980 },
-    { quantity: 3, price: 119990, old: 269970 },
-  ].find((offer) => offer.quantity === offerQuantity) ?? { quantity: 1, price: 54990, old: 89990 };
+    { quantity: 1, price: 74990, old: 109990 },
+    { quantity: 2, price: 109990, old: 199980 },
+    { quantity: 3, price: 139990, old: 289970 },
+  ].find((offer) => offer.quantity === offerQuantity) ?? { quantity: 1, price: 74990, old: 109990 };
 
   const checkoutProduct: Product = {
     ...product,
@@ -225,9 +225,9 @@ function Page() {
 
             <div className="mt-7 space-y-4">
               {[
-                { quantity: 1, label: "🥇 1 UNIDADE", price: 54990, old: 89990, saving: 35000 },
-                { quantity: 2, label: "🥈 PACK 2", price: 89990, old: 179980, saving: 89990, badge: "Mais Popular", sublabel: "➡️ 2 unidades por 89.990 Kz" },
-                { quantity: 3, label: "🥉 PACK 3", price: 119990, old: 269970, saving: 149980, badge: "Melhor Valor", sublabel: "➡️ 3 unidades por 119.990 Kz" },
+                { quantity: 1, label: "🥇 1 UNIDADE", price: 74990, old: 109990, saving: 35000 },
+                { quantity: 2, label: "🥈 PACK 2", price: 109990, old: 199980, saving: 89990, badge: "Mais Popular", sublabel: "➡️ 2 unidades por 109.990 Kz" },
+                { quantity: 3, label: "🥉 PACK 3", price: 139990, old: 289970, saving: 149980, badge: "Melhor Valor", sublabel: "➡️ 3 unidades por 139.990 Kz" },
               ].map((offer) => {
                 const selected = offerQuantity === offer.quantity;
                 return (
