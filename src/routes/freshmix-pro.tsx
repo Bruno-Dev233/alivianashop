@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
+import maveroLogo from "@/assets/mavero-logo.png";
 
 const ASSETS = {
   main: "https://files.catbox.moe/k7zxc7.png",
