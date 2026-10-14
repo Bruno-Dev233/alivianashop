@@ -135,7 +135,13 @@ function Page() {
 
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-          <div className="text-2xl font-black tracking-[-.06em] text-[#16a34a]">AURELIS</div>
+          <img
+            src={maveroLogo}
+            alt="MAVERO"
+            className="h-7 w-auto object-contain sm:h-9"
+            width={1431}
+            height={227}
+          />
           <button onClick={buy} className={`${CTA} h-11 bg-[#173b24] px-5 text-xs text-white shadow-lg sm:text-sm`}>
             <ShoppingBag className="size-4" /> ENCOMENDAR
           </button>
