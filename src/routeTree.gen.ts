@@ -30,8 +30,8 @@ import { Route as AdminFinancasRouteImport } from './routes/admin.financas'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminMaisRouteImport } from './routes/admin.mais'
 import { Route as AdminPedidosRouteImport } from './routes/admin.pedidos'
-import { Route as AdminRastreamentoRouteImport } from './routes/admin.rastreamento'
 import { Route as AdminProductRouteImport } from './routes/admin.product'
+import { Route as AdminRastreamentoRouteImport } from './routes/admin.rastreamento'
 import { Route as AdminLandingIndexRouteImport } from './routes/admin.landing.index'
 import { Route as AdminLandingSlugRouteImport } from './routes/admin.landing.$slug'
 
@@ -140,14 +140,14 @@ const AdminPedidosRoute = AdminPedidosRouteImport.update({
   path: '/pedidos',
   getParentRoute: () => AdminRoute,
 } as any)
-const AdminRastreamentoRoute = AdminRastreamentoRouteImport.update({
-  id: '/rastreamento',
-  path: '/rastreamento',
-  getParentRoute: () => AdminRoute,
-} as any)
 const AdminProductRoute = AdminProductRouteImport.update({
   id: '/product',
   path: '/product',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRastreamentoRoute = AdminRastreamentoRouteImport.update({
+  id: '/rastreamento',
+  path: '/rastreamento',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminLandingIndexRoute = AdminLandingIndexRouteImport.update({
@@ -182,10 +182,8 @@ export interface FileRoutesByFullPath {
   '/admin/login': typeof AdminLoginRoute
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
-  '/admin/rastreamento': typeof AdminRastreamentoRoute
-  '/admin/rastreamento': typeof AdminRastreamentoRoute
-  '/admin/rastreamento': typeof AdminRastreamentoRoute
   '/admin/product': typeof AdminProductRoute
+  '/admin/rastreamento': typeof AdminRastreamentoRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/landing/$slug': typeof AdminLandingSlugRoute
   '/admin/landing/': typeof AdminLandingIndexRoute
@@ -211,6 +209,7 @@ export interface FileRoutesByTo {
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/product': typeof AdminProductRoute
+  '/admin/rastreamento': typeof AdminRastreamentoRoute
   '/admin': typeof AdminIndexRoute
   '/admin/landing/$slug': typeof AdminLandingSlugRoute
   '/admin/landing': typeof AdminLandingIndexRoute
@@ -238,6 +237,7 @@ export interface FileRoutesById {
   '/admin/mais': typeof AdminMaisRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/product': typeof AdminProductRoute
+  '/admin/rastreamento': typeof AdminRastreamentoRoute
   '/admin/': typeof AdminIndexRoute
   '/admin/landing/$slug': typeof AdminLandingSlugRoute
   '/admin/landing/': typeof AdminLandingIndexRoute
@@ -266,6 +266,7 @@ export interface FileRouteTypes {
     | '/admin/mais'
     | '/admin/pedidos'
     | '/admin/product'
+    | '/admin/rastreamento'
     | '/admin/'
     | '/admin/landing/$slug'
     | '/admin/landing/'
@@ -291,6 +292,7 @@ export interface FileRouteTypes {
     | '/admin/mais'
     | '/admin/pedidos'
     | '/admin/product'
+    | '/admin/rastreamento'
     | '/admin'
     | '/admin/landing/$slug'
     | '/admin/landing'
@@ -317,6 +319,7 @@ export interface FileRouteTypes {
     | '/admin/mais'
     | '/admin/pedidos'
     | '/admin/product'
+    | '/admin/rastreamento'
     | '/admin/'
     | '/admin/landing/$slug'
     | '/admin/landing/'
@@ -496,6 +499,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProductRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/rastreamento': {
+      id: '/admin/rastreamento'
+      path: '/rastreamento'
+      fullPath: '/admin/rastreamento'
+      preLoaderRoute: typeof AdminRastreamentoRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/landing/': {
       id: '/admin/landing/'
       path: '/landing'
@@ -519,8 +529,8 @@ interface AdminRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMaisRoute: typeof AdminMaisRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
-  AdminRastreamentoRoute: typeof AdminRastreamentoRoute
   AdminProductRoute: typeof AdminProductRoute
+  AdminRastreamentoRoute: typeof AdminRastreamentoRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminLandingSlugRoute: typeof AdminLandingSlugRoute
   AdminLandingIndexRoute: typeof AdminLandingIndexRoute
@@ -532,8 +542,8 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminMaisRoute: AdminMaisRoute,
   AdminPedidosRoute: AdminPedidosRoute,
-  AdminRastreamentoRoute: AdminRastreamentoRoute,
   AdminProductRoute: AdminProductRoute,
+  AdminRastreamentoRoute: AdminRastreamentoRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminLandingSlugRoute: AdminLandingSlugRoute,
   AdminLandingIndexRoute: AdminLandingIndexRoute,
