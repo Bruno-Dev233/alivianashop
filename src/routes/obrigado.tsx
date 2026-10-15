@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CheckCircle2 } from "lucide-react";
+import { useEffect } from "react";
 import { z } from "zod";
 
 import { formatKz } from "@/lib/aurelis";
@@ -28,6 +29,22 @@ export const Route = createFileRoute("/obrigado")({
 
 function ThankYou() {
   const { produto, qtd, total } = Route.useSearch();
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.fbq !== "function") return;
+    const key = "aurelis_purchase_tracked";
+    const signature = `${produto ?? ""}|${qtd ?? ""}|${total ?? ""}`;
+    if (window.sessionStorage.getItem(key) === signature) return;
+    window.sessionStorage.setItem(key, signature);
+    window.fbq("track", "Purchase", {
+      value: total ?? 0,
+      currency: "AOA",
+      content_name: produto ?? "Pedido",
+      content_type: "product",
+      num_items: qtd ?? 1,
+    });
+  }, [produto, qtd, total]);
+
   const rows: [string, string][] = [
     ["Produto", produto ?? "—"],
     ["Quantidade", qtd ? String(qtd) : "—"],
