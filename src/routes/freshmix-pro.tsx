@@ -89,7 +89,7 @@ function Page() {
     { quantity: 2, label: "2X FRESHMIX", price: 119900, old: 179800, saving: 59900, badge: "MAIS COMPRADO" },
     { quantity: 3, label: "3X FRESHMIX", price: 169900, old: 269700, saving: 99800, badge: "MELHOR VALOR" },
   ];
-  const selectedOffer = offers.find((offer) => offer.quantity === offerQuantity) ?? offers[0];
+  const selectedOffer = offers.find((offer) => offer.quantity === offerQuantity) ?? offers[0]!;
   const buy = () => setCheckoutOpen(true);
   const discount = Math.round(((PRODUCT.oldPrice - PRODUCT.price) / PRODUCT.oldPrice) * 100);
 

@@ -91,7 +91,17 @@ export function CheckoutDrawer({
     window.dispatchEvent(
       new CustomEvent("aurelis:checkout", { detail: { open, productName: product.name } }),
     );
-  }, [open, product.name]);
+    if (open && typeof window.fbq === "function") {
+      window.fbq("track", "InitiateCheckout", {
+        value: Number(subtotal.toFixed(2)),
+        currency: "AOA",
+        content_name: product.name,
+        content_ids: [product.id],
+        content_type: "product",
+        num_items: quantity,
+      });
+    }
+  }, [open, product.name, product.id, quantity, subtotal]);
   const set = (key: FieldKey, value: string) => setValues((v) => ({ ...v, [key]: value }));
 
   const validate = () => {
@@ -167,7 +177,7 @@ export function CheckoutDrawer({
     // Ensure the pixel is available on every landing page, not only pages that
     // initialize it locally. If the pixel already exists, reuse it.
     if (typeof window !== "undefined") {
-      const pixelId = "2683139542142425";
+      const pixelId = "4582169178770467";
       const w = window as Window & {
         fbq?: ((...args: unknown[]) => void) & { queue?: unknown[][]; loaded?: boolean; version?: string };
         _fbq?: unknown;
