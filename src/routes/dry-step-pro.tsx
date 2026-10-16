@@ -4,6 +4,7 @@ import { ArrowRight, Check, ShieldCheck, Truck, Wind, Zap, Footprints, PackageCh
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
+import dryStepMainAsset from "@/assets/drystep-pro-main.webp.asset.json";
 
 const PRODUCT = {
   id: "dry-step-pro",
@@ -11,7 +12,7 @@ const PRODUCT = {
   price: 45999,
   oldPrice: 79999,
   discount: 42,
-  image: "https://files.catbox.moe/55rryk.webp",
+  image: dryStepMainAsset.url,
 };
 
 const product: Product = {
@@ -44,7 +45,7 @@ export const Route = createFileRoute("/dry-step-pro")({
       { name: "description", content: "DryStep Pro: uma forma prática de ajudar a secar sapatos húmidos. Encomende e pague apenas na entrega." },
       { property: "og:title", content: "DryStep Pro — Secador Elétrico de Sapatos" },
       { property: "og:description", content: "Cuide do seu calçado com mais praticidade no dia a dia." },
-      { property: "og:image", content: PRODUCT.image },
+      { property: "og:image", content: `https://lojaurelis.lovable.app${dryStepMainAsset.url}` },
       { property: "og:type", content: "product" },
     ],
   }),
@@ -61,7 +62,7 @@ function Page() {
     { quantity: 2, label: "PACK 2", price: 79999, old: 159998, saving: 79999, badge: "MAIS POPULAR" },
     { quantity: 3, label: "PACK 3", price: 109999, old: 239997, saving: 129998, badge: "MELHOR VALOR" },
   ];
-  const selectedOffer = offers.find((offer) => offer.quantity === offerQuantity) ?? offers[0];
+  const selectedOffer = offers.find((offer) => offer.quantity === offerQuantity) ?? offers[0]!;
 
   const checkoutProduct: Product = {
     ...product,
@@ -114,7 +115,7 @@ function Page() {
             </div>
 
             <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-[#e2e5df] bg-white p-3 shadow-[0_25px_70px_rgba(38,59,52,.12)] sm:p-6">
-              <span className="absolute left-5 top-5 z-10 rounded-full bg-[#263b34] px-4 py-2 text-sm font-black text-white shadow-lg">-{PRODUCT.discount}%</span>
+              <span className="absolute right-5 top-5 z-10 rounded-full bg-[#263b34] px-4 py-2 text-sm font-black text-white shadow-lg">-{PRODUCT.discount}%</span>
               <img src={PRODUCT.image} alt="DryStep Pro — Secador Elétrico de Sapatos" className="aspect-square w-full rounded-[1.5rem] object-contain" />
             </div>
 
