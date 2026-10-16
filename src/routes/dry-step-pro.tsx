@@ -89,11 +89,11 @@ function Page() {
             <span className="px-5 text-sm font-black sm:text-base" aria-hidden="true">🚚 ENVIO PARA TODO O PAÍS ✦ 🛡️ 30 DIAS DE GARANTIA ✦ PRODUTOS SELECIONADOS COM QUALIDADE E CONFIANÇA ✦</span>
           </div>
         </div>
-        <style>{\`
+        <style>{`
           @keyframes dry-marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
           .dry-marquee { animation: dry-marquee 20s linear infinite; will-change: transform; }
           @media (prefers-reduced-motion: reduce) { .dry-marquee { animation: none; } }
-        \`}</style>
+        `}</style>
       </section>
 
       <header className="sticky top-0 z-40 border-b border-[#e2e5df] bg-[#f7f7f4]/95 backdrop-blur">
