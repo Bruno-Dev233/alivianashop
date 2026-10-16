@@ -62,7 +62,7 @@ function Page() {
     { quantity: 2, label: "PACK 2", price: 79999, old: 159998, saving: 79999, badge: "MAIS POPULAR" },
     { quantity: 3, label: "PACK 3", price: 109999, old: 239997, saving: 129998, badge: "MELHOR VALOR" },
   ];
-  const selectedOffer = offers.find((offer) => offer.quantity === offerQuantity) ?? offers[0];
+  const selectedOffer = offers.find((offer) => offer.quantity === offerQuantity) ?? offers[0]!;
 
   const checkoutProduct: Product = {
     ...product,
