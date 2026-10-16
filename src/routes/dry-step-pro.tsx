@@ -115,7 +115,7 @@ function Page() {
             </div>
 
             <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-[#e2e5df] bg-white p-3 shadow-[0_25px_70px_rgba(38,59,52,.12)] sm:p-6">
-              <span className="absolute left-5 top-5 z-10 rounded-full bg-[#263b34] px-4 py-2 text-sm font-black text-white shadow-lg">-{PRODUCT.discount}%</span>
+              <span className="absolute right-5 top-5 z-10 rounded-full bg-[#263b34] px-4 py-2 text-sm font-black text-white shadow-lg">-{PRODUCT.discount}%</span>
               <img src={PRODUCT.image} alt="DryStep Pro — Secador Elétrico de Sapatos" className="aspect-square w-full rounded-[1.5rem] object-contain" />
             </div>
 
