@@ -45,7 +45,7 @@ export const Route = createFileRoute("/dry-step-pro")({
       { name: "description", content: "DryStep Pro: uma forma prática de ajudar a secar sapatos húmidos. Encomende e pague apenas na entrega." },
       { property: "og:title", content: "DryStep Pro — Secador Elétrico de Sapatos" },
       { property: "og:description", content: "Cuide do seu calçado com mais praticidade no dia a dia." },
-      { property: "og:image", content: PRODUCT.image },
+      { property: "og:image", content: `https://lojaurelis.lovable.app${dryStepMainAsset.url}` },
       { property: "og:type", content: "product" },
     ],
   }),
