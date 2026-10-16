@@ -16,6 +16,7 @@ import { Route as AquaGoRouteImport } from './routes/aqua-go'
 import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-partida'
 import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal-shot'
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
+import { Route as DryStepProRouteImport } from './routes/dry-step-pro'
 import { Route as FreshmixProRouteImport } from './routes/freshmix-pro'
 import { Route as IrrigadorBucalRouteImport } from './routes/irrigador-bucal'
 import { Route as LancheiraEletricaRouteImport } from './routes/lancheira-eletrica'
@@ -68,6 +69,11 @@ const CelimaxRetinalShotRoute = CelimaxRetinalShotRouteImport.update({
 const DepiladorEletricoRoute = DepiladorEletricoRouteImport.update({
   id: '/depilador-eletrico',
   path: '/depilador-eletrico',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DryStepProRoute = DryStepProRouteImport.update({
+  id: '/dry-step-pro',
+  path: '/dry-step-pro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FreshmixProRoute = FreshmixProRouteImport.update({
@@ -169,6 +175,8 @@ export interface FileRoutesByFullPath {
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/dry-step-pro': typeof DryStepProRoute
+  '/dry-step-pro': typeof DryStepProRoute
   '/freshmix-pro': typeof FreshmixProRoute
   '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
@@ -252,6 +260,7 @@ export interface FileRouteTypes {
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
+    | '/dry-step-pro'
     | '/freshmix-pro'
     | '/irrigador-bucal'
     | '/lancheira-eletrica'
@@ -333,6 +342,7 @@ export interface RootRouteChildren {
   AuxiliadorPartidaRoute: typeof AuxiliadorPartidaRoute
   CelimaxRetinalShotRoute: typeof CelimaxRetinalShotRoute
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
+  DryStepProRoute: typeof DryStepProRoute
   FreshmixProRoute: typeof FreshmixProRoute
   IrrigadorBucalRoute: typeof IrrigadorBucalRoute
   LancheiraEletricaRoute: typeof LancheiraEletricaRoute
@@ -392,6 +402,13 @@ declare module '@tanstack/react-router' {
       path: '/depilador-eletrico'
       fullPath: '/depilador-eletrico'
       preLoaderRoute: typeof DepiladorEletricoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dry-step-pro': {
+      id: '/dry-step-pro'
+      path: '/dry-step-pro'
+      fullPath: '/dry-step-pro'
+      preLoaderRoute: typeof DryStepProRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/freshmix-pro': {
@@ -559,6 +576,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuxiliadorPartidaRoute: AuxiliadorPartidaRoute,
   CelimaxRetinalShotRoute: CelimaxRetinalShotRoute,
   DepiladorEletricoRoute: DepiladorEletricoRoute,
+  DryStepProRoute: DryStepProRoute,
   FreshmixProRoute: FreshmixProRoute,
   IrrigadorBucalRoute: IrrigadorBucalRoute,
   LancheiraEletricaRoute: LancheiraEletricaRoute,
