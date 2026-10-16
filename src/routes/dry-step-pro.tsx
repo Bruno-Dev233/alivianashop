@@ -4,6 +4,7 @@ import { ArrowRight, Check, ShieldCheck, Truck, Wind, Zap, Footprints, PackageCh
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
+import dryStepMainAsset from "@/assets/drystep-pro-main.webp.asset.json";
 
 const PRODUCT = {
   id: "dry-step-pro",
@@ -11,7 +12,7 @@ const PRODUCT = {
   price: 45999,
   oldPrice: 79999,
   discount: 42,
-  image: "https://files.catbox.moe/55rryk.webp",
+  image: dryStepMainAsset.url,
 };
 
 const product: Product = {
