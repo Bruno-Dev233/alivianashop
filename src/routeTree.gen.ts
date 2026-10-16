@@ -176,7 +176,6 @@ export interface FileRoutesByFullPath {
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
   '/dry-step-pro': typeof DryStepProRoute
-  '/dry-step-pro': typeof DryStepProRoute
   '/freshmix-pro': typeof FreshmixProRoute
   '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
@@ -203,6 +202,7 @@ export interface FileRoutesByTo {
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/dry-step-pro': typeof DryStepProRoute
   '/freshmix-pro': typeof FreshmixProRoute
   '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
@@ -231,6 +231,7 @@ export interface FileRoutesById {
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
+  '/dry-step-pro': typeof DryStepProRoute
   '/freshmix-pro': typeof FreshmixProRoute
   '/irrigador-bucal': typeof IrrigadorBucalRoute
   '/lancheira-eletrica': typeof LancheiraEletricaRoute
