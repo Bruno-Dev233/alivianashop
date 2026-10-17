@@ -4,7 +4,7 @@ import { ArrowRight, Check, CircleHelp, Droplets, Hand, PackageCheck, ShieldChec
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
-import dispenserAsset from "@/assets/dispensador-sabao-espuma.webp.asset.json";
+import dispenserAsset from "@/assets/dispensador-sabao-espuma-main.webp.asset.json";
 
 const PRODUCT = {
   id: "dispensador-sabao-espuma",
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/dispensador-sabao-espuma")({
       { name: "description", content: "Simplifique a higiene das mãos com um dispensador de sabão em espuma com sensor automático e utilização sem toque. Promoção: 29.999 Kz." },
       { property: "og:title", content: "Dispensador de Sabão em Espuma — Sensor Automático Sem Toque" },
       { property: "og:description", content: "Mais praticidade para lavar as mãos, com dispensa automática de espuma." },
-      { property: "og:image", content: PRODUCT.image },
+      { property: "og:image", content: `https://lojaurelis.lovable.app${PRODUCT.image}` },
       { property: "og:type", content: "product" },
     ],
   }),
