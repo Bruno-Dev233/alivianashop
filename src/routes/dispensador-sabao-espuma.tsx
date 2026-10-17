@@ -127,6 +127,24 @@ function Page() {
               </div>
             </div>
 
+            <section className="mt-10 overflow-hidden rounded-[2rem] border border-[#dbe8e5] bg-white p-3 shadow-[0_20px_60px_rgba(18,63,58,.10)] sm:mt-12 sm:p-5">
+              <div className="mx-auto max-w-2xl px-2 pb-4 pt-3 text-center sm:pb-6">
+                <span className="rounded-full bg-[#e5f3ef] px-3 py-1.5 text-[11px] font-black uppercase tracking-wider text-[#26766b]">BENEFÍCIOS EM DESTAQUE</span>
+                <h2 className="mt-3 text-2xl font-black leading-tight tracking-tight sm:text-3xl">MAIS HIGIENE E PRATICIDADE EM CADA UTILIZAÇÃO</h2>
+                <p className="mt-2 text-sm leading-6 text-[#526763] sm:text-base">Veja como o sensor automático e o formato compacto podem facilitar a sua rotina.</p>
+              </div>
+              <img
+                src="https://files.catbox.moe/otiv80.png"
+                alt="Infográfico com setas a destacar os benefícios do dispensador automático de sabão em espuma: sensor sem toque, espuma, design compacto e janela para ver o nível do líquido."
+                loading="lazy"
+                className="mx-auto block h-auto w-full max-w-4xl rounded-2xl object-contain"
+              />
+              <div className="px-2 pb-3 pt-4 text-center sm:pt-5">
+                <p className="text-sm font-bold text-[#26766b]">Um pequeno gesto para uma rotina mais prática.</p>
+                <button onClick={buy} className={CTA + " mt-4 h-12 w-full bg-[#123f3a] px-5 text-sm text-white hover:bg-[#1c5750] sm:w-auto sm:px-8"}>ENCOMENDAR POR 29.999 KZ <ArrowRight className="size-4" /></button>
+              </div>
+            </section>
+
             <button onClick={buy} className={CTA + " mt-6 h-14 w-full bg-[#123f3a] px-7 text-base text-white shadow-xl hover:bg-[#1c5750] sm:text-lg"}>QUERO O MEU DISPENSADOR POR 29.999 KZ <ArrowRight className="size-5" /></button>
             <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs font-bold text-[#526763]"><span>💵 Pague apenas ao receber</span><span>🚚 Entrega ao domicílio</span><span>🔒 Encomenda simples</span></div>
           </div>
