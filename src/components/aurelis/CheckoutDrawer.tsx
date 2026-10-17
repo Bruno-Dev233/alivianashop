@@ -220,6 +220,23 @@ export function CheckoutDrawer({
       }, { eventID: eventId });
     }
 
+    // Keep the successfully registered order details for the thank-you page's WhatsApp confirmation.
+    // This uses sessionStorage only after Supabase confirms the order was saved.
+    try {
+      window.sessionStorage.setItem("aurelis_whatsapp_order", JSON.stringify({
+        productName: product.name,
+        quantity,
+        total: subtotal,
+        customerName: fullName,
+        customerPhone: values.phone.trim(),
+        address: values.address.trim(),
+        province,
+        reference,
+      }));
+    } catch {
+      // Checkout remains successful even if browser storage is unavailable.
+    }
+
     onOpenChange(false);
     onPlaced({
       productName: product.name,
