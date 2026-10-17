@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CheckCircle2 } from "lucide-react";
-import { useEffect } from "react";
+import { CheckCircle2, MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 
 import { formatKz } from "@/lib/aurelis";
@@ -30,8 +30,31 @@ export const Route = createFileRoute("/obrigado")({
 function ThankYou() {
   const { produto, qtd, total } = Route.useSearch();
 
+  const [whatsappOrder, setWhatsappOrder] = useState<{
+    productName: string;
+    quantity: number;
+    total: number;
+    customerName: string;
+    customerPhone: string;
+    address: string;
+    province: string;
+    reference?: string;
+  } | null>(null);
+
   useEffect(() => {
-    if (typeof window === "undefined" || typeof window.fbq !== "function") return;
+    if (typeof window === "undefined") return;
+
+    try {
+      const raw = window.sessionStorage.getItem("aurelis_whatsapp_order");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed.productName === "string") setWhatsappOrder(parsed);
+      }
+    } catch {
+      // Thank-you page remains usable if session storage is unavailable.
+    }
+
+    if (typeof window.fbq !== "function") return;
     const key = "aurelis_purchase_tracked";
     const signature = `${produto ?? ""}|${qtd ?? ""}|${total ?? ""}`;
     if (window.sessionStorage.getItem(key) === signature) return;
@@ -44,6 +67,27 @@ function ThankYou() {
       num_items: qtd ?? 1,
     });
   }, [produto, qtd, total]);
+
+  const confirmOnWhatsApp = () => {
+    if (!whatsappOrder || typeof window === "undefined") return;
+    const message = [
+      "Olá! 👋 Quero confirmar a minha encomenda AURELIS.",
+      "",
+      `📦 Produto: ${whatsappOrder.productName}`,
+      `🔢 Quantidade: ${whatsappOrder.quantity}`,
+      `💰 Total: ${formatKz(whatsappOrder.total)}`,
+      `👤 Nome: ${whatsappOrder.customerName}`,
+      `📞 Telefone: ${whatsappOrder.customerPhone}`,
+      `📍 Província: ${whatsappOrder.province}`,
+      `🏠 Endereço: ${whatsappOrder.address}`,
+      whatsappOrder.reference ? `📌 Ponto de referência: ${whatsappOrder.reference}` : "",
+      "",
+      "💵 Pagamento na entrega.",
+      "Por favor, confirmem a minha encomenda. Obrigado!",
+    ].filter(Boolean).join("\\n");
+    const url = `https://wa.me/244950532879?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   const rows: [string, string][] = [
     ["Produto", produto ?? "—"],
@@ -68,8 +112,18 @@ function ThankYou() {
           ))}
         </dl>
         <p className="mt-5 rounded-2xl bg-rose-soft p-3 text-sm font-medium">
-          📱 Mantenha o telefone disponível para confirmarmos a entrega.
+          📱 Confirme os dados da sua encomenda pelo WhatsApp para facilitar o acompanhamento.
         </p>
+        {whatsappOrder && (
+          <button
+            type="button"
+            onClick={confirmOnWhatsApp}
+            className="mt-4 inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-5 py-3 text-base font-bold text-white transition hover:bg-[#1fb85a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+          >
+            <MessageCircle className="size-5" />
+            Confirmar pedido no WhatsApp
+          </button>
+        )}
       </div>
     </div>
   );
