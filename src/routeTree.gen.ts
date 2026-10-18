@@ -185,8 +185,6 @@ export interface FileRoutesByFullPath {
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
   '/aurelis-relaxpro': typeof AurelisRelaxproRoute
-  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
-  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
