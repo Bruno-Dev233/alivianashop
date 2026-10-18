@@ -8,7 +8,7 @@ import { formatKz, type Product } from "@/lib/aurelis";
 const PRODUCT = {
   id: "aurelis-cloudrest",
   name: "AURELIS CloudRest™ — Poltrona Puff Insuflável com Puff para os Pés",
-  price: 79999,
+  price: 49998,
 };
 
 const product: Product = {
