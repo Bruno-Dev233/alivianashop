@@ -135,7 +135,7 @@ function Page() {
                 alt="AURELIS CloudRest™ — fotografia principal do produto"
                 loading="eager"
                 fetchPriority="high"
-                className="aspect-square w-full rounded-[1.7rem] border border-[#D8D9CE] bg-white object-contain p-3 shadow-[0_18px_55px_rgba(32,57,47,.12)]"
+                className="aspect-square w-full object-contain"
               />
             </div>
             <div className="mx-auto w-full max-w-2xl">
@@ -187,7 +187,7 @@ function Page() {
                   playsInline
                   preload="metadata"
                   controls={false}
-                  className="aspect-square w-full rounded-[1.7rem] border border-[#D8D9CE] bg-[#E7E1D2] object-contain shadow-[0_18px_55px_rgba(32,57,47,.12)]"
+                  className="aspect-square w-full object-contain"
                 />
                 <div className="py-2 md:py-8">
                   <p className="text-xs font-black uppercase tracking-[.18em] text-[#597164]">{story.eyebrow}</p>
