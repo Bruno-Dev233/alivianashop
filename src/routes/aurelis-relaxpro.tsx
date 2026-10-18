@@ -4,14 +4,13 @@ import { ArrowRight, CheckCircle2, Heart, ShieldCheck, Star, Truck, Wallet, Zap 
 import { CheckoutDrawer, type PlacedOrder } from "@/components/aurelis/CheckoutDrawer";
 import { OrderSuccessDialog } from "@/components/aurelis/OrderSuccessDialog";
 import { formatKz, type Product } from "@/lib/aurelis";
-import galeria4 from "@/assets/galeria-4.jpg.asset.json";
 
 const PRODUCT = {
   id: "aurelis-relaxpro",
   name: "AURELIS RELAXPRO™ — Massageador Elétrico de Pescoço e Costas",
   price: 59500,
   oldPrice: 101999,
-  image: galeria4.url, // Substituir pela imagem principal específica do RELAXPRO quando estiver disponível no projeto.
+  image: "https://files.catbox.moe/l73vis.png",
 };
 
 const product: Product = {
@@ -139,9 +138,8 @@ function Page() {
       <main>
         <section className="px-4 pb-12 pt-7 sm:px-6 sm:pb-16 sm:pt-12">
           <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-14">
-            <div className="relative mx-auto w-full max-w-xl overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_24px_70px_rgba(32,57,47,.16)] sm:p-5">
-              <div className="absolute left-6 top-6 z-10 rounded-full bg-[#20392F] px-4 py-2 text-xs font-black uppercase tracking-wider text-white">AURELIS WELLNESS</div>
-              <img src={PRODUCT.image} alt="Massageador elétrico AURELIS RELAXPRO" className="aspect-square w-full rounded-[1.4rem] object-contain" fetchPriority="high" />
+            <div className="mx-auto w-full max-w-xl">
+              <img src={PRODUCT.image} alt="Massageador elétrico AURELIS RELAXPRO" className="block h-auto w-full object-contain" fetchPriority="high" />
             </div>
 
             <div className="mx-auto w-full max-w-2xl">
