@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Armchair, ArrowRight, CheckCircle2, Heart, ShieldCheck, Truck, Wallet, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, Heart, ShieldCheck, Truck, Wallet, Zap } from "lucide-react";
 import { CheckoutDrawer, type PlacedOrder } from "@/components/aurelis/CheckoutDrawer";
 import { OrderSuccessDialog } from "@/components/aurelis/OrderSuccessDialog";
 import { formatKz, type Product } from "@/lib/aurelis";
@@ -34,6 +34,13 @@ const product: Product = {
 
 const CTA = "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition active:scale-[.98]";
 const TRUST_MESSAGE = "ENTREGA GRÁTIS PARA LUANDA 🚚 PAGAMENTO NA ENTREGA ✨ AURELIS CLOUDREST™ — O TEU ESPAÇO DE CONFORTO";
+
+const CLOUDREST_MAIN_IMAGE = "https://files.catbox.moe/nngxav.jpg";
+const CLOUDREST_VIDEOS = [
+  "https://files.catbox.moe/5fa7of.mp4",
+  "https://files.catbox.moe/tw4mvx.mp4",
+  "https://files.catbox.moe/7keg94.mp4",
+];
 
 const stories = [
   {
@@ -76,18 +83,6 @@ function TrustBar() {
           </span>
         ))}
       </div>
-    </div>
-  );
-}
-
-function VisualPlaceholder({ label }: { label: string }) {
-  return (
-    <div className="flex aspect-[4/5] w-full flex-col items-center justify-center rounded-[1.7rem] border border-[#D8D9CE] bg-gradient-to-br from-[#E7E1D2] via-[#F8F6F0] to-[#D9D0BE] p-6 text-center shadow-[0_18px_55px_rgba(32,57,47,.12)] sm:aspect-[5/4]">
-      <div className="grid size-16 place-items-center rounded-full bg-[#20392F] text-white"><Armchair className="size-8" /></div>
-      <p className="mt-4 text-xs font-black uppercase tracking-[.18em] text-[#597164]">AURELIS</p>
-      <p className="mt-1 text-2xl font-black text-[#20392F]">CloudRest™</p>
-      <p className="mt-2 text-sm text-[#555B54]">{label}</p>
-      <p className="mt-5 text-[10px] font-bold uppercase tracking-wider text-[#777D75]">Imagem / GIF do produto a inserir</p>
     </div>
   );
 }
@@ -135,7 +130,13 @@ function Page() {
         <section className="px-4 pb-12 pt-7 sm:px-6 sm:pb-16 sm:pt-12">
           <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-14">
             <div className="mx-auto w-full max-w-xl">
-              <VisualPlaceholder label="Poltrona puff insuflável com puff para os pés" />
+              <img
+                src={CLOUDREST_MAIN_IMAGE}
+                alt="AURELIS CloudRest™ — fotografia principal do produto"
+                loading="eager"
+                fetchPriority="high"
+                className="aspect-square w-full rounded-[1.7rem] border border-[#D8D9CE] bg-white object-contain p-3 shadow-[0_18px_55px_rgba(32,57,47,.12)]"
+              />
             </div>
             <div className="mx-auto w-full max-w-2xl">
               <p className="text-xs font-black uppercase tracking-[.2em] text-[#597164]">O teu novo lugar favorito</p>
@@ -177,7 +178,17 @@ function Page() {
             <TrustBar />
             <section className={`px-4 py-10 sm:px-6 sm:py-16 ${index % 2 === 1 ? "bg-white" : "bg-[#F3F0E7]"}`}>
               <div className={`mx-auto grid max-w-6xl items-center gap-7 md:grid-cols-2 md:gap-12 ${index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
-                <VisualPlaceholder label={story.eyebrow} />
+                <video
+                  src={CLOUDREST_VIDEOS[index]}
+                  aria-label={`Demonstração da AURELIS CloudRest™: ${story.eyebrow}`}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  controls={false}
+                  className="aspect-square w-full rounded-[1.7rem] border border-[#D8D9CE] bg-[#E7E1D2] object-contain shadow-[0_18px_55px_rgba(32,57,47,.12)]"
+                />
                 <div className="py-2 md:py-8">
                   <p className="text-xs font-black uppercase tracking-[.18em] text-[#597164]">{story.eyebrow}</p>
                   <h2 className="mt-3 text-2xl font-black leading-tight tracking-[-.03em] text-[#20392F] sm:text-3xl lg:text-4xl">{story.title}</h2>
