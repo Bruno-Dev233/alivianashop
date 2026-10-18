@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AparadorSobrancelhasRouteImport } from './routes/aparador-sobrancelhas'
 import { Route as AquaGoRouteImport } from './routes/aqua-go'
+import { Route as AurelisRelaxproRouteImport } from './routes/aurelis-relaxpro'
 import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-partida'
 import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal-shot'
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
@@ -55,6 +56,11 @@ const AparadorSobrancelhasRoute = AparadorSobrancelhasRouteImport.update({
 const AquaGoRoute = AquaGoRouteImport.update({
   id: '/aqua-go',
   path: '/aqua-go',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AurelisRelaxproRoute = AurelisRelaxproRouteImport.update({
+  id: '/aurelis-relaxpro',
+  path: '/aurelis-relaxpro',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuxiliadorPartidaRoute = AuxiliadorPartidaRouteImport.update({
@@ -178,6 +184,9 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
+  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
+  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
+  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -206,6 +215,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
+  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -236,6 +246,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
+  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -267,6 +278,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
+    | '/aurelis-relaxpro'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
@@ -295,6 +307,7 @@ export interface FileRouteTypes {
     | '/'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
+    | '/aurelis-relaxpro'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
@@ -354,6 +367,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   AquaGoRoute: typeof AquaGoRoute
+  AurelisRelaxproRoute: typeof AurelisRelaxproRoute
   AuxiliadorPartidaRoute: typeof AuxiliadorPartidaRoute
   CelimaxRetinalShotRoute: typeof CelimaxRetinalShotRoute
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
@@ -397,6 +411,13 @@ declare module '@tanstack/react-router' {
       path: '/aqua-go'
       fullPath: '/aqua-go'
       preLoaderRoute: typeof AquaGoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aurelis-relaxpro': {
+      id: '/aurelis-relaxpro'
+      path: '/aurelis-relaxpro'
+      fullPath: '/aurelis-relaxpro'
+      preLoaderRoute: typeof AurelisRelaxproRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auxiliador-partida': {
@@ -596,6 +617,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AparadorSobrancelhasRoute: AparadorSobrancelhasRoute,
   AquaGoRoute: AquaGoRoute,
+  AurelisRelaxproRoute: AurelisRelaxproRoute,
   AuxiliadorPartidaRoute: AuxiliadorPartidaRoute,
   CelimaxRetinalShotRoute: CelimaxRetinalShotRoute,
   DepiladorEletricoRoute: DepiladorEletricoRoute,
