@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RotasRouteImport } from './routes/rotas'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AparadorSobrancelhasRouteImport } from './routes/aparador-sobrancelhas'
 import { Route as AquaGoRouteImport } from './routes/aqua-go'
@@ -42,6 +43,11 @@ import { Route as AdminLandingSlugRouteImport } from './routes/admin.landing.$sl
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RotasRoute = RotasRouteImport.update({
+  id: '/rotas',
+  path: '/rotas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -187,6 +193,7 @@ const AdminLandingSlugRoute = AdminLandingSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/rotas': typeof RotasRoute
   '/admin': typeof AdminRouteWithChildren
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
@@ -218,6 +225,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/rotas': typeof RotasRoute
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
   '/aurelis-relaxpro': typeof AurelisRelaxproRoute
@@ -249,6 +257,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/rotas': typeof RotasRoute
   '/admin': typeof AdminRouteWithChildren
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
@@ -282,6 +291,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/rotas'
     | '/admin'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
@@ -313,6 +323,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/rotas'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
     | '/aurelis-relaxpro'
@@ -343,6 +354,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/rotas'
     | '/admin'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
@@ -375,6 +387,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RotasRoute: typeof RotasRoute
   AdminRoute: typeof AdminRouteWithChildren
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   AquaGoRoute: typeof AquaGoRoute
@@ -402,6 +415,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rotas': {
+      id: '/rotas'
+      path: '/rotas'
+      fullPath: '/rotas'
+      preLoaderRoute: typeof RotasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -633,6 +653,7 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RotasRoute: RotasRoute,
   AdminRoute: AdminRouteWithChildren,
   AparadorSobrancelhasRoute: AparadorSobrancelhasRoute,
   AquaGoRoute: AquaGoRoute,
