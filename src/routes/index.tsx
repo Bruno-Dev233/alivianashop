@@ -232,6 +232,12 @@ function LandingPage() {
 
       <Footer storeName={product.store_name} />
 
+      <div className="border-t border-border bg-background px-4 py-3 text-center">
+        <a href="/rotas" className="text-xs font-semibold text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
+          Mapa do projeto · Ver todas as páginas AURELIS
+        </a>
+      </div>
+
       <CheckoutDrawer
         product={product}
         open={checkoutOpen}
