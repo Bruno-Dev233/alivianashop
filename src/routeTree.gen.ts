@@ -346,6 +346,8 @@ export interface FileRouteTypes {
     | '/admin'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
+    | '/aurelis-relaxpro'
+    | '/aurelis-cloudrest'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
