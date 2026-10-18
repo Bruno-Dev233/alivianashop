@@ -115,7 +115,7 @@ function Page() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#F3F0E7] pb-20 text-[#171A17] sm:pb-0">
       <div className="bg-[#20392F] px-4 py-3 text-center text-xs font-black uppercase tracking-[.12em] text-white sm:text-sm">
-        AURELIS — QUALIDADE QUE SE SENTE, CONFORTO QUE SE DESFRUTA
+        ENTREGA GRÁTIS PARA LUANDA <span aria-hidden="true">|</span> ✨ MAIS DE 2MIL CLIENTES SATISFEITOS
       </div>
 
       <header className="sticky top-0 z-40 border-b border-[#deddd4] bg-[#F3F0E7]/95 backdrop-blur">
