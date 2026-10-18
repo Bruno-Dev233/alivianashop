@@ -9,8 +9,8 @@ import galeria4 from "@/assets/galeria-4.jpg.asset.json";
 const PRODUCT = {
   id: "aurelis-relaxpro",
   name: "AURELIS RELAXPRO™ — Massageador Elétrico de Pescoço e Costas",
-  price: 0, // Definir o preço antes de ativar encomendas.
-  oldPrice: null as number | null,
+  price: 59500,
+  oldPrice: 101999,
   image: galeria4.url, // Imagem provisória; substituir pela imagem específica do RELAXPRO no Lovable.
 };
 
@@ -130,7 +130,7 @@ function Page() {
 
               <div className="mt-8 rounded-2xl border border-[#D8D9CE] bg-white/80 p-4 sm:p-5">
                 <p className="text-sm font-bold uppercase tracking-wide text-[#20392F]">Preço especial</p>
-                <p className="mt-1 text-2xl font-black text-[#20392F]">{priceReady ? formatKz(PRODUCT.price) : "Preço em definição"}</p>
+                <div className="mt-1 flex flex-wrap items-baseline gap-3"><p className="text-2xl font-black text-[#20392F]">{formatKz(PRODUCT.price)}</p><p className="text-base font-semibold text-[#777D75] line-through">{formatKz(PRODUCT.oldPrice ?? 0)}</p><span className="rounded-full bg-[#E1EEE5] px-3 py-1 text-xs font-black text-[#20392F]">-42% DE DESCONTO</span></div>
                 <p className="mt-2 text-sm text-[#555B54]">🚚 Entrega conforme a tua localização · 💵 Pagamento na entrega</p>
                 <button type="button" onClick={() => priceReady && setCheckoutOpen(true)} disabled={!priceReady} className={`${CTA} mt-4 min-h-14 w-full rounded-xl bg-[#20392F] px-5 text-sm text-white shadow-lg shadow-[#20392F]/20 hover:bg-[#2B4A3D] disabled:cursor-not-allowed disabled:opacity-60 sm:text-base`}>
                   {priceReady ? "QUERO O MEU RELAXPRO" : "ENCOMENDAS EM BREVE"} <ArrowRight className="size-5" />
