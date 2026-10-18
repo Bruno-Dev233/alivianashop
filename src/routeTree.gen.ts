@@ -14,6 +14,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AparadorSobrancelhasRouteImport } from './routes/aparador-sobrancelhas'
 import { Route as AquaGoRouteImport } from './routes/aqua-go'
 import { Route as AurelisRelaxproRouteImport } from './routes/aurelis-relaxpro'
+import { Route as AurelisCloudrestRouteImport } from './routes/aurelis-cloudrest'
 import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-partida'
 import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal-shot'
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
@@ -61,6 +62,11 @@ const AquaGoRoute = AquaGoRouteImport.update({
 const AurelisRelaxproRoute = AurelisRelaxproRouteImport.update({
   id: '/aurelis-relaxpro',
   path: '/aurelis-relaxpro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AurelisCloudrestRoute = AurelisCloudrestRouteImport.update({
+  id: '/aurelis-cloudrest',
+  path: '/aurelis-cloudrest',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuxiliadorPartidaRoute = AuxiliadorPartidaRouteImport.update({
@@ -185,6 +191,7 @@ export interface FileRoutesByFullPath {
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
   '/aurelis-relaxpro': typeof AurelisRelaxproRoute
+  '/aurelis-cloudrest': typeof AurelisCloudrestRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -214,6 +221,7 @@ export interface FileRoutesByTo {
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
   '/aurelis-relaxpro': typeof AurelisRelaxproRoute
+  '/aurelis-cloudrest': typeof AurelisCloudrestRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -245,6 +253,7 @@ export interface FileRoutesById {
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
   '/aurelis-relaxpro': typeof AurelisRelaxproRoute
+  '/aurelis-cloudrest': typeof AurelisCloudrestRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -277,6 +286,7 @@ export interface FileRouteTypes {
     | '/aparador-sobrancelhas'
     | '/aqua-go'
     | '/aurelis-relaxpro'
+    | '/aurelis-cloudrest'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
@@ -306,6 +316,7 @@ export interface FileRouteTypes {
     | '/aparador-sobrancelhas'
     | '/aqua-go'
     | '/aurelis-relaxpro'
+    | '/aurelis-cloudrest'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
@@ -366,6 +377,7 @@ export interface RootRouteChildren {
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   AquaGoRoute: typeof AquaGoRoute
   AurelisRelaxproRoute: typeof AurelisRelaxproRoute
+  AurelisCloudrestRoute: typeof AurelisCloudrestRoute
   AuxiliadorPartidaRoute: typeof AuxiliadorPartidaRoute
   CelimaxRetinalShotRoute: typeof CelimaxRetinalShotRoute
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
@@ -416,6 +428,13 @@ declare module '@tanstack/react-router' {
       path: '/aurelis-relaxpro'
       fullPath: '/aurelis-relaxpro'
       preLoaderRoute: typeof AurelisRelaxproRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aurelis-cloudrest': {
+      id: '/aurelis-cloudrest'
+      path: '/aurelis-cloudrest'
+      fullPath: '/aurelis-cloudrest'
+      preLoaderRoute: typeof AurelisCloudrestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auxiliador-partida': {
@@ -616,6 +635,7 @@ const rootRouteChildren: RootRouteChildren = {
   AparadorSobrancelhasRoute: AparadorSobrancelhasRoute,
   AquaGoRoute: AquaGoRoute,
   AurelisRelaxproRoute: AurelisRelaxproRoute,
+  AurelisCloudrestRoute: AurelisCloudrestRoute,
   AuxiliadorPartidaRoute: AuxiliadorPartidaRoute,
   CelimaxRetinalShotRoute: CelimaxRetinalShotRoute,
   DepiladorEletricoRoute: DepiladorEletricoRoute,
