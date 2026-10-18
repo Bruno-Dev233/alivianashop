@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import type { ReactNode } from "react";
 import { ArrowLeft, ExternalLink, LayoutDashboard, Package, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/rotas")({
@@ -90,7 +91,7 @@ function RouteSection({
 }: {
   title: string;
   subtitle: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   routes: { path: string; name: string; description: string }[];
 }) {
   return (
