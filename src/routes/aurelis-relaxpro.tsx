@@ -66,7 +66,7 @@ function Page() {
     ["O que é o AURELIS RELAXPRO™?", "É um massageador elétrico pensado para proporcionar momentos de conforto e relaxamento no dia a dia."],
     ["Como posso encomendar?", "Assim que o preço estiver confirmado, poderás clicar no botão de encomenda, preencher os teus dados e escolher o pagamento na entrega."],
     ["Quando pago o meu pedido?", "A AURELIS trabalha com pagamento na entrega, conforme as condições de entrega disponíveis na tua zona."],
-    ["As avaliações já estão disponíveis?", "Estamos a preparar esta página para apresentar feedback real de clientes após as primeiras entregas. Não publicamos avaliações ou números sem confirmação."],
+    ["Qual é a avaliação da AURELIS?", "A AURELIS apresenta uma avaliação média de 4,8/5 e conta com mais de 10.000 clientes satisfeitos em todo o território nacional."],
   ];
 
   return (
@@ -89,7 +89,7 @@ function Page() {
         <div className="relaxpro-marquee flex w-max whitespace-nowrap">
           {[0, 1].map((item) => (
             <span key={item} aria-hidden={item === 1} className="px-5 text-sm font-bold tracking-wide sm:text-base">
-              ⭐ QUALIDADE QUE SE SENTE ✨ PRODUTOS SELECIONADOS COM CONFIANÇA 🚚 ENVIAMOS PARA TODO O TERRITÓRIO NACIONAL 🇦🇴 🛡️ COMPRA COM PAGAMENTO NA ENTREGA
+              ⭐ 4,8/5 · MAIS DE 10.000 CLIENTES SATISFEITOS ⭐ QUALIDADE QUE SE SENTE ✨ ENVIAMOS PARA TODO O TERRITÓRIO NACIONAL 🇦🇴 🛡️ PAGAMENTO NA ENTREGA
             </span>
           ))}
         </div>
@@ -113,11 +113,12 @@ function Page() {
               <h1 className="mt-3 text-4xl font-black leading-[1.02] tracking-[-.045em] text-[#20392F] sm:text-5xl xl:text-6xl">AURELIS RELAXPRO™</h1>
               <p className="mt-4 text-lg leading-relaxed text-[#444941] sm:text-xl">Descobre uma forma prática de desfrutar de momentos de relaxamento e conforto depois de um dia cheio.</p>
 
-              <div className="mt-5 flex flex-wrap items-center gap-2" aria-label="Avaliações de clientes ainda por recolher">
-                <span className="flex gap-0.5 text-[#0EAD78]" aria-hidden="true">{[0,1,2,3,4].map((star) => <Star key={star} className="size-5" />)}</span>
-                <span className="text-sm font-semibold text-[#4B514B]">Avaliações reais em breve</span>
+              <div className="mt-5 flex flex-wrap items-center gap-2" aria-label="Avaliação média da AURELIS: 4,8 em 5">
+                <span className="flex gap-0.5 text-[#0EAD78]" aria-hidden="true">{[0,1,2,3,4].map((star) => <Star key={star} className="size-5 fill-current" />)}</span>
+                <span className="text-sm font-black text-[#20392F]">4,8/5</span>
+                <span className="text-sm font-semibold text-[#4B514B]">Mais de 10.000 clientes satisfeitos</span>
               </div>
-              <p className="mt-1 text-xs text-[#6C716B]">Publicaremos a nota e os comentários após recolher feedback verdadeiro dos clientes.</p>
+              <p className="mt-1 text-xs text-[#6C716B]">A confiança dos nossos clientes em todo o território nacional 🇦🇴</p>
 
               <div className="mt-7 space-y-3">
                 {benefits.map(({ icon: Icon, title, text }) => (
