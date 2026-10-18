@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { ArrowLeft, ExternalLink, LayoutDashboard, Package, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ExternalLink, Package, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/rotas")({
   head: () => ({
