@@ -1,0 +1,187 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowRight, CheckCircle2, Heart, ShieldCheck, Star, Truck, Wallet, Zap } from "lucide-react";
+import { CheckoutDrawer, type PlacedOrder } from "@/components/aurelis/CheckoutDrawer";
+import { OrderSuccessDialog } from "@/components/aurelis/OrderSuccessDialog";
+import { formatKz, type Product } from "@/lib/aurelis";
+import galeria4 from "@/assets/galeria-4.jpg.asset.json";
+
+const PRODUCT = {
+  id: "aurelis-relaxpro",
+  name: "AURELIS RELAXPRO™ — Massageador Elétrico de Pescoço e Costas",
+  price: 0, // Definir o preço antes de ativar encomendas.
+  oldPrice: null as number | null,
+  image: galeria4.url, // Imagem provisória; substituir pela imagem específica do RELAXPRO no Lovable.
+};
+
+const product: Product = {
+  id: PRODUCT.id,
+  name: PRODUCT.name,
+  price: PRODUCT.price,
+  old_price: PRODUCT.oldPrice,
+  cost_price: 0,
+  description: "Um massageador elétrico pensado para tornar os teus momentos de descanso mais práticos e confortáveis.",
+  social_proof_text: "",
+  top_bar_text: "",
+  top_bar_text_2: "",
+  store_name: "AURELIS",
+  logo_url: null,
+  main_image_1: PRODUCT.image,
+  main_image_2: null,
+  main_image_3: null,
+  content_image_1: null,
+  content_image_2: null,
+  content_image_3: null,
+  content_image_4: null,
+};
+
+const CTA = "inline-flex items-center justify-center gap-2 rounded-2xl font-black transition active:scale-[.98]";
+
+export const Route = createFileRoute("/aurelis-relaxpro")({
+  head: () => ({
+    meta: [
+      { title: "AURELIS RELAXPRO™ | Conforto no teu dia a dia" },
+      { name: "description", content: "Conhece o AURELIS RELAXPRO™, um massageador elétrico pensado para momentos de relaxamento e conforto em casa." },
+      { property: "og:title", content: "AURELIS RELAXPRO™" },
+      { property: "og:description", content: "Mais conforto e praticidade nos teus momentos de descanso." },
+      { property: "og:image", content: PRODUCT.image },
+      { property: "og:type", content: "product" },
+    ],
+  }),
+  component: Page,
+});
+
+function Page() {
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [placed, setPlaced] = useState<PlacedOrder | null>(null);
+  const priceReady = PRODUCT.price > 0;
+
+  const benefits = [
+    { icon: Heart, title: "MOMENTOS DE RELAXAMENTO", text: "Uma forma prática de incluir uma pausa de conforto na tua rotina." },
+    { icon: Zap, title: "FÁCIL DE UTILIZAR", text: "Controlos simples para uma utilização conveniente em casa." },
+    { icon: CheckCircle2, title: "DESIGN ERGONÓMICO", text: "Formato pensado para acompanhar os teus momentos de descanso." },
+  ];
+
+  const faqs = [
+    ["O que é o AURELIS RELAXPRO™?", "É um massageador elétrico pensado para proporcionar momentos de conforto e relaxamento no dia a dia."],
+    ["Como posso encomendar?", "Assim que o preço estiver confirmado, poderás clicar no botão de encomenda, preencher os teus dados e escolher o pagamento na entrega."],
+    ["Quando pago o meu pedido?", "A AURELIS trabalha com pagamento na entrega, conforme as condições de entrega disponíveis na tua zona."],
+    ["As avaliações já estão disponíveis?", "Estamos a preparar esta página para apresentar feedback real de clientes após as primeiras entregas. Não publicamos avaliações ou números sem confirmação."],
+  ];
+
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-[#F3F0E7] text-[#171A17]">
+      <div className="bg-[#20392F] px-4 py-3 text-center text-xs font-black uppercase tracking-[.12em] text-white sm:text-sm">
+        ✨ AURELIS — QUALIDADE QUE SE SENTE, CONFORTO QUE SE DESFRUTA
+      </div>
+
+      <header className="sticky top-0 z-40 border-b border-[#deddd4] bg-[#F3F0E7]/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+          <a href="/aurelis-relaxpro" className="text-3xl font-black tracking-[-.06em] text-[#20392F] sm:text-4xl" aria-label="AURELIS início">AURELIS</a>
+          <span className="hidden rounded-md bg-[#20392F] px-3 py-2 text-xs font-black tracking-[.12em] text-white sm:inline-flex">RELAXPRO™</span>
+          <button type="button" onClick={() => priceReady && setCheckoutOpen(true)} disabled={!priceReady} className={`${CTA} min-h-11 rounded-lg bg-[#20392F] px-4 text-xs text-white disabled:cursor-not-allowed disabled:opacity-60 sm:text-sm`}>
+            {priceReady ? "ENCOMENDAR" : "PREÇO EM BREVE"}
+          </button>
+        </div>
+      </header>
+
+      <div className="overflow-hidden bg-[#20392F] py-3 text-white">
+        <div className="relaxpro-marquee flex w-max whitespace-nowrap">
+          {[0, 1].map((item) => (
+            <span key={item} aria-hidden={item === 1} className="px-5 text-sm font-bold tracking-wide sm:text-base">
+              ⭐ QUALIDADE QUE SE SENTE ✨ PRODUTOS SELECIONADOS COM CONFIANÇA 🚚 ENVIAMOS PARA TODO O TERRITÓRIO NACIONAL 🇦🇴 🛡️ COMPRA COM PAGAMENTO NA ENTREGA
+            </span>
+          ))}
+        </div>
+      </div>
+      <style>{`
+        @keyframes relaxpro-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .relaxpro-marquee { animation: relaxpro-marquee 24s linear infinite; }
+        @media (prefers-reduced-motion: reduce) { .relaxpro-marquee { animation: none; } }
+      `}</style>
+
+      <main>
+        <section className="px-4 pb-12 pt-7 sm:px-6 sm:pb-16 sm:pt-12">
+          <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-14">
+            <div className="relative mx-auto w-full max-w-xl overflow-hidden rounded-[2rem] border border-white bg-white p-3 shadow-[0_24px_70px_rgba(32,57,47,.16)] sm:p-5">
+              <div className="absolute left-6 top-6 z-10 rounded-full bg-[#20392F] px-4 py-2 text-xs font-black uppercase tracking-wider text-white">AURELIS WELLNESS</div>
+              <img src={PRODUCT.image} alt="Massageador elétrico AURELIS RELAXPRO" className="aspect-square w-full rounded-[1.4rem] object-contain" fetchPriority="high" />
+            </div>
+
+            <div className="mx-auto w-full max-w-2xl">
+              <p className="text-xs font-black uppercase tracking-[.2em] text-[#597164]">Bem-estar pensado para ti</p>
+              <h1 className="mt-3 text-4xl font-black leading-[1.02] tracking-[-.045em] text-[#20392F] sm:text-5xl xl:text-6xl">AURELIS RELAXPRO™</h1>
+              <p className="mt-4 text-lg leading-relaxed text-[#444941] sm:text-xl">Descobre uma forma prática de desfrutar de momentos de relaxamento e conforto depois de um dia cheio.</p>
+
+              <div className="mt-5 flex flex-wrap items-center gap-2" aria-label="Avaliações de clientes ainda por recolher">
+                <span className="flex gap-0.5 text-[#0EAD78]" aria-hidden="true">{[0,1,2,3,4].map((star) => <Star key={star} className="size-5" />)}</span>
+                <span className="text-sm font-semibold text-[#4B514B]">Avaliações reais em breve</span>
+              </div>
+              <p className="mt-1 text-xs text-[#6C716B]">Publicaremos a nota e os comentários após recolher feedback verdadeiro dos clientes.</p>
+
+              <div className="mt-7 space-y-3">
+                {benefits.map(({ icon: Icon, title, text }) => (
+                  <div key={title} className="flex items-start gap-3">
+                    <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-[#20392F] text-white"><Icon className="size-4" /></span>
+                    <div><p className="font-black text-[#171A17]">{title}</p><p className="mt-0.5 text-sm leading-relaxed text-[#555B54]">{text}</p></div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 rounded-2xl border border-[#D8D9CE] bg-white/80 p-4 sm:p-5">
+                <p className="text-sm font-bold uppercase tracking-wide text-[#20392F]">Preço especial</p>
+                <p className="mt-1 text-2xl font-black text-[#20392F]">{priceReady ? formatKz(PRODUCT.price) : "Preço em definição"}</p>
+                <p className="mt-2 text-sm text-[#555B54]">🚚 Entrega conforme a tua localização · 💵 Pagamento na entrega</p>
+                <button type="button" onClick={() => priceReady && setCheckoutOpen(true)} disabled={!priceReady} className={`${CTA} mt-4 min-h-14 w-full rounded-xl bg-[#20392F] px-5 text-sm text-white shadow-lg shadow-[#20392F]/20 hover:bg-[#2B4A3D] disabled:cursor-not-allowed disabled:opacity-60 sm:text-base`}>
+                  {priceReady ? "QUERO O MEU RELAXPRO" : "ENCOMENDAS EM BREVE"} <ArrowRight className="size-5" />
+                </button>
+                <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs font-semibold text-[#566057]">
+                  <span className="inline-flex items-center gap-1"><Wallet className="size-3.5" /> Paga ao receber</span>
+                  <span className="inline-flex items-center gap-1"><Truck className="size-3.5" /> Entrega ao domicílio</span>
+                  <span className="inline-flex items-center gap-1"><ShieldCheck className="size-3.5" /> Pedido seguro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white px-4 py-12 sm:px-6 sm:py-16">
+          <div className="mx-auto max-w-6xl">
+            <p className="text-center text-xs font-black uppercase tracking-[.2em] text-[#597164]">Conforto no teu ritmo</p>
+            <h2 className="mx-auto mt-3 max-w-3xl text-center text-3xl font-black tracking-tight text-[#20392F] sm:text-4xl">Uma pausa de conforto, sempre que precisares</h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {benefits.map(({ icon: Icon, title, text }) => <article key={title} className="rounded-2xl border border-[#E5E5DD] bg-[#F7F5EF] p-6"><span className="grid size-11 place-items-center rounded-xl bg-[#20392F] text-white"><Icon className="size-5" /></span><h3 className="mt-4 font-black text-[#20392F]">{title}</h3><p className="mt-2 text-sm leading-relaxed text-[#565B54]">{text}</p></article>)}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-12 sm:px-6 sm:py-16">
+          <div className="mx-auto max-w-4xl rounded-[2rem] bg-[#20392F] px-6 py-9 text-center text-white sm:px-12 sm:py-12">
+            <p className="text-xs font-black uppercase tracking-[.2em] text-[#D6CDAE]">AURELIS RELAXPRO™</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">O teu bem-estar merece espaço na tua rotina.</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/80">Estamos a preparar todos os detalhes da oferta. O preço e as encomendas serão ativados assim que forem confirmados.</p>
+            <button type="button" onClick={() => priceReady && setCheckoutOpen(true)} disabled={!priceReady} className={`${CTA} mt-6 min-h-14 rounded-xl bg-[#F3F0E7] px-6 text-sm text-[#20392F] disabled:cursor-not-allowed disabled:opacity-60`}>{priceReady ? "ENCOMENDAR AGORA" : "PREÇO EM BREVE"} <ArrowRight className="size-5" /></button>
+          </div>
+        </section>
+
+        <section className="bg-white px-4 py-12 sm:px-6 sm:py-16">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="text-center text-3xl font-black tracking-tight text-[#20392F] sm:text-4xl">Perguntas frequentes</h2>
+            <div className="mt-7 divide-y divide-[#E4E4DC] border-y border-[#E4E4DC]">
+              {faqs.map(([question, answer]) => <details key={question} className="group py-5"><summary className="cursor-pointer list-none pr-4 font-bold text-[#20392F] marker:hidden">{question}<span className="float-right ml-3 text-xl group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-relaxed text-[#555B54]">{answer}</p></details>)}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[#172A22] px-4 py-8 text-center text-sm text-white/80">
+        <p className="text-xl font-black tracking-[-.04em] text-white">AURELIS</p>
+        <p className="mt-2">Produtos selecionados com qualidade e confiança.</p>
+        <p className="mt-1">🇦🇴 Entregas em Angola · Pagamento na entrega</p>
+      </footer>
+
+      <CheckoutDrawer product={product} open={checkoutOpen} onOpenChange={setCheckoutOpen} quantity={1} onQuantityChange={() => undefined} onPlaced={setPlaced} />
+      <OrderSuccessDialog order={placed} onClose={() => setPlaced(null)} />
+    </div>
+  );
+}
