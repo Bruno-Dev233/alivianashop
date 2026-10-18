@@ -9,7 +9,6 @@ const PRODUCT = {
   id: "aurelis-cloudrest",
   name: "AURELIS CloudRest™ — Poltrona Puff Insuflável com Puff para os Pés",
   price: 39999,
-  oldPrice: 0,
 };
 
 const product: Product = {
