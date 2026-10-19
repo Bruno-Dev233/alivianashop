@@ -54,18 +54,7 @@ function ThankYou() {
       // Thank-you page remains usable if session storage is unavailable.
     }
 
-    if (typeof window.fbq !== "function") return;
-    const key = "aurelis_purchase_tracked";
-    const signature = `${produto ?? ""}|${qtd ?? ""}|${total ?? ""}`;
-    if (window.sessionStorage.getItem(key) === signature) return;
-    window.sessionStorage.setItem(key, signature);
-    window.fbq("track", "Purchase", {
-      value: total ?? 0,
-      currency: "AOA",
-      content_name: produto ?? "Pedido",
-      content_type: "product",
-      num_items: qtd ?? 1,
-    });
+
   }, [produto, qtd, total]);
 
   const confirmOnWhatsApp = () => {
