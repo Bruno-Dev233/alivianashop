@@ -393,6 +393,7 @@ function AparadorPage() {
           if (offer === "single") setQuantity(next);
         }}
         onPlaced={setPlacedOrder}
+        allowAllProvinces
       />
       <OrderSuccessDialog order={placedOrder} onClose={() => setPlacedOrder(null)} />
     </div>
