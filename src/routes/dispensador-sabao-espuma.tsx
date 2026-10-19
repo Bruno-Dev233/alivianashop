@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Check, CircleHelp, Droplets, Hand, PackageCheck, ShieldCheck, Sparkles, Truck, Zap } from "lucide-react";
+import { ArrowRight, Check, CircleHelp, Droplets, Hand, MessageCircle, PackageCheck, ShieldCheck, Sparkles, Truck, Zap } from "lucide-react";
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
 import alivianaLogo from "@/assets/aliviana-logo.png";
@@ -145,6 +145,15 @@ function Page() {
               </div>
             </section>
 
+            <a
+              href="https://wa.me/244955526741?text=Ol%C3%A1!%20Tenho%20interesse%20em%20adquirir%20o%20Dispensador%20de%20Sab%C3%A3o%20em%20Espuma%20Autom%C3%A1tico%20da%20AURELIS%20por%2029.999%20Kz.%20Quero%20aproveitar%20a%20oferta%20de%20entrega%20gr%C3%A1tis%20nas%20pr%C3%B3ximas%2072%20horas.%20Podem%20confirmar%20a%20disponibilidade%20e%20as%20condi%C3%A7%C3%B5es%20de%20entrega%3F"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={CTA + " mt-3 h-14 w-full border-2 border-[#1fa855] bg-[#e9f8ef] px-5 text-sm text-[#126b36] shadow-sm hover:bg-[#d9f2e3] sm:text-base"}
+            >
+              <MessageCircle className="size-5" /> QUERO ENTREGA GRÁTIS — FALAR NO WHATSAPP
+            </a>
+            <p className="mt-2 text-center text-xs font-semibold text-[#526763]">Fale connosco para confirmar a oferta de entrega grátis válida nas próximas 72 horas.</p>
             <button onClick={buy} className={CTA + " mt-6 h-14 w-full bg-[#123f3a] px-7 text-base text-white shadow-xl hover:bg-[#1c5750] sm:text-lg"}>QUERO O MEU DISPENSADOR POR 29.999 KZ <ArrowRight className="size-5" /></button>
             <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs font-bold text-[#526763]"><span>💵 Pague apenas ao receber</span><span>🚚 Entrega ao domicílio</span><span>🔒 Encomenda simples</span></div>
           </div>
@@ -180,7 +189,8 @@ function Page() {
       <div className="h-20 md:hidden" />
       <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center gap-3 border-t border-[#dbe8e5] bg-[#f7faf9]/95 p-2.5 pb-[calc(.625rem+env(safe-area-inset-bottom))] shadow-[0_-10px_35px_rgba(23,44,42,.12)] backdrop-blur md:hidden">
         <div className="min-w-0"><span className="block text-[9px] font-black uppercase text-[#526763]">DISPENSADOR AUTOMÁTICO</span><strong className="block text-base leading-none">{formatKz(PRODUCT.price)} / un.</strong><span className="text-[10px] text-[#526763]">Total: {formatKz(PRODUCT.price * quantity)}</span></div>
-        <button onClick={buy} className="ml-auto h-11 rounded-xl bg-[#123f3a] px-4 text-xs font-black text-white">ENCOMENDAR</button>
+        <a href="https://wa.me/244955526741?text=Ol%C3%A1!%20Tenho%20interesse%20em%20adquirir%20o%20Dispensador%20de%20Sab%C3%A3o%20em%20Espuma%20Autom%C3%A1tico%20da%20AURELIS%20por%2029.999%20Kz.%20Quero%20aproveitar%20a%20oferta%20de%20entrega%20gr%C3%A1tis%20nas%20pr%C3%B3ximas%2072%20horas.%20Podem%20confirmar%20a%20disponibilidade%20e%20as%20condi%C3%A7%C3%B5es%20de%20entrega%3F" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp sobre entrega grátis" className="flex h-11 shrink-0 items-center justify-center gap-1 rounded-xl border border-[#1fa855] bg-[#e9f8ef] px-3 text-[10px] font-black text-[#126b36]"><MessageCircle className="size-4" /> WHATSAPP</a>
+        <button onClick={buy} className="ml-auto h-11 shrink-0 rounded-xl bg-[#123f3a] px-3 text-[10px] font-black text-white">ENCOMENDAR</button>
       </div>
       <footer className="border-t border-[#dbe8e5] px-5 py-8 text-center text-xs text-[#526763]">AURELIS • DISPENSADOR DE SABÃO EM ESPUMA</footer>
 
