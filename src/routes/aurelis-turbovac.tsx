@@ -10,7 +10,7 @@ const PRODUCT = {
   name: "AURELIS TURBOVAC™ — Soprador de Folhas Sem Fio",
   price: 32750,
   oldPrice: 74999,
-  image: "https://files.catbox.moe/p35b5n.png",
+  image: "https://ia601804.us.archive.org/9/items/soprador-aurelis-turbovac-em-acao/Soprador%20Aurel%C3%ADs%20Turbovac%20em%20A%C3%A7%C3%A3o.png",
 };
 
 const OFFERS = [
@@ -85,7 +85,7 @@ const STORIES = [
     text: "Uma opção prática para tarefas de limpeza em casa ou no exterior, sem depender de um cabo de alimentação durante a utilização.",
   },
   {
-    src: "https://files.catbox.moe/mdq9dx.mp4",
+    src: "https://ia601804.us.archive.org/9/items/soprador-aurelis-turbovac-em-acao/Viviofertas10_pindown.io_1792450728.mp4",
     title: "SEM FIOS A ATRAPALHAR. MAIS LIBERDADE PARA LIMPAR.",
     text: "O formato sem fios facilita a movimentação entre diferentes zonas. Consulte os acessórios incluídos no kit antes de confirmar a encomenda.",
   },
