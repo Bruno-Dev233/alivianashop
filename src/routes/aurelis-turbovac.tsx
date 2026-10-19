@@ -1,0 +1,337 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { ArrowRight, CheckCircle2, ShieldCheck, Truck, Wallet, Wind, Zap } from "lucide-react";
+import { CheckoutDrawer, type PlacedOrder } from "@/components/aurelis/CheckoutDrawer";
+import { OrderSuccessDialog } from "@/components/aurelis/OrderSuccessDialog";
+import { formatKz, type Product } from "@/lib/aurelis";
+
+const PRODUCT = {
+  id: "aurelis-turbovac",
+  name: "AURELIS TURBOVAC™ — Soprador de Folhas Sem Fio",
+  price: 32750,
+  oldPrice: 74999,
+  image: "https://files.catbox.moe/p35b5n.png",
+};
+
+const OFFERS = [
+  {
+    id: "single",
+    quantity: 1,
+    total: 32750,
+    oldTotal: 74999,
+    saving: 42249,
+    title: "1 UNIDADE",
+    label: "A OFERTA ESSENCIAL",
+    description: "Uma solução prática para a limpeza do dia a dia.",
+    button: "QUERO 1 UNIDADE",
+  },
+  {
+    id: "double",
+    quantity: 2,
+    total: 59990,
+    oldTotal: 149998,
+    saving: 90008,
+    title: "2 UNIDADES",
+    label: "🔥 MAIS POPULAR",
+    description: "🔥 2 BATERIAS INCLUÍDAS + A MALA",
+    button: "QUERO O PACOTE DE 2",
+  },
+  {
+    id: "triple",
+    quantity: 3,
+    total: 84990,
+    oldTotal: 224997,
+    saving: 140007,
+    title: "3 UNIDADES",
+    label: "MAIOR POUPANÇA",
+    description: "Poupe 140.007 Kz e leve 3 unidades mais a solução que precisa.",
+    button: "QUERO O PACOTE DE 3",
+  },
+] as const;
+
+const product: Product = {
+  id: PRODUCT.id,
+  name: PRODUCT.name,
+  price: PRODUCT.price,
+  old_price: PRODUCT.oldPrice,
+  cost_price: 0,
+  description: "Soprador sem fios para ajudar a remover folhas, pó e pequenos detritos de áreas exteriores.",
+  social_proof_text: "",
+  top_bar_text: "AURELIS TURBOVAC™ · POTÊNCIA E PRATICIDADE",
+  top_bar_text_2: "PAGAMENTO NA ENTREGA · ENTREGA EM LUANDA A CONFIRMAR",
+  store_name: "AURELIS",
+  logo_url: null,
+  main_image_1: PRODUCT.image,
+  main_image_2: null,
+  main_image_3: null,
+  content_image_1: null,
+  content_image_2: null,
+  content_image_3: null,
+  content_image_4: null,
+};
+
+const CTA = "inline-flex items-center justify-center gap-2 rounded-xl font-black transition active:scale-[.98]";
+
+const STORIES = [
+  {
+    src: "https://files.catbox.moe/sz5vfv.mp4",
+    title: "POTÊNCIA PARA ENFRENTAR A SUJIDADE 💨",
+    text: "Ajude a remover folhas caídas, pó e pequenos detritos de pátios, entradas, quintais e outras áreas exteriores.",
+  },
+  {
+    src: "https://files.catbox.moe/z4j1bo.mp4",
+    title: "UM SÓ EQUIPAMENTO, VÁRIAS POSSIBILIDADES",
+    text: "Uma opção prática para tarefas de limpeza em casa ou no exterior, sem depender de um cabo de alimentação durante a utilização.",
+  },
+  {
+    src: "https://files.catbox.moe/mdq9dx.mp4",
+    title: "SEM FIOS A ATRAPALHAR. MAIS LIBERDADE PARA LIMPAR.",
+    text: "O formato sem fios facilita a movimentação entre diferentes zonas. Consulte os acessórios incluídos no kit antes de confirmar a encomenda.",
+  },
+];
+
+export const Route = createFileRoute("/aurelis-turbovac")({
+  head: () => ({
+    meta: [
+      { title: "AURELIS TURBOVAC™ | Soprador de Folhas Sem Fio" },
+      { name: "description", content: "Descubra o AURELIS TURBOVAC™, um soprador sem fios para ajudar na limpeza de folhas e pequenos detritos. Encomenda com pagamento na entrega em Luanda." },
+      { property: "og:title", content: "AURELIS TURBOVAC™ | AURELIS" },
+      { property: "og:description", content: "Mais praticidade para as tarefas de limpeza em casa e no exterior." },
+      { property: "og:image", content: PRODUCT.image },
+      { property: "og:type", content: "product" },
+    ],
+  }),
+  component: Page,
+});
+
+function TrustBar() {
+  const message = "AURELIS TURBOVAC™ 💨 · PAGAMENTO NA ENTREGA · ENTREGA EM LUANDA A CONFIRMAR ·";
+  return (
+    <div className="overflow-hidden bg-[#C92332] py-3 text-white" aria-label={message}>
+      <div className="turbovac-marquee flex w-max whitespace-nowrap">
+        {[0, 1].map((item) => (
+          <span key={item} aria-hidden={item === 1} className="px-5 text-xs font-black tracking-wide sm:text-sm">
+            {message} &nbsp; {message} &nbsp;
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Page() {
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [placed, setPlaced] = useState<PlacedOrder | null>(null);
+  const [selectedOfferId, setSelectedOfferId] = useState<(typeof OFFERS)[number]["id"]>("single");
+  const selectedOffer = OFFERS.find((offer) => offer.id === selectedOfferId) ?? OFFERS[0];
+  const checkoutProduct: Product = {
+    ...product,
+    name: `${PRODUCT.name} — Pacote de ${selectedOffer.quantity} ${selectedOffer.quantity === 1 ? "unidade" : "unidades"}`,
+    price: selectedOffer.total / selectedOffer.quantity,
+    old_price: PRODUCT.oldPrice,
+  };
+
+  const openCheckout = (offerId?: (typeof OFFERS)[number]["id"]) => {
+    if (offerId) setSelectedOfferId(offerId);
+    setCheckoutOpen(true);
+  };
+
+  const benefits = [
+    { icon: Wind, title: "AJUDA A REMOVER FOLHAS E DETRITOS", text: "Uma ajuda prática para manter entradas, pátios e espaços exteriores mais limpos." },
+    { icon: Zap, title: "FORMATO SEM FIOS", text: "Movimente-se entre diferentes zonas sem ter de arrastar um cabo de alimentação." },
+    { icon: CheckCircle2, title: "PRÁTICO PARA A ROTINA", text: "Uma opção versátil para pequenas tarefas de limpeza em casa e no exterior." },
+  ];
+
+  const faqs = [
+    ["O que é o AURELIS TURBOVAC™?", "É um soprador sem fios concebido para ajudar a remover folhas, pó e pequenos detritos."],
+    ["Como posso encomendar?", "Escolha o pacote, clique no botão de encomenda e preencha o formulário. A equipa poderá contactar-lhe para confirmar os detalhes."],
+    ["Quando faço o pagamento?", "O pagamento é feito na entrega, de acordo com as condições confirmadas pela equipa."],
+    ["Onde fazem entregas?", "Esta oferta está configurada para Luanda. A disponibilidade e o prazo são confirmados pela equipa."],
+    ["O que está incluído no kit?", "Os acessórios dependem do conjunto fornecido. Para o pacote de 2 unidades, confirme a disponibilidade das 2 baterias e da mala antes de expedir."],
+  ];
+
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-[#F8F5F0] pb-20 text-[#191919] sm:pb-0">
+      <div className="bg-[#C92332] px-4 py-3 text-center text-xs font-black uppercase tracking-[.12em] text-white sm:text-sm">
+        AURELIS TURBOVAC™ <span aria-hidden="true">|</span> PAGAMENTO NA ENTREGA EM LUANDA
+      </div>
+
+      <header className="sticky top-0 z-40 border-b border-[#E8DDD8] bg-[#F8F5F0]/95 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+          <a href="/aurelis-turbovac" className="text-2xl font-black tracking-[-.06em] text-[#191919] sm:text-3xl" aria-label="AURELIS início">AURELIS</a>
+          <span className="hidden rounded-md bg-[#C92332] px-3 py-2 text-xs font-black tracking-[.12em] text-white sm:inline-flex">TURBOVAC™</span>
+          <button type="button" onClick={() => openCheckout()} className={`${CTA} min-h-11 bg-[#C92332] px-4 text-xs text-white hover:bg-[#A91E2B] sm:text-sm`}>
+            ENCOMENDAR <ArrowRight className="size-4" />
+          </button>
+        </div>
+      </header>
+
+      <TrustBar />
+      <style>{`
+        @keyframes turbovac-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+        .turbovac-marquee { animation: turbovac-marquee 27s linear infinite; }
+        @media (prefers-reduced-motion: reduce) { .turbovac-marquee { animation: none; } }
+      `}</style>
+
+      <main>
+        <section className="px-4 pb-12 pt-7 sm:px-6 sm:pb-16 sm:pt-12">
+          <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-14">
+            <div className="mx-auto w-full max-w-xl">
+              <img src={PRODUCT.image} alt="AURELIS TURBOVAC, soprador de folhas sem fios" className="block h-auto w-full rounded-3xl object-contain" fetchPriority="high" />
+            </div>
+            <div className="mx-auto w-full max-w-2xl">
+              <p className="text-xs font-black uppercase tracking-[.2em] text-[#C92332]">Limpeza mais prática</p>
+              <h1 className="mt-3 text-4xl font-black leading-[1.02] tracking-[-.045em] sm:text-5xl xl:text-6xl">AURELIS TURBOVAC™</h1>
+              <p className="mt-4 text-lg leading-relaxed text-[#4C4846] sm:text-xl">Dê mais praticidade à limpeza de folhas, pó e pequenos detritos com um soprador portátil sem fios.</p>
+
+              <div className="mt-6 space-y-3">
+                {benefits.map(({ icon: Icon, title, text }) => (
+                  <div key={title} className="flex items-start gap-3">
+                    <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full bg-[#C92332] text-white"><Icon className="size-4" /></span>
+                    <div><p className="font-black">{title}</p><p className="mt-0.5 text-sm leading-relaxed text-[#5F5956]">{text}</p></div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-7 rounded-2xl border border-[#E8DDD8] bg-white p-4 sm:p-5">
+                <p className="text-sm font-bold uppercase tracking-wide text-[#C92332]">Oferta especial</p>
+                <div className="mt-1 flex flex-wrap items-baseline gap-3"><p className="text-2xl font-black">{formatKz(OFFERS[0].total)}</p><p className="text-base font-semibold text-[#77716E] line-through">{formatKz(OFFERS[0].oldTotal)}</p><span className="rounded-full bg-[#FBE4E6] px-3 py-1 text-xs font-black text-[#A91E2B]">POUPE {formatKz(OFFERS[0].saving)}</span></div>
+                <p className="mt-2 text-sm text-[#55504D]">🚚 Entrega em Luanda a confirmar · 💵 Pagamento na entrega</p>
+                <button type="button" onClick={() => document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth" })} className={`${CTA} mt-4 min-h-14 w-full bg-[#C92332] px-5 text-sm text-white shadow-lg shadow-[#C92332]/20 hover:bg-[#A91E2B] sm:text-base`}>
+                  ESCOLHER O MEU PACOTE <ArrowRight className="size-5" />
+                </button>
+                <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs font-semibold text-[#625A56]">
+                  <span className="inline-flex items-center gap-1"><Wallet className="size-3.5" /> Paga ao receber</span>
+                  <span className="inline-flex items-center gap-1"><Truck className="size-3.5" /> Entrega a confirmar</span>
+                  <span className="inline-flex items-center gap-1"><ShieldCheck className="size-3.5" /> Pedido seguro</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <TrustBar />
+        <section id="pacotes" className="bg-white px-4 py-12 sm:px-6 sm:py-16">
+          <div className="mx-auto max-w-6xl">
+            <p className="text-center text-xs font-black uppercase tracking-[.2em] text-[#C92332]">Escolha a oferta ideal</p>
+            <h2 className="mx-auto mt-3 max-w-3xl text-center text-3xl font-black tracking-tight sm:text-4xl">PAGUE MENOS E LEVE MAIS</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-[#625A56]">Selecione o pacote que faz sentido para si. Os valores apresentados são totais por pacote.</p>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {OFFERS.map((offer) => {
+                const selected = selectedOfferId === offer.id;
+                return (
+                  <article key={offer.id} className={`relative flex flex-col rounded-3xl border-2 p-5 transition sm:p-6 ${selected ? "border-[#C92332] bg-[#FFF7F7] shadow-xl shadow-[#C92332]/10" : "border-[#E8DDD8] bg-[#F8F5F0]"}`}>
+                    {offer.id === "double" && <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#C92332] px-4 py-1.5 text-xs font-black text-white">🔥 MAIS POPULAR</span>}
+                    {offer.id === "triple" && <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#191919] px-4 py-1.5 text-xs font-black text-white">MAIOR POUPANÇA</span>}
+                    <div className="mt-2 text-center">
+                      <p className="text-xs font-black uppercase tracking-[.14em] text-[#C92332]">{offer.title}</p>
+                      <h3 className="mt-2 text-3xl font-black">{formatKz(offer.total)}</h3>
+                      <p className="mt-2 text-sm font-semibold text-[#77716E] line-through">Antes: {formatKz(offer.oldTotal)}</p>
+                      <p className="mt-3 inline-flex rounded-full bg-[#FBE4E6] px-3 py-1.5 text-xs font-black text-[#A91E2B]">POUPE {formatKz(offer.saving)}</p>
+                    </div>
+                    <div className="my-5 flex min-h-24 items-center justify-center rounded-2xl bg-white p-4 text-center text-sm font-bold leading-relaxed text-[#35302E]">
+                      {offer.description}
+                    </div>
+                    <p className="mb-4 text-center text-xs text-[#6A625E]">Pagamento na entrega · Luanda</p>
+                    <button type="button" onClick={() => { setSelectedOfferId(offer.id); openCheckout(offer.id); }} className={`${CTA} mt-auto min-h-12 w-full px-4 text-sm ${selected ? "bg-[#C92332] text-white hover:bg-[#A91E2B]" : "border border-[#C92332] bg-white text-[#C92332] hover:bg-[#FFF0F1]"}`}>
+                      {offer.button} <ArrowRight className="size-4" />
+                    </button>
+                  </article>
+                );
+              })}
+            </div>
+            <p className="mt-5 text-center text-xs leading-relaxed text-[#756D69]">Os preços anteriores são calculados com base no preço de referência de 74.999 Kz por unidade. Confirme a composição dos acessórios no momento da confirmação da encomenda.</p>
+          </div>
+        </section>
+
+        {STORIES.map((story, index) => (
+          <div key={story.src}>
+            <TrustBar />
+            <section className={`px-4 py-10 sm:px-6 sm:py-16 ${index % 2 === 1 ? "bg-white" : "bg-[#F8F5F0]"}`}>
+              <div className={`mx-auto grid max-w-6xl items-center gap-7 md:grid-cols-2 md:gap-12 ${index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
+                <div className="overflow-hidden rounded-[1.7rem] border border-[#E8DDD8] bg-white shadow-[0_18px_55px_rgba(120,20,30,.10)]">
+                  <video className="aspect-[4/5] w-full object-cover sm:aspect-[5/4]" src={story.src} aria-label={story.title} autoPlay muted loop playsInline preload="metadata" />
+                </div>
+                <div className="py-2 md:py-8">
+                  <p className="text-xs font-black uppercase tracking-[.18em] text-[#C92332]">AURELIS TURBOVAC™</p>
+                  <h2 className="mt-3 text-2xl font-black leading-tight tracking-[-.03em] sm:text-3xl lg:text-4xl">{story.title}</h2>
+                  <p className="mt-4 text-base leading-8 text-[#4D4845] sm:text-lg">{story.text}</p>
+                  <button type="button" onClick={() => { document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth" }); }} className={`${CTA} mt-6 min-h-12 bg-[#C92332] px-5 text-sm text-white hover:bg-[#A91E2B]`}>
+                    VER OS PACOTES <ArrowRight className="size-4" />
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+        ))}
+
+        <TrustBar />
+        <section className="bg-white px-4 py-12 sm:px-6 sm:py-16">
+          <div className="mx-auto max-w-6xl">
+            <p className="text-center text-xs font-black uppercase tracking-[.2em] text-[#C92332]">AURELIS TURBOVAC™</p>
+            <h2 className="mx-auto mt-3 max-w-3xl text-center text-3xl font-black tracking-tight sm:text-4xl">Uma ajuda prática para as tarefas de limpeza</h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {benefits.map(({ icon: Icon, title, text }) => <article key={title} className="rounded-2xl border border-[#E8DDD8] bg-[#F8F5F0] p-6"><span className="grid size-11 place-items-center rounded-xl bg-[#C92332] text-white"><Icon className="size-5" /></span><h3 className="mt-4 font-black">{title}</h3><p className="mt-2 text-sm leading-relaxed text-[#56504D]">{text}</p></article>)}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-12 sm:px-6 sm:py-16">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="text-center text-3xl font-black tracking-tight sm:text-4xl">DÚVIDAS FREQUENTES</h2>
+            <div className="mt-6 divide-y divide-[#E8DDD8] rounded-2xl border border-[#E8DDD8] bg-white px-5">
+              {faqs.map(([question, answer]) => (
+                <details key={question} className="py-4">
+                  <summary className="cursor-pointer font-black">{question}</summary>
+                  <p className="mt-2 text-sm leading-relaxed text-[#5F5956]">{answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 pb-12 sm:px-6">
+          <div className="mx-auto max-w-4xl rounded-[2rem] bg-[#C92332] px-6 py-9 text-center text-white sm:px-12 sm:py-12">
+            <p className="text-xs font-black uppercase tracking-[.2em] text-white/80">AURELIS TURBOVAC™</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight sm:text-4xl">💨 Escolha o seu pacote e encomende hoje.</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/90">Selecione a sua oferta e pague apenas quando receber, após confirmação dos detalhes pela nossa equipa.</p>
+            <button type="button" onClick={() => document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth" })} className={`${CTA} mt-6 min-h-14 bg-white px-6 text-sm text-[#C92332] hover:bg-[#FFF0F1] sm:text-base`}>
+              ESCOLHER O MEU PACOTE <ArrowRight className="size-5" />
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[#191919] px-4 py-8 text-center text-sm text-white/80">
+        <p className="text-xl font-black tracking-[-.04em] text-white">AURELIS</p>
+        <p className="mt-2">Produtos selecionados com qualidade e confiança.</p>
+        <p className="mt-1">🇦🇴 Entrega em Luanda a confirmar · Pagamento na entrega</p>
+        <a className="mt-3 inline-flex font-bold text-white underline" href="https://wa.me/244955526741" target="_blank" rel="noreferrer">Dúvidas? Fale connosco no WhatsApp</a>
+      </footer>
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E8DDD8] bg-[#F8F5F0]/95 p-3 shadow-[0_-8px_30px_rgba(25,25,25,.12)] backdrop-blur sm:hidden">
+        <div className="mx-auto flex max-w-lg items-center gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-bold uppercase tracking-wide text-[#C92332]">A partir de</p>
+            <p className="truncate text-lg font-black leading-tight">{formatKz(OFFERS[0].total)}</p>
+            <p className="text-[11px] text-[#686D66] line-through">{formatKz(OFFERS[0].oldTotal)}</p>
+          </div>
+          <button type="button" onClick={() => document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth" })} className={`${CTA} min-h-12 shrink-0 bg-[#C92332] px-5 text-xs text-white`}>VER PACOTES <ArrowRight className="size-4" /></button>
+        </div>
+      </div>
+
+      <CheckoutDrawer
+        product={checkoutProduct}
+        open={checkoutOpen}
+        onOpenChange={setCheckoutOpen}
+        quantity={selectedOffer.quantity}
+        onQuantityChange={() => undefined}
+        minQuantity={selectedOffer.quantity}
+        maxQuantity={selectedOffer.quantity}
+        totalPriceOverride={selectedOffer.total}
+        onPlaced={setPlaced}
+      />
+      <OrderSuccessDialog order={placed} onClose={() => setPlaced(null)} />
+    </div>
+  );
+}
