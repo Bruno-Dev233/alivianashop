@@ -124,6 +124,8 @@ function Page() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [placed, setPlaced] = useState<PlacedOrder | null>(null);
   const [selectedOfferId, setSelectedOfferId] = useState<(typeof OFFERS)[number]["id"]>("single");
+  const [mainImageFailed, setMainImageFailed] = useState(false);
+  const [failedStories, setFailedStories] = useState<string[]>([]);
   const selectedOffer = OFFERS.find((offer) => offer.id === selectedOfferId) ?? OFFERS[0];
   const checkoutProduct: Product = {
     ...product,
@@ -178,12 +180,62 @@ function Page() {
         <section className="px-4 pb-12 pt-7 sm:px-6 sm:pb-16 sm:pt-12">
           <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-14">
             <div className="mx-auto w-full max-w-xl">
-              <img src={PRODUCT.image} alt="AURELIS TURBOVAC, soprador de folhas sem fios" className="block h-auto w-full rounded-3xl object-contain" fetchPriority="high" />
+              {mainImageFailed ? (
+                <div className="grid min-h-[320px] place-items-center rounded-3xl border border-[#E8DDD8] bg-white p-8 text-center sm:min-h-[440px]">
+                  <div>
+                    <Wind className="mx-auto size-16 text-[#C92332]" />
+                    <p className="mt-4 text-2xl font-black">AURELIS TURBOVAC™</p>
+                    <p className="mt-2 text-sm text-[#625A56]">A imagem do produto não carregou. Abra a imagem original para a visualizar.</p>
+                    <a href={PRODUCT.image} target="_blank" rel="noreferrer" className="mt-4 inline-flex rounded-xl bg-[#C92332] px-4 py-3 text-sm font-bold text-white">Ver imagem do produto</a>
+                  </div>
+                </div>
+              ) : (
+                <img src={PRODUCT.image} alt="AURELIS TURBOVAC, soprador de folhas sem fios" className="block h-auto w-full rounded-3xl object-contain" fetchPriority="high" loading="eager" decoding="async" referrerPolicy="no-referrer" onError={() => setMainImageFailed(true)} />
+              )}
             </div>
             <div className="mx-auto w-full max-w-2xl">
               <p className="text-xs font-black uppercase tracking-[.2em] text-[#C92332]">Limpeza mais prática</p>
               <h1 className="mt-3 text-4xl font-black leading-[1.02] tracking-[-.045em] sm:text-5xl xl:text-6xl">AURELIS TURBOVAC™</h1>
               <p className="mt-4 text-lg leading-relaxed text-[#4C4846] sm:text-xl">Dê mais praticidade à limpeza de folhas, pó e pequenos detritos com um soprador portátil sem fios.</p>
+
+              <div id="pacotes" className="mt-5 rounded-2xl border border-[#E8DDD8] bg-white p-4 sm:p-5">
+                <p className="text-xs font-black uppercase tracking-[.16em] text-[#C92332]">PAGUE MENOS E LEVE MAIS</p>
+                <p className="mt-1 text-sm text-[#625A56]">Escolha o seu pacote:</p>
+                <div className="mt-3 space-y-2">
+                  {OFFERS.map((offer) => {
+                    const selected = selectedOfferId === offer.id;
+                    return (
+                      <button key={offer.id} type="button" aria-pressed={selected} onClick={() => setSelectedOfferId(offer.id)}
+                        className={`flex w-full items-center gap-3 rounded-xl border-2 p-3 text-left transition ${selected ? "border-[#C92332] bg-[#FFF4F4]" : "border-[#E8DDD8] bg-white hover:border-[#D9A0A5]"}`}>
+                        <span className={`grid size-5 shrink-0 place-items-center rounded-full border-2 ${selected ? "border-[#C92332]" : "border-[#B9B1AD]"}`}>
+                          {selected && <span className="size-2.5 rounded-full bg-[#C92332]" />}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex flex-wrap items-center gap-2">
+                            <span className="text-sm font-black">{offer.quantity} {offer.quantity === 1 ? "UNIDADE" : "UNIDADES"}</span>
+                            {offer.id === "double" && <span className="rounded-full bg-[#C92332] px-2 py-0.5 text-[10px] font-black text-white">MAIS POPULAR</span>}
+                            {offer.id === "triple" && <span className="rounded-full bg-[#191919] px-2 py-0.5 text-[10px] font-black text-white">MAIOR POUPANÇA</span>}
+                          </span>
+                          <span className="mt-1 block text-xs text-[#625A56]">{offer.id === "double" ? "🔥 2 baterias incluídas + mala" : offer.id === "triple" ? "Melhor poupança para levar 3" : "Oferta essencial"}</span>
+                        </span>
+                        <span className="shrink-0 text-right">
+                          <span className="block text-base font-black">{formatKz(offer.total)}</span>
+                          <span className="block text-[11px] font-semibold text-[#77716E] line-through">{formatKz(offer.oldTotal)}</span>
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="mt-3 text-xs font-bold text-[#A91E2B]">Poupe {formatKz(selectedOffer.saving)} nesta oferta</p>
+                <button type="button" onClick={() => openCheckout(selectedOffer.id)} className={`${CTA} mt-3 min-h-12 w-full bg-[#C92332] px-5 text-sm text-white shadow-lg shadow-[#C92332]/20 hover:bg-[#A91E2B] sm:text-base`}>
+                  ENCOMENDAR — {formatKz(selectedOffer.total)} <ArrowRight className="size-5" />
+                </button>
+                <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs font-semibold text-[#625A56]">
+                  <span className="inline-flex items-center gap-1"><Wallet className="size-3.5" /> Paga ao receber</span>
+                  <span className="inline-flex items-center gap-1"><Truck className="size-3.5" /> Entrega a confirmar</span>
+                  <span className="inline-flex items-center gap-1"><ShieldCheck className="size-3.5" /> Pedido seguro</span>
+                </div>
+              </div>
 
               <div className="mt-6 space-y-3">
                 {benefits.map(({ icon: Icon, title, text }) => (
@@ -193,55 +245,7 @@ function Page() {
                   </div>
                 ))}
               </div>
-
-              <div className="mt-7 rounded-2xl border border-[#E8DDD8] bg-white p-4 sm:p-5">
-                <p className="text-sm font-bold uppercase tracking-wide text-[#C92332]">Oferta especial</p>
-                <div className="mt-1 flex flex-wrap items-baseline gap-3"><p className="text-2xl font-black">{formatKz(OFFERS[0].total)}</p><p className="text-base font-semibold text-[#77716E] line-through">{formatKz(OFFERS[0].oldTotal)}</p><span className="rounded-full bg-[#FBE4E6] px-3 py-1 text-xs font-black text-[#A91E2B]">POUPE {formatKz(OFFERS[0].saving)}</span></div>
-                <p className="mt-2 text-sm text-[#55504D]">🚚 Entrega em Luanda a confirmar · 💵 Pagamento na entrega</p>
-                <button type="button" onClick={() => document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth" })} className={`${CTA} mt-4 min-h-14 w-full bg-[#C92332] px-5 text-sm text-white shadow-lg shadow-[#C92332]/20 hover:bg-[#A91E2B] sm:text-base`}>
-                  ESCOLHER O MEU PACOTE <ArrowRight className="size-5" />
-                </button>
-                <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs font-semibold text-[#625A56]">
-                  <span className="inline-flex items-center gap-1"><Wallet className="size-3.5" /> Paga ao receber</span>
-                  <span className="inline-flex items-center gap-1"><Truck className="size-3.5" /> Entrega a confirmar</span>
-                  <span className="inline-flex items-center gap-1"><ShieldCheck className="size-3.5" /> Pedido seguro</span>
-                </div>
-              </div>
             </div>
-          </div>
-        </section>
-
-        <TrustBar />
-        <section id="pacotes" className="bg-white px-4 py-12 sm:px-6 sm:py-16">
-          <div className="mx-auto max-w-6xl">
-            <p className="text-center text-xs font-black uppercase tracking-[.2em] text-[#C92332]">Escolha a oferta ideal</p>
-            <h2 className="mx-auto mt-3 max-w-3xl text-center text-3xl font-black tracking-tight sm:text-4xl">PAGUE MENOS E LEVE MAIS</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-relaxed text-[#625A56]">Selecione o pacote que faz sentido para si. Os valores apresentados são totais por pacote.</p>
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
-              {OFFERS.map((offer) => {
-                const selected = selectedOfferId === offer.id;
-                return (
-                  <article key={offer.id} className={`relative flex flex-col rounded-3xl border-2 p-5 transition sm:p-6 ${selected ? "border-[#C92332] bg-[#FFF7F7] shadow-xl shadow-[#C92332]/10" : "border-[#E8DDD8] bg-[#F8F5F0]"}`}>
-                    {offer.id === "double" && <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#C92332] px-4 py-1.5 text-xs font-black text-white">🔥 MAIS POPULAR</span>}
-                    {offer.id === "triple" && <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#191919] px-4 py-1.5 text-xs font-black text-white">MAIOR POUPANÇA</span>}
-                    <div className="mt-2 text-center">
-                      <p className="text-xs font-black uppercase tracking-[.14em] text-[#C92332]">{offer.title}</p>
-                      <h3 className="mt-2 text-3xl font-black">{formatKz(offer.total)}</h3>
-                      <p className="mt-2 text-sm font-semibold text-[#77716E] line-through">Antes: {formatKz(offer.oldTotal)}</p>
-                      <p className="mt-3 inline-flex rounded-full bg-[#FBE4E6] px-3 py-1.5 text-xs font-black text-[#A91E2B]">POUPE {formatKz(offer.saving)}</p>
-                    </div>
-                    <div className="my-5 flex min-h-24 items-center justify-center rounded-2xl bg-white p-4 text-center text-sm font-bold leading-relaxed text-[#35302E]">
-                      {offer.description}
-                    </div>
-                    <p className="mb-4 text-center text-xs text-[#6A625E]">Pagamento na entrega · Luanda</p>
-                    <button type="button" onClick={() => { setSelectedOfferId(offer.id); openCheckout(offer.id); }} className={`${CTA} mt-auto min-h-12 w-full px-4 text-sm ${selected ? "bg-[#C92332] text-white hover:bg-[#A91E2B]" : "border border-[#C92332] bg-white text-[#C92332] hover:bg-[#FFF0F1]"}`}>
-                      {offer.button} <ArrowRight className="size-4" />
-                    </button>
-                  </article>
-                );
-              })}
-            </div>
-            <p className="mt-5 text-center text-xs leading-relaxed text-[#756D69]">Os preços anteriores são calculados com base no preço de referência de 74.999 Kz por unidade. Confirme a composição dos acessórios no momento da confirmação da encomenda.</p>
           </div>
         </section>
 
@@ -251,7 +255,20 @@ function Page() {
             <section className={`px-4 py-10 sm:px-6 sm:py-16 ${index % 2 === 1 ? "bg-white" : "bg-[#F8F5F0]"}`}>
               <div className={`mx-auto grid max-w-6xl items-center gap-7 md:grid-cols-2 md:gap-12 ${index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}>
                 <div className="overflow-hidden rounded-[1.7rem] border border-[#E8DDD8] bg-white shadow-[0_18px_55px_rgba(120,20,30,.10)]">
-                  <video className="aspect-[4/5] w-full object-cover sm:aspect-[5/4]" src={story.src} aria-label={story.title} autoPlay muted loop playsInline preload="metadata" />
+                  {failedStories.includes(story.src) ? (
+                    <div className="grid aspect-[4/5] place-items-center bg-[#F8F5F0] p-6 text-center sm:aspect-[5/4]">
+                      <div>
+                        <Wind className="mx-auto size-12 text-[#C92332]" />
+                        <p className="mt-3 font-black">Vídeo indisponível nesta página</p>
+                        <p className="mt-1 text-xs text-[#625A56]">Abra o ficheiro original para verificar se está acessível.</p>
+                        <a href={story.src} target="_blank" rel="noreferrer" className="mt-3 inline-flex rounded-lg bg-[#C92332] px-3 py-2 text-xs font-bold text-white">Abrir vídeo</a>
+                      </div>
+                    </div>
+                  ) : (
+                    <video className="aspect-[4/5] w-full object-cover sm:aspect-[5/4]" src={story.src} poster={PRODUCT.image} aria-label={story.title} autoPlay muted loop playsInline preload="auto" controls onError={() => setFailedStories((current) => current.includes(story.src) ? current : [...current, story.src])}>
+                      <source src={story.src} type="video/mp4" />
+                    </video>
+                  )}
                 </div>
                 <div className="py-2 md:py-8">
                   <p className="text-xs font-black uppercase tracking-[.18em] text-[#C92332]">AURELIS TURBOVAC™</p>
