@@ -58,8 +58,8 @@ const product: Product = {
   cost_price: 17500,
   description: "Soprador sem fios para ajudar a remover folhas, pó e pequenos detritos de áreas exteriores.",
   social_proof_text: "",
-  top_bar_text: "AURELIS TURBOVAC™ · POTÊNCIA E PRATICIDADE",
-  top_bar_text_2: "PAGAMENTO NA ENTREGA · ENTREGA EM LUANDA A CONFIRMAR",
+  top_bar_text: "💨 AURELIS TURBOVAC™ · 🍃 POTÊNCIA E PRATICIDADE",
+  top_bar_text_2: "🚚 ENTREGA EM LUANDA EM ATÉ 12H · 💵 PAGAMENTO NA ENTREGA",
   store_name: "AURELIS",
   logo_url: null,
   main_image_1: PRODUCT.image,
@@ -106,7 +106,7 @@ export const Route = createFileRoute("/aurelis-turbovac")({
 });
 
 function TrustBar() {
-  const message = "AURELIS TURBOVAC™ 💨 · PAGAMENTO NA ENTREGA · ENTREGA EM LUANDA A CONFIRMAR ·";
+  const message = "💨 AURELIS TURBOVAC™ · 🍃 POTÊNCIA E PRATICIDADE · 🚚 ENTREGA EM LUANDA EM ATÉ 12H · 💵 PAGAMENTO NA ENTREGA ·";
   return (
     <div className="overflow-hidden bg-[#C92332] py-3 text-white" aria-label={message}>
       <div className="turbovac-marquee flex w-max whitespace-nowrap">
@@ -149,14 +149,14 @@ function Page() {
     ["O que é o AURELIS TURBOVAC™?", "É um soprador sem fios concebido para ajudar a remover folhas, pó e pequenos detritos."],
     ["Como posso encomendar?", "Escolha o pacote, clique no botão de encomenda e preencha o formulário. A equipa poderá contactar-lhe para confirmar os detalhes."],
     ["Quando faço o pagamento?", "O pagamento é feito na entrega, de acordo com as condições confirmadas pela equipa."],
-    ["Onde fazem entregas?", "Esta oferta está configurada para Luanda. A disponibilidade e o prazo são confirmados pela equipa."],
+    ["Onde fazem entregas?", "A oferta está configurada para Luanda, com entrega anunciada em até 12 horas. Confirme a disponibilidade da sua zona com a equipa."],
     ["O que está incluído no kit?", "Os acessórios dependem do conjunto fornecido. Para o pacote de 2 unidades, confirme a disponibilidade das 2 baterias e da mala antes de expedir."],
   ];
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#F8F5F0] pb-20 text-[#191919] sm:pb-0">
       <div className="bg-[#C92332] px-4 py-3 text-center text-xs font-black uppercase tracking-[.12em] text-white sm:text-sm">
-        AURELIS TURBOVAC™ <span aria-hidden="true">|</span> PAGAMENTO NA ENTREGA EM LUANDA
+        💨 AURELIS TURBOVAC™ <span aria-hidden="true">|</span> 🚚 ENTREGA EM LUANDA EM ATÉ 12H <span aria-hidden="true">|</span> 💵 PAGAMENTO NA ENTREGA
       </div>
 
       <header className="sticky top-0 z-40 border-b border-[#E8DDD8] bg-[#F8F5F0]/95 backdrop-blur">
@@ -181,7 +181,7 @@ function Page() {
           <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-14">
             <div className="mx-auto w-full max-w-xl">
               {mainImageFailed ? (
-                <div className="grid min-h-[320px] place-items-center rounded-3xl border border-[#E8DDD8] bg-white p-8 text-center sm:min-h-[440px]">
+                <div className="grid min-h-[320px] place-items-center p-8 text-center sm:min-h-[440px]">
                   <div>
                     <Wind className="mx-auto size-16 text-[#C92332]" />
                     <p className="mt-4 text-2xl font-black">AURELIS TURBOVAC™</p>
@@ -190,12 +190,12 @@ function Page() {
                   </div>
                 </div>
               ) : (
-                <img src={PRODUCT.image} alt="AURELIS TURBOVAC, soprador de folhas sem fios" className="block h-auto w-full rounded-3xl object-contain" fetchPriority="high" loading="eager" decoding="async" referrerPolicy="no-referrer" onError={() => setMainImageFailed(true)} />
+                <img src={PRODUCT.image} alt="AURELIS TURBOVAC, soprador de folhas sem fios" className="block h-auto w-full object-contain" fetchPriority="high" loading="eager" decoding="async" referrerPolicy="no-referrer" onError={() => setMainImageFailed(true)} />
               )}
             </div>
             <div className="mx-auto w-full max-w-2xl">
-              <p className="text-xs font-black uppercase tracking-[.2em] text-[#C92332]">Limpeza mais prática</p>
-              <h1 className="mt-3 text-4xl font-black leading-[1.02] tracking-[-.045em] sm:text-5xl xl:text-6xl">AURELIS TURBOVAC™</h1>
+              <p className="text-xs font-black uppercase tracking-[.2em] text-[#C92332]">🍃 Limpeza mais prática</p>
+              <h1 className="mt-3 text-4xl font-black leading-[1.02] tracking-[-.045em] sm:text-5xl xl:text-6xl">💨 AURELIS TURBOVAC™ 🍃</h1>
               <p className="mt-4 text-lg leading-relaxed text-[#4C4846] sm:text-xl">Dê mais praticidade à limpeza de folhas, pó e pequenos detritos com um soprador portátil sem fios.</p>
 
               <div id="pacotes" className="mt-5 rounded-2xl border border-[#E8DDD8] bg-white p-4 sm:p-5">
@@ -232,7 +232,7 @@ function Page() {
                 </button>
                 <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs font-semibold text-[#625A56]">
                   <span className="inline-flex items-center gap-1"><Wallet className="size-3.5" /> Paga ao receber</span>
-                  <span className="inline-flex items-center gap-1"><Truck className="size-3.5" /> Entrega a confirmar</span>
+                  <span className="inline-flex items-center gap-1"><Truck className="size-3.5" /> Entrega em até 12h</span>
                   <span className="inline-flex items-center gap-1"><ShieldCheck className="size-3.5" /> Pedido seguro</span>
                 </div>
               </div>
@@ -323,7 +323,7 @@ function Page() {
       <footer className="bg-[#191919] px-4 py-8 text-center text-sm text-white/80">
         <p className="text-xl font-black tracking-[-.04em] text-white">AURELIS</p>
         <p className="mt-2">Produtos selecionados com qualidade e confiança.</p>
-        <p className="mt-1">🇦🇴 Entrega em Luanda a confirmar · Pagamento na entrega</p>
+        <p className="mt-1">🇦🇴 🚚 Entrega em Luanda em até 12h · 💵 Pagamento na entrega</p>
         <a className="mt-3 inline-flex font-bold text-white underline" href="https://wa.me/244955526741" target="_blank" rel="noreferrer">Dúvidas? Fale connosco no WhatsApp</a>
       </footer>
 
