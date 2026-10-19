@@ -198,7 +198,12 @@ function Page() {
               <h1 className="mt-3 text-4xl font-black leading-[1.02] tracking-[-.045em] sm:text-5xl xl:text-6xl">💨 AURELIS TURBOVAC™ 🍃</h1>
               <p className="mt-4 text-lg leading-relaxed text-[#4C4846] sm:text-xl">Dê mais praticidade à limpeza de folhas, pó e pequenos detritos com um soprador portátil sem fios.</p>
 
-              <div id="pacotes" className="mt-5 rounded-2xl border border-[#E8DDD8] bg-white p-4 sm:p-5">
+              <div className="mt-5 flex flex-wrap items-center gap-3" aria-label="Preço promocional de uma unidade">
+                <span className="text-3xl font-black tracking-tight text-[#191919]">{formatKz(OFFERS[0].total)}</span>
+                <span className="text-base font-bold text-[#77716E] line-through">{formatKz(OFFERS[0].oldTotal)}</span>
+                <span className="rounded-full bg-[#C92332] px-3 py-1 text-xs font-black text-white">-56% DE DESCONTO</span>
+              </div>
+              <div id="pacotes" className="mt-3 rounded-2xl border border-[#E8DDD8] bg-white p-4 sm:p-5">
                 <p className="text-xs font-black uppercase tracking-[.16em] text-[#C92332]">PAGUE MENOS E LEVE MAIS</p>
                 <p className="mt-1 text-sm text-[#625A56]">Escolha o seu pacote:</p>
                 <div className="mt-3 space-y-2">
