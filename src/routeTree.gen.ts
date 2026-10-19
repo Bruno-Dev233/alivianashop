@@ -461,6 +461,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AurelisRelaxproRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aurelis-turbovac': {
+      id: '/aurelis-turbovac'
+      path: '/aurelis-turbovac'
+      fullPath: '/aurelis-turbovac'
+      preLoaderRoute: typeof AurelisTurbovacRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/aurelis-cloudrest': {
       id: '/aurelis-cloudrest'
       path: '/aurelis-cloudrest'
