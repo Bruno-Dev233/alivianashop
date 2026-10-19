@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, ShieldCheck, Truck, Wallet, Wind, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, MessageCircle, ShieldCheck, Truck, Wallet, Wind, Zap } from "lucide-react";
 import { CheckoutDrawer, type PlacedOrder } from "@/components/aurelis/CheckoutDrawer";
 import { OrderSuccessDialog } from "@/components/aurelis/OrderSuccessDialog";
 import { formatKz, type Product } from "@/lib/aurelis";
@@ -321,6 +321,9 @@ function Page() {
             <button type="button" onClick={() => document.getElementById("pacotes")?.scrollIntoView({ behavior: "smooth" })} className={`${CTA} mt-6 min-h-14 bg-white px-6 text-sm text-[#C92332] hover:bg-[#FFF0F1] sm:text-base`}>
               ESCOLHER O MEU PACOTE <ArrowRight className="size-5" />
             </button>
+            <a href="https://wa.me/244955526741?text=Ol%C3%A1%2C%20AURELIS!%20Tenho%20d%C3%BAvidas%20sobre%20o%20TURBOVAC%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20oferta%20e%20a%20entrega." target="_blank" rel="noreferrer" className="mx-auto mt-3 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/70 px-5 py-3 text-sm font-black text-white transition hover:bg-white/10 sm:text-base">
+              <MessageCircle className="size-5" /> TIRAR DÚVIDAS PELO WHATSAPP
+            </a>
           </div>
         </section>
       </main>
