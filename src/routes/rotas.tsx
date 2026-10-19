@@ -18,6 +18,7 @@ const productRoutes = [
   { path: "/aparador-sobrancelhas", name: "Aparador de Sobrancelhas", description: "Aparador elétrico 2 em 1" },
   { path: "/aqua-go", name: "Aqua Go", description: "Chuveiro portátil" },
   { path: "/aurelis-relaxpro", name: "AURELIS RELAXPRO", description: "Produto de massagem e relaxamento" },
+  { path: "/aurelis-turbovac", name: "AURELIS TURBOVAC", description: "Soprador de folhas sem fios" },
   { path: "/aurelis-cloudrest", name: "AURELIS CloudRest", description: "Poltrona puff insuflável" },
   { path: "/auxiliador-partida", name: "Auxiliador de Partida 4 em 1", description: "Equipamento automóvel" },
   { path: "/celimax-retinal-shot", name: "Celimax Retinal Shot", description: "Produto de cuidados da pele" },
