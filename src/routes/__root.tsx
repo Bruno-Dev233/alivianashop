@@ -9,6 +9,7 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { MessageCircle } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { Toaster } from "../components/ui/sonner";
@@ -131,6 +132,28 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function WhatsAppFloatingButton() {
+  const openWhatsApp = () => {
+    if (typeof window === "undefined") return;
+    const pageTitle = document.title || "AURELIS";
+    const pageUrl = window.location.href;
+    const message = `Olá, AURELIS! 👋 Tenho interesse num produto da vossa loja.\n\nPágina: ${pageTitle}\nLink: ${pageUrl}\n\nPodem ajudar-me com o preço, disponibilidade e entrega?\n\nObrigado!`;
+    window.open(`https://wa.me/244955526741?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={openWhatsApp}
+      aria-label="Falar com a AURELIS pelo WhatsApp"
+      className="fixed bottom-24 right-4 z-[60] inline-flex h-14 items-center gap-2 rounded-full bg-[#25D366] px-4 text-sm font-black text-white shadow-[0_8px_30px_rgba(0,0,0,.22)] transition hover:scale-[1.03] hover:bg-[#1fbd5b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#128c48] md:bottom-6 md:right-6"
+    >
+      <MessageCircle className="size-6" />
+      <span>Falar no WhatsApp</span>
+    </button>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
@@ -139,6 +162,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <VisitorTracker />
       <Outlet />
+      <WhatsAppFloatingButton />
       <Toaster position="top-center" richColors />
     </QueryClientProvider>
   );
