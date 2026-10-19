@@ -54,7 +54,8 @@ const product: Product = {
   name: PRODUCT.name,
   price: PRODUCT.price,
   old_price: PRODUCT.oldPrice,
-  cost_price: 0,
+  // Estimativa provisória: ponto médio do custo informado (15.000–20.000 Kz); ajustar ao custo real.
+  cost_price: 17500,
   description: "Soprador sem fios para ajudar a remover folhas, pó e pequenos detritos de áreas exteriores.",
   social_proof_text: "",
   top_bar_text: "AURELIS TURBOVAC™ · POTÊNCIA E PRATICIDADE",
