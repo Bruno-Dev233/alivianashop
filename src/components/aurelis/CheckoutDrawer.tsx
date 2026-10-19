@@ -36,9 +36,9 @@ type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
 
 const PROVINCES = ["Luanda"] as const;
 const ANGOLA_PROVINCES = [
-  "Bengo", "Benguela", "Bié", "Cabinda", "Cuando", "Cubango", "Cuanza Norte",
+  "Bengo", "Benguela", "Bié", "Cabinda", "Cuando Cubango", "Cuanza Norte",
   "Cuanza Sul", "Cunene", "Huambo", "Huíla", "Luanda", "Lunda Norte",
-  "Lunda Sul", "Malanje", "Moxico", "Moxico Leste", "Namibe", "Uíge", "Zaire",
+  "Lunda Sul", "Malanje", "Moxico", "Namibe", "Uíge", "Zaire",
 ] as const;
 
 const FIELDS: {
@@ -407,7 +407,10 @@ export function CheckoutDrawer({
                     id="delivery-confirm"
                     type="checkbox"
                     checked={confirmed}
-                    onChange={(e) => setConfirmed(e.target.checked)}
+                    onChange={(e) => {
+                      setConfirmed(e.target.checked);
+                      if (e.target.checked) setErrors((current) => ({ ...current, confirm: undefined }));
+                    }}
                     className="mt-0.5 size-6 shrink-0 cursor-pointer rounded accent-[#8B5E3C]"
                   />
                   <span className="text-base font-semibold leading-snug">
