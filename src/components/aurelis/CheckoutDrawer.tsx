@@ -28,12 +28,18 @@ type Props = {
   maxQuantity?: number;
   totalPriceOverride?: number;
   theme?: "default" | "aqua-go";
+  allowAllProvinces?: boolean;
 };
 
-type FieldKey = "fullName" | "phone" | "address" | "reference";
+type FieldKey = "fullName" | "phone" | "municipality" | "address" | "reference";
 type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
 
 const PROVINCES = ["Luanda"] as const;
+const ANGOLA_PROVINCES = [
+  "Bengo", "Benguela", "Bié", "Cabinda", "Cuando Cubango", "Cuanza Norte",
+  "Cuanza Sul", "Cunene", "Huambo", "Huíla", "Luanda", "Lunda Norte",
+  "Lunda Sul", "Malanje", "Moxico", "Namibe", "Uíge", "Zaire",
+] as const;
 
 const FIELDS: {
   key: FieldKey;
@@ -50,7 +56,8 @@ const FIELDS: {
     type: "tel",
     placeholder: "Ex: 923 000 000",
   },
-  { key: "address", label: "Bairro e Rua", required: true, placeholder: "Ex: Talatona, Rua 10" },
+  { key: "municipality", label: "Município", required: true, placeholder: "Ex.: Talatona" },
+  { key: "address", label: "Bairro e Rua", required: true, placeholder: "Ex.: Bairro, rua e número da casa" },
   {
     key: "reference",
     label: "Ponto de Referência",
@@ -70,11 +77,13 @@ export function CheckoutDrawer({
   maxQuantity = 10,
   totalPriceOverride,
   theme = "default",
+  allowAllProvinces = false,
 }: Props) {
   const isAqua = theme === "aqua-go";
   const [values, setValues] = useState<Record<FieldKey, string>>({
     fullName: "",
     phone: "",
+    municipality: "",
     address: "",
     reference: "",
   });
@@ -85,6 +94,7 @@ export function CheckoutDrawer({
   const [serverError, setServerError] = useState<string | null>(null);
 
   const subtotal = totalPriceOverride ?? product.price * quantity;
+  const availableProvinces = allowAllProvinces ? ANGOLA_PROVINCES : PROVINCES;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -102,17 +112,26 @@ export function CheckoutDrawer({
       });
     }
   }, [open, product.name, product.id, quantity, subtotal]);
-  const set = (key: FieldKey, value: string) => setValues((v) => ({ ...v, [key]: value }));
+  const set = (key: FieldKey, value: string) => {
+    setValues((v) => ({ ...v, [key]: value }));
+    setErrors((current) => {
+      if (!current[key]) return current;
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
+  };
 
   const validate = () => {
     const next: Errors = {};
     if (values.fullName.trim().length < 2)
       next.fullName = "Indique o seu nome.";
     if (!isValidPhone(values.phone)) next.phone = "Indique um número válido.";
+    if (values.municipality.trim().length < 2) next.municipality = "Indique o município.";
     if (values.address.trim().length < 5) next.address = "Indique o bairro e a rua.";
     if (!province) next.province = "Selecione a província.";
     if (!confirmed)
-      next.confirm = "Confirme que vai receber o pedido nas próximas 24 ou 48 horas.";
+      next.confirm = "Confirme que os dados estão corretos e que pode receber o contacto para combinar a entrega.";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -126,6 +145,7 @@ export function CheckoutDrawer({
     const fullName = values.fullName.trim().replace(/\s+/g, " ");
     const reference = values.reference.trim();
     const addressLines = [
+      `Município: ${values.municipality.trim()}`,
       values.address.trim(),
       reference ? `Ponto de referência: ${reference}` : null,
       `Província: ${province}`,
@@ -160,7 +180,7 @@ export function CheckoutDrawer({
         product_name: product.name,
         customer_name: fullName,
         customer_phone: values.phone.trim(),
-        customer_address: values.address.trim(),
+        customer_address: addressLines.join(" | "),
         province,
         email: null,
         reference: reference || null,
@@ -230,6 +250,7 @@ export function CheckoutDrawer({
         customerName: fullName,
         customerPhone: values.phone.trim(),
         address: values.address.trim(),
+        municipality: values.municipality.trim(),
         province,
         reference,
       }));
@@ -247,6 +268,7 @@ export function CheckoutDrawer({
     setValues({
       fullName: "",
       phone: "",
+      municipality: "",
       address: "",
       reference: "",
     });
@@ -325,9 +347,9 @@ export function CheckoutDrawer({
                 <Truck className="size-4" /> 🚚 FRETE GRÁTIS
               </p>
               <p className="mt-1 text-xs text-foreground">
-                Entrega prevista nas próximas <strong>24 ou 48 horas</strong>
+                A equipa confirma o prazo conforme a sua localização
               </p>
-              <p className="text-xs text-muted-foreground">Entrega disponível em Angola</p>
+              <p className="text-xs text-muted-foreground">As condições de entrega são confirmadas no contacto de confirmação.</p>
             </div>
 
             <div className="space-y-3">
@@ -341,7 +363,7 @@ export function CheckoutDrawer({
                     type={type ?? "text"}
                     inputMode={type === "tel" ? "tel" : undefined}
                     placeholder={placeholder}
-                    autoComplete={key === "fullName" ? "name" : undefined}
+                    autoComplete={key === "fullName" ? "name" : key === "phone" ? "tel" : key === "municipality" ? "address-level2" : key === "address" ? "street-address" : undefined}
                     value={values[key]}
                     onChange={(e) => set(key, e.target.value)}
                     className={`h-12 min-h-12 w-full rounded-xl text-base ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C] placeholder:text-[#9B806B] focus-visible:ring-[#8B5E3C]" : ""}`}
@@ -366,7 +388,7 @@ export function CheckoutDrawer({
                   <option value="" disabled>
                     Selecione a província
                   </option>
-                  {PROVINCES.map((item) => (
+                  {availableProvinces.map((item) => (
                     <option key={item} value={item}>
                       {item}
                     </option>
@@ -385,12 +407,14 @@ export function CheckoutDrawer({
                     id="delivery-confirm"
                     type="checkbox"
                     checked={confirmed}
-                    onChange={(e) => setConfirmed(e.target.checked)}
+                    onChange={(e) => {
+                      setConfirmed(e.target.checked);
+                      if (e.target.checked) setErrors((current) => ({ ...current, confirm: undefined }));
+                    }}
                     className="mt-0.5 size-6 shrink-0 cursor-pointer rounded accent-[#8B5E3C]"
                   />
                   <span className="text-base font-semibold leading-snug">
-                    Confirmo que vou receber o pedido nas próximas{" "}
-                    <strong>24 ou 48 horas</strong>.
+                    Confirmo que os meus dados estão corretos e que posso receber o contacto da equipa para combinar a entrega.
                   </span>
                 </label>
                 {errors.confirm && (
@@ -404,7 +428,7 @@ export function CheckoutDrawer({
             <div className={`rounded-2xl border p-3 text-center ${isAqua ? "border-[#D8C2AE] bg-white" : "border-border bg-card"}`}>
               <p className="font-display text-sm font-bold">Pagamento na Entrega</p>
               <p className="text-xs text-muted-foreground">
-                Você só paga quando receber o produto.
+                Pague apenas quando receber o produto. A equipa confirmará os detalhes da entrega.
               </p>
             </div>
           </div>
@@ -426,7 +450,7 @@ export function CheckoutDrawer({
                   <Loader2 className="size-5 animate-spin" /> A registar o pedido...
                 </>
               ) : (
-                `🚚 ENCOMENDAR AGORA — ${formatKz(subtotal)}`
+                `🛍️ CONFIRMAR ENCOMENDA — ${formatKz(subtotal)}`
               )}
             </Button>
             <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
