@@ -15,6 +15,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AparadorSobrancelhasRouteImport } from './routes/aparador-sobrancelhas'
 import { Route as AquaGoRouteImport } from './routes/aqua-go'
 import { Route as AurelisRelaxproRouteImport } from './routes/aurelis-relaxpro'
+import { Route as AurelisTurbovacRouteImport } from './routes/aurelis-turbovac'
 import { Route as AurelisCloudrestRouteImport } from './routes/aurelis-cloudrest'
 import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-partida'
 import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal-shot'
@@ -68,6 +69,11 @@ const AquaGoRoute = AquaGoRouteImport.update({
 const AurelisRelaxproRoute = AurelisRelaxproRouteImport.update({
   id: '/aurelis-relaxpro',
   path: '/aurelis-relaxpro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AurelisTurbovacRoute = AurelisTurbovacRouteImport.update({
+  id: '/aurelis-turbovac',
+  path: '/aurelis-turbovac',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AurelisCloudrestRoute = AurelisCloudrestRouteImport.update({
@@ -198,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
   '/aurelis-relaxpro': typeof AurelisRelaxproRoute
+  '/aurelis-turbovac': typeof AurelisTurbovacRoute
   '/aurelis-cloudrest': typeof AurelisCloudrestRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
@@ -296,6 +303,7 @@ export interface FileRouteTypes {
     | '/aparador-sobrancelhas'
     | '/aqua-go'
     | '/aurelis-relaxpro'
+    | '/aurelis-turbovac'
     | '/aurelis-cloudrest'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
@@ -392,6 +400,7 @@ export interface RootRouteChildren {
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   AquaGoRoute: typeof AquaGoRoute
   AurelisRelaxproRoute: typeof AurelisRelaxproRoute
+  AurelisTurbovacRoute: typeof AurelisTurbovacRoute
   AurelisCloudrestRoute: typeof AurelisCloudrestRoute
   AuxiliadorPartidaRoute: typeof AuxiliadorPartidaRoute
   CelimaxRetinalShotRoute: typeof CelimaxRetinalShotRoute
@@ -450,6 +459,13 @@ declare module '@tanstack/react-router' {
       path: '/aurelis-relaxpro'
       fullPath: '/aurelis-relaxpro'
       preLoaderRoute: typeof AurelisRelaxproRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/aurelis-turbovac': {
+      id: '/aurelis-turbovac'
+      path: '/aurelis-turbovac'
+      fullPath: '/aurelis-turbovac'
+      preLoaderRoute: typeof AurelisTurbovacRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/aurelis-cloudrest': {
@@ -658,6 +674,7 @@ const rootRouteChildren: RootRouteChildren = {
   AparadorSobrancelhasRoute: AparadorSobrancelhasRoute,
   AquaGoRoute: AquaGoRoute,
   AurelisRelaxproRoute: AurelisRelaxproRoute,
+  AurelisTurbovacRoute: AurelisTurbovacRoute,
   AurelisCloudrestRoute: AurelisCloudrestRoute,
   AuxiliadorPartidaRoute: AuxiliadorPartidaRoute,
   CelimaxRetinalShotRoute: CelimaxRetinalShotRoute,
