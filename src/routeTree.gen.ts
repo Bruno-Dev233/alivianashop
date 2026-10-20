@@ -10,13 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RotasRouteImport } from './routes/rotas'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AparadorSobrancelhasRouteImport } from './routes/aparador-sobrancelhas'
 import { Route as AquaGoRouteImport } from './routes/aqua-go'
+import { Route as AurelisCloudrestRouteImport } from './routes/aurelis-cloudrest'
 import { Route as AurelisRelaxproRouteImport } from './routes/aurelis-relaxpro'
 import { Route as AurelisTurbovacRouteImport } from './routes/aurelis-turbovac'
-import { Route as AurelisCloudrestRouteImport } from './routes/aurelis-cloudrest'
 import { Route as AuxiliadorPartidaRouteImport } from './routes/auxiliador-partida'
 import { Route as CelimaxRetinalShotRouteImport } from './routes/celimax-retinal-shot'
 import { Route as DepiladorEletricoRouteImport } from './routes/depilador-eletrico'
@@ -29,6 +28,7 @@ import { Route as LavaJatoUltraRouteImport } from './routes/lava-jato-ultra'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PranchaFlexoesRouteImport } from './routes/prancha-flexoes'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
+import { Route as RotasRouteImport } from './routes/rotas'
 import { Route as TermosRouteImport } from './routes/termos'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAquaGoRouteImport } from './routes/admin.aqua-go'
@@ -46,11 +46,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RotasRoute = RotasRouteImport.update({
-  id: '/rotas',
-  path: '/rotas',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -66,6 +61,11 @@ const AquaGoRoute = AquaGoRouteImport.update({
   path: '/aqua-go',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AurelisCloudrestRoute = AurelisCloudrestRouteImport.update({
+  id: '/aurelis-cloudrest',
+  path: '/aurelis-cloudrest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AurelisRelaxproRoute = AurelisRelaxproRouteImport.update({
   id: '/aurelis-relaxpro',
   path: '/aurelis-relaxpro',
@@ -74,11 +74,6 @@ const AurelisRelaxproRoute = AurelisRelaxproRouteImport.update({
 const AurelisTurbovacRoute = AurelisTurbovacRouteImport.update({
   id: '/aurelis-turbovac',
   path: '/aurelis-turbovac',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AurelisCloudrestRoute = AurelisCloudrestRouteImport.update({
-  id: '/aurelis-cloudrest',
-  path: '/aurelis-cloudrest',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuxiliadorPartidaRoute = AuxiliadorPartidaRouteImport.update({
@@ -141,6 +136,11 @@ const PrivacidadeRoute = PrivacidadeRouteImport.update({
   path: '/privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RotasRoute = RotasRouteImport.update({
+  id: '/rotas',
+  path: '/rotas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermosRoute = TermosRouteImport.update({
   id: '/termos',
   path: '/termos',
@@ -199,13 +199,12 @@ const AdminLandingSlugRoute = AdminLandingSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/rotas': typeof RotasRoute
   '/admin': typeof AdminRouteWithChildren
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
+  '/aurelis-cloudrest': typeof AurelisCloudrestRoute
   '/aurelis-relaxpro': typeof AurelisRelaxproRoute
   '/aurelis-turbovac': typeof AurelisTurbovacRoute
-  '/aurelis-cloudrest': typeof AurelisCloudrestRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -218,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/obrigado': typeof ObrigadoRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/rotas': typeof RotasRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -232,11 +232,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/rotas': typeof RotasRoute
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
-  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
   '/aurelis-cloudrest': typeof AurelisCloudrestRoute
+  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
+  '/aurelis-turbovac': typeof AurelisTurbovacRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -249,6 +249,7 @@ export interface FileRoutesByTo {
   '/obrigado': typeof ObrigadoRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/rotas': typeof RotasRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -264,12 +265,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/rotas': typeof RotasRoute
   '/admin': typeof AdminRouteWithChildren
   '/aparador-sobrancelhas': typeof AparadorSobrancelhasRoute
   '/aqua-go': typeof AquaGoRoute
-  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
   '/aurelis-cloudrest': typeof AurelisCloudrestRoute
+  '/aurelis-relaxpro': typeof AurelisRelaxproRoute
+  '/aurelis-turbovac': typeof AurelisTurbovacRoute
   '/auxiliador-partida': typeof AuxiliadorPartidaRoute
   '/celimax-retinal-shot': typeof CelimaxRetinalShotRoute
   '/depilador-eletrico': typeof DepiladorEletricoRoute
@@ -282,6 +283,7 @@ export interface FileRoutesById {
   '/obrigado': typeof ObrigadoRoute
   '/prancha-flexoes': typeof PranchaFlexoesRoute
   '/privacidade': typeof PrivacidadeRoute
+  '/rotas': typeof RotasRoute
   '/termos': typeof TermosRoute
   '/admin/aqua-go': typeof AdminAquaGoRoute
   '/admin/financas': typeof AdminFinancasRoute
@@ -298,13 +300,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/rotas'
     | '/admin'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
+    | '/aurelis-cloudrest'
     | '/aurelis-relaxpro'
     | '/aurelis-turbovac'
-    | '/aurelis-cloudrest'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
@@ -317,6 +318,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/prancha-flexoes'
     | '/privacidade'
+    | '/rotas'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
@@ -331,11 +333,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/rotas'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
-    | '/aurelis-relaxpro'
     | '/aurelis-cloudrest'
+    | '/aurelis-relaxpro'
+    | '/aurelis-turbovac'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
@@ -348,6 +350,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/prancha-flexoes'
     | '/privacidade'
+    | '/rotas'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
@@ -362,12 +365,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/rotas'
     | '/admin'
     | '/aparador-sobrancelhas'
     | '/aqua-go'
-    | '/aurelis-relaxpro'
     | '/aurelis-cloudrest'
+    | '/aurelis-relaxpro'
+    | '/aurelis-turbovac'
     | '/auxiliador-partida'
     | '/celimax-retinal-shot'
     | '/depilador-eletrico'
@@ -380,6 +383,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/prancha-flexoes'
     | '/privacidade'
+    | '/rotas'
     | '/termos'
     | '/admin/aqua-go'
     | '/admin/financas'
@@ -395,13 +399,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  RotasRoute: typeof RotasRoute
   AdminRoute: typeof AdminRouteWithChildren
   AparadorSobrancelhasRoute: typeof AparadorSobrancelhasRoute
   AquaGoRoute: typeof AquaGoRoute
+  AurelisCloudrestRoute: typeof AurelisCloudrestRoute
   AurelisRelaxproRoute: typeof AurelisRelaxproRoute
   AurelisTurbovacRoute: typeof AurelisTurbovacRoute
-  AurelisCloudrestRoute: typeof AurelisCloudrestRoute
   AuxiliadorPartidaRoute: typeof AuxiliadorPartidaRoute
   CelimaxRetinalShotRoute: typeof CelimaxRetinalShotRoute
   DepiladorEletricoRoute: typeof DepiladorEletricoRoute
@@ -414,6 +417,7 @@ export interface RootRouteChildren {
   ObrigadoRoute: typeof ObrigadoRoute
   PranchaFlexoesRoute: typeof PranchaFlexoesRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
+  RotasRoute: typeof RotasRoute
   TermosRoute: typeof TermosRoute
 }
 
@@ -424,13 +428,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rotas': {
-      id: '/rotas'
-      path: '/rotas'
-      fullPath: '/rotas'
-      preLoaderRoute: typeof RotasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -454,6 +451,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AquaGoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aurelis-cloudrest': {
+      id: '/aurelis-cloudrest'
+      path: '/aurelis-cloudrest'
+      fullPath: '/aurelis-cloudrest'
+      preLoaderRoute: typeof AurelisCloudrestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/aurelis-relaxpro': {
       id: '/aurelis-relaxpro'
       path: '/aurelis-relaxpro'
@@ -466,13 +470,6 @@ declare module '@tanstack/react-router' {
       path: '/aurelis-turbovac'
       fullPath: '/aurelis-turbovac'
       preLoaderRoute: typeof AurelisTurbovacRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/aurelis-cloudrest': {
-      id: '/aurelis-cloudrest'
-      path: '/aurelis-cloudrest'
-      fullPath: '/aurelis-cloudrest'
-      preLoaderRoute: typeof AurelisCloudrestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auxiliador-partida': {
@@ -557,6 +554,13 @@ declare module '@tanstack/react-router' {
       path: '/privacidade'
       fullPath: '/privacidade'
       preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rotas': {
+      id: '/rotas'
+      path: '/rotas'
+      fullPath: '/rotas'
+      preLoaderRoute: typeof RotasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/termos': {
@@ -669,13 +673,12 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  RotasRoute: RotasRoute,
   AdminRoute: AdminRouteWithChildren,
   AparadorSobrancelhasRoute: AparadorSobrancelhasRoute,
   AquaGoRoute: AquaGoRoute,
+  AurelisCloudrestRoute: AurelisCloudrestRoute,
   AurelisRelaxproRoute: AurelisRelaxproRoute,
   AurelisTurbovacRoute: AurelisTurbovacRoute,
-  AurelisCloudrestRoute: AurelisCloudrestRoute,
   AuxiliadorPartidaRoute: AuxiliadorPartidaRoute,
   CelimaxRetinalShotRoute: CelimaxRetinalShotRoute,
   DepiladorEletricoRoute: DepiladorEletricoRoute,
@@ -688,6 +691,7 @@ const rootRouteChildren: RootRouteChildren = {
   ObrigadoRoute: ObrigadoRoute,
   PranchaFlexoesRoute: PranchaFlexoesRoute,
   PrivacidadeRoute: PrivacidadeRoute,
+  RotasRoute: RotasRoute,
   TermosRoute: TermosRoute,
 }
 export const routeTree = rootRouteImport
