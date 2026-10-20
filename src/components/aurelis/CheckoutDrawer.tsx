@@ -231,10 +231,6 @@ export function CheckoutDrawer({
         fbq("init", pixelId);
       }
 
-      const eventId = typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : `aurelis-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
       w.fbq("track", "Purchase", {
         value: Number(subtotal.toFixed(2)),
         currency: "AOA",
