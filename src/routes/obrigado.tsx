@@ -54,7 +54,45 @@ function ThankYou() {
       // Thank-you page remains usable if session storage is unavailable.
     }
 
+    // Report the Purchase to the Meta Pixel when the customer reaches this page.
+    // The same event ID used at checkout is reused so Meta counts the order once.
+    if (typeof window.fbq !== "function") return;
+    const order = (() => {
+      try {
+        const raw = window.sessionStorage.getItem("aurelis_whatsapp_order");
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    })();
 
+    const value = Number(order?.total ?? total ?? 0);
+    const quantity = Number(order?.quantity ?? qtd ?? 1);
+    const productName = order?.productName ?? produto;
+    if (!(value > 0)) return;
+
+    // Avoid re-reporting when the customer reloads this page for the same order.
+    const signature = `${productName}|${quantity}|${value}`;
+    try {
+      if (window.sessionStorage.getItem("aurelis_purchase_tracked") === signature) return;
+      window.sessionStorage.setItem("aurelis_purchase_tracked", signature);
+    } catch {
+      // Storage unavailable: still report once per page load.
+    }
+
+    const eventId =
+      order?.eventId ??
+      (typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `obrigado-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+
+    window.fbq("track", "Purchase", {
+      value: Number(value.toFixed(2)),
+      currency: "AOA",
+      content_name: productName,
+      content_type: "product",
+      num_items: quantity,
+    }, { eventID: eventId });
   }, [produto, qtd, total]);
 
   const confirmOnWhatsApp = () => {
