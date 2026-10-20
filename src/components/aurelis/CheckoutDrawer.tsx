@@ -193,6 +193,12 @@ export function CheckoutDrawer({
       },
     }).catch(() => undefined);
 
+    // Same event ID for the browser Purchase here and the thank-you page's
+    // report, so Meta deduplicates the order instead of counting it twice.
+    const eventId = typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `aurelis-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
     // Track Purchase only after the order was successfully saved to Supabase.
     // Ensure the pixel is available on every landing page, not only pages that
     // initialize it locally. If the pixel already exists, reuse it.
