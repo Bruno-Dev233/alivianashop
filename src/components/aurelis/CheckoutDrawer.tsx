@@ -193,11 +193,17 @@ export function CheckoutDrawer({
       },
     }).catch(() => undefined);
 
+    // Same event ID for the browser Purchase here and the thank-you page's
+    // report, so Meta deduplicates the order instead of counting it twice.
+    const eventId = typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `aurelis-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
     // Track Purchase only after the order was successfully saved to Supabase.
     // Ensure the pixel is available on every landing page, not only pages that
     // initialize it locally. If the pixel already exists, reuse it.
     if (typeof window !== "undefined") {
-      const pixelId = "4582169178770467";
+      const pixelId = "1759106692011159";
       const w = window as Window & {
         fbq?: ((...args: unknown[]) => void) & { queue?: unknown[][]; loaded?: boolean; version?: string };
         _fbq?: unknown;
@@ -222,12 +228,8 @@ export function CheckoutDrawer({
           script.dataset["aurelisMetaPixel"] = "true";
           document.head.appendChild(script);
         }
-        fbq("init", pixelId);
+        fbq("init", pixelId, {}, { agent: "lovable" });
       }
-
-      const eventId = typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : `aurelis-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
       w.fbq("track", "Purchase", {
         value: Number(subtotal.toFixed(2)),
@@ -253,6 +255,9 @@ export function CheckoutDrawer({
         municipality: values.municipality.trim(),
         province,
         reference,
+        // Same event ID as the Purchase tracked above, so the thank-you page's
+        // report deduplicates in Meta instead of counting the order twice.
+        eventId,
       }));
     } catch {
       // Checkout remains successful even if browser storage is unavailable.
@@ -409,7 +414,13 @@ export function CheckoutDrawer({
                     checked={confirmed}
                     onChange={(e) => {
                       setConfirmed(e.target.checked);
-                      if (e.target.checked) setErrors((current) => ({ ...current, confirm: undefined }));
+                      if (e.target.checked)
+                        setErrors((current) => {
+                          if (!current.confirm) return current;
+                          const next = { ...current };
+                          delete next.confirm;
+                          return next;
+                        });
                     }}
                     className="mt-0.5 size-6 shrink-0 cursor-pointer rounded accent-[#8B5E3C]"
                   />
