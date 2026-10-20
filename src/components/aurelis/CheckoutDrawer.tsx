@@ -253,6 +253,9 @@ export function CheckoutDrawer({
         municipality: values.municipality.trim(),
         province,
         reference,
+        // Same event ID as the Purchase tracked above, so the thank-you page's
+        // report deduplicates in Meta instead of counting the order twice.
+        eventId,
       }));
     } catch {
       // Checkout remains successful even if browser storage is unavailable.
