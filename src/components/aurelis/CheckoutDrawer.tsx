@@ -197,7 +197,7 @@ export function CheckoutDrawer({
     // Ensure the pixel is available on every landing page, not only pages that
     // initialize it locally. If the pixel already exists, reuse it.
     if (typeof window !== "undefined") {
-      const pixelId = "4582169178770467";
+      const pixelId = "1759106692011159";
       const w = window as Window & {
         fbq?: ((...args: unknown[]) => void) & { queue?: unknown[][]; loaded?: boolean; version?: string };
         _fbq?: unknown;
