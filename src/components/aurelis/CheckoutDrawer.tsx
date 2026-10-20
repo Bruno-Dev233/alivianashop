@@ -228,7 +228,7 @@ export function CheckoutDrawer({
           script.dataset["aurelisMetaPixel"] = "true";
           document.head.appendChild(script);
         }
-        fbq("init", pixelId);
+        fbq("init", pixelId, {}, { agent: "lovable" });
       }
 
       w.fbq("track", "Purchase", {
