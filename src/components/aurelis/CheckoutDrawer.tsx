@@ -412,7 +412,13 @@ export function CheckoutDrawer({
                     checked={confirmed}
                     onChange={(e) => {
                       setConfirmed(e.target.checked);
-                      if (e.target.checked) setErrors((current) => ({ ...current, confirm: undefined }));
+                      if (e.target.checked)
+                        setErrors((current) => {
+                          if (!current.confirm) return current;
+                          const next = { ...current };
+                          delete next.confirm;
+                          return next;
+                        });
                     }}
                     className="mt-0.5 size-6 shrink-0 cursor-pointer rounded accent-[#8B5E3C]"
                   />
