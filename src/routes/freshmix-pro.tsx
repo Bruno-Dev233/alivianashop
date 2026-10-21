@@ -18,7 +18,7 @@ const ASSETS = {
 const PRODUCT = {
   id: "freshmix-pro",
   name: "FreshMix Pro 4 em 1",
-  price: 90000,
+  price: 89900,
   oldPrice: 114400,
   image: ASSETS.main,
 };
@@ -85,7 +85,7 @@ function Page() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [offerQuantity, setOfferQuantity] = useState(1);
   const offers = [
-    { quantity: 1, label: "1X FRESHMIX PRO", price: 90000, old: 114400, saving: 24400 },
+    { quantity: 1, label: "1X FRESHMIX PRO", price: 89900, old: 114400, saving: 24500 },
     { quantity: 2, label: "2X FRESHMIX", price: 144400, old: 204300, saving: 59900, badge: "MAIS COMPRADO" },
     { quantity: 3, label: "3X FRESHMIX", price: 194400, old: 294400, saving: 99800, badge: "MELHOR VALOR" },
   ];
