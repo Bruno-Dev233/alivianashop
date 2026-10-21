@@ -18,8 +18,8 @@ const ASSETS = {
 const PRODUCT = {
   id: "freshmix-pro",
   name: "FreshMix Pro 4 em 1",
-  price: 89900,
-  oldPrice: 114400,
+  price: 129900,
+  oldPrice: 154400,
   image: ASSETS.main,
 };
 
@@ -85,9 +85,9 @@ function Page() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [offerQuantity, setOfferQuantity] = useState(1);
   const offers = [
-    { quantity: 1, label: "1X FRESHMIX PRO", price: 89900, old: 114400, saving: 24500 },
-    { quantity: 2, label: "2X FRESHMIX", price: 144400, old: 204300, saving: 59900, badge: "MAIS COMPRADO" },
-    { quantity: 3, label: "3X FRESHMIX", price: 194400, old: 294400, saving: 99800, badge: "MELHOR VALOR" },
+    { quantity: 1, label: "1X FRESHMIX PRO", price: 129900, old: 154400, saving: 24500 },
+    { quantity: 2, label: "2X FRESHMIX", price: 194400, old: 254300, saving: 59900, badge: "MAIS COMPRADO" },
+    { quantity: 3, label: "3X FRESHMIX", price: 254400, old: 354400, saving: 99800, badge: "MELHOR VALOR" },
   ];
   const selectedOffer = offers.find((offer) => offer.quantity === offerQuantity) ?? offers[0]!;
   const buy = () => setCheckoutOpen(true);
