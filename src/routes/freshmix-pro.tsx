@@ -221,7 +221,7 @@ function Page() {
               <p className="mt-3 text-base font-bold text-[#4b5563]">Escolha o tamanho ideal: Médio 500 ml ou Grande 1000 ml.</p>
             </div>
 
-            <div className="mt-8 space-y-4">
+            <div className="mt-8 space-y-4" role="radiogroup" aria-label="Escolha apenas um tamanho da FreshMix Pro">
               {offers.map((offer) => {
                 const selected = offerQuantity === offer.sizeId;
                 return (
@@ -229,8 +229,9 @@ function Page() {
                     key={offer.sizeId}
                     type="button"
                     onClick={() => setOfferQuantity(offer.sizeId)}
-                    aria-pressed={selected}
-                    className={`relative w-full rounded-[1.5rem] border-2 p-4 text-left transition sm:p-5 ${selected ? "border-[#16a34a] bg-[#dcfce7] shadow-lg shadow-green-900/10" : "border-[#d1d5db] bg-white hover:border-[#16a34a]"}`}
+                    role="radio"
+                    aria-checked={selected}
+                    className={`relative w-full rounded-[1.5rem] border-2 p-4 text-left transition sm:p-5 ${selected ? "border-[#16a34a] bg-[#dcfce7] shadow-lg shadow-green-900/10 ring-2 ring-[#16a34a]/20" : "border-[#d1d5db] bg-white hover:border-[#16a34a]"}`}
                   >
                     {offer.sizeId && (
                       <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[#16a34a] px-4 py-1.5 text-[10px] font-black tracking-wide text-white shadow">
