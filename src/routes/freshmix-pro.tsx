@@ -18,7 +18,7 @@ const ASSETS = {
 const PRODUCT = {
   id: "freshmix-pro",
   name: "FreshMix Pro 4 em 1",
-  price: 129900,
+  price: 89900,
   oldPrice: 154400,
   image: ASSETS.main,
 };
@@ -85,11 +85,10 @@ function Page() {
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [offerQuantity, setOfferQuantity] = useState(1);
   const offers = [
-    { quantity: 1, label: "1X FRESHMIX PRO", price: 129900, old: 154400, saving: 24500 },
-    { quantity: 2, label: "2X FRESHMIX", price: 194400, old: 254300, saving: 59900, badge: "MAIS COMPRADO" },
-    { quantity: 3, label: "3X FRESHMIX", price: 254400, old: 354400, saving: 99800, badge: "MELHOR VALOR" },
+    { sizeId: 1, label: "MÉDIO (500 ML)", price: 89900, volume: "500 ML", description: "Formato médio para o uso diário." },
+    { sizeId: 2, label: "GRANDE (1000 ML)", price: 149999, volume: "1000 ML", description: "Maior capacidade para preparar mais." },
   ];
-  const selectedOffer = offers.find((offer) => offer.quantity === offerQuantity) ?? offers[0]!;
+  const selectedOffer = offers.find((offer) => offer.sizeId === offerQuantity) ?? offers[0]!;
   const buy = () => setCheckoutOpen(true);
   const discount = Math.round(((PRODUCT.oldPrice - PRODUCT.price) / PRODUCT.oldPrice) * 100);
 
@@ -219,7 +218,7 @@ function Page() {
             <div className="text-center">
               <span className="rounded-full bg-[#fef9c3] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#16a34a]">OFERTA ESPECIAL AURELIS</span>
               <h2 className="mt-5 text-3xl font-black tracking-[-.04em] sm:text-5xl">PAGUE MENOS E LEVE MAIS 🍊</h2>
-              <p className="mt-3 text-base font-bold text-[#4b5563]">Escolha a sua oferta FreshMix Pro 4 em 1.</p>
+              <p className="mt-3 text-base font-bold text-[#4b5563]">Escolha o tamanho ideal: Médio 500 ml ou Grande 1000 ml.</p>
             </div>
 
             <div className="mt-8 space-y-4">
@@ -233,9 +232,9 @@ function Page() {
                     aria-pressed={selected}
                     className={`relative w-full rounded-[1.5rem] border-2 p-4 text-left transition sm:p-5 ${selected ? "border-[#16a34a] bg-[#dcfce7] shadow-lg shadow-green-900/10" : "border-[#d1d5db] bg-white hover:border-[#16a34a]"}`}
                   >
-                    {offer.badge && (
+                    {offer.sizeId && (
                       <span className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-[#16a34a] px-4 py-1.5 text-[10px] font-black tracking-wide text-white shadow">
-                        {offer.badge}
+                        {offer.sizeId === 1 ? "500 ML" : "MAIOR CAPACIDADE"}
                       </span>
                     )}
                     <div className="flex items-center gap-3">
@@ -244,16 +243,16 @@ function Page() {
                       </span>
                       <div className="min-w-0 flex-1">
                         <span className="block text-base font-black text-[#173b24] sm:text-xl">{offer.label}</span>
-                        <span className="mt-1 block text-xs font-black uppercase text-[#dc2626] sm:text-sm">POUPE {formatKz(offer.saving)} {offer.quantity > 1 ? `E LEVE ${offer.quantity} UNIDADES` : ""}</span>
+                        <span className="mt-1 block text-xs font-bold uppercase text-[#4b5563] sm:text-sm">{offer.description}</span>
                       </div>
                       <div className="text-right">
                         <span className="block text-lg font-black text-[#173b24] sm:text-2xl">{formatKz(offer.price)}</span>
-                        <span className="block text-xs font-bold text-gray-500 line-through sm:text-sm">{formatKz(offer.old)}</span>
+                        <span className="block text-xs font-bold text-[#64748b] sm:text-sm">{offer.volume}</span>
                       </div>
                     </div>
-                    {offer.quantity > 1 && (
+                    {offer.sizeId > 1 && (
                       <p className="mt-3 pl-11 text-xs font-bold text-[#166534] sm:text-sm">
-                        {offer.quantity === 2 ? "Leve 2 unidades e aproveite a oferta mais escolhida." : "Leve 3 unidades pelo menor preço por unidade."}
+                        {offer.sizeId === 1 ? "Formato médio de 500 ml." : "Formato grande de 1000 ml."}
                       </p>
                     )}
                   </button>
@@ -264,7 +263,7 @@ function Page() {
             <div className="mt-5 rounded-2xl border border-green-200 bg-white p-4 text-center">
               <p className="text-xs font-bold uppercase tracking-wide text-[#64748b]">Total da sua oferta</p>
               <p className="mt-1 text-3xl font-black text-[#16a34a]">{formatKz(selectedOffer.price)}</p>
-              <p className="mt-1 text-sm font-bold text-[#4b5563]">Quantidade: {selectedOffer.quantity} {selectedOffer.quantity === 1 ? "unidade" : "unidades"}</p>
+              <p className="mt-1 text-sm font-bold text-[#4b5563]">Tamanho selecionado: {selectedOffer.volume}</p>
             </div>
             <button onClick={buy} className={`${CTA} mt-5 h-16 w-full bg-[#16a34a] px-8 text-base text-white shadow-xl shadow-green-700/20 sm:text-lg`}>
               🍊 QUERO ESTA OFERTA <ArrowRight className="size-5" />
@@ -407,14 +406,14 @@ function Page() {
       </footer>
 
       <CheckoutDrawer
-        product={product}
+        product={{ ...product, name: `${PRODUCT.name} — ${selectedOffer.label}`, price: selectedOffer.price }}
         open={checkoutOpen}
         onOpenChange={setCheckoutOpen}
-        quantity={offerQuantity}
-        minQuantity={offerQuantity}
-        maxQuantity={offerQuantity}
+        quantity={1}
+        minQuantity={1}
+        maxQuantity={1}
         totalPriceOverride={selectedOffer.price}
-        onQuantityChange={setOfferQuantity}
+        onQuantityChange={() => {}}
         onPlaced={(order) => {
           const message = encodeURIComponent(
             `Olá! Acabei de fazer um pedido da ${order.productName} AURELIS. 🍊
