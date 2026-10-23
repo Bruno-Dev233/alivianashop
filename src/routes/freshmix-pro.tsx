@@ -417,7 +417,7 @@ function Page() {
         onPlaced={(order) => {
           const message = encodeURIComponent(
             `Olá! Acabei de fazer um pedido da ${order.productName} AURELIS. 🍊
-Quantidade: ${order.quantity}
+Tamanho: ${selectedOffer.volume}
 Total: ${formatKz(order.total)}
 O meu WhatsApp/telefone é: ${order.customerPhone}
 
