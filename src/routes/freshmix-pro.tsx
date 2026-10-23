@@ -223,12 +223,12 @@ function Page() {
 
             <div className="mt-8 space-y-4">
               {offers.map((offer) => {
-                const selected = offerQuantity === offer.quantity;
+                const selected = offerQuantity === offer.sizeId;
                 return (
                   <button
-                    key={offer.quantity}
+                    key={offer.sizeId}
                     type="button"
-                    onClick={() => setOfferQuantity(offer.quantity)}
+                    onClick={() => setOfferQuantity(offer.sizeId)}
                     aria-pressed={selected}
                     className={`relative w-full rounded-[1.5rem] border-2 p-4 text-left transition sm:p-5 ${selected ? "border-[#16a34a] bg-[#dcfce7] shadow-lg shadow-green-900/10" : "border-[#d1d5db] bg-white hover:border-[#16a34a]"}`}
                   >
