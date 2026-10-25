@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Home, Loader2, Lock, Truck, X } from "lucide-react";
 
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
@@ -31,7 +31,7 @@ type Props = {
   allowAllProvinces?: boolean;
 };
 
-type FieldKey = "fullName" | "phone" | "municipality" | "address" | "reference";
+type FieldKey = "fullName" | "phone" | "address" | "reference";
 type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
 
 const PROVINCES = ["Luanda"] as const;
@@ -56,7 +56,6 @@ const FIELDS: {
     type: "tel",
     placeholder: "Ex: 923 000 000",
   },
-  { key: "municipality", label: "Município", required: true, placeholder: "Ex.: Talatona" },
   { key: "address", label: "Bairro e Rua", required: true, placeholder: "Ex.: Bairro, rua e número da casa" },
   {
     key: "reference",
@@ -83,12 +82,12 @@ export function CheckoutDrawer({
   const [values, setValues] = useState<Record<FieldKey, string>>({
     fullName: "",
     phone: "",
-    municipality: "",
     address: "",
     reference: "",
   });
   const [province, setProvince] = useState<string>("Luanda");
   const [confirmed, setConfirmed] = useState(false);
+  const confirmRef = useRef<HTMLLabelElement>(null);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -127,12 +126,14 @@ export function CheckoutDrawer({
     if (values.fullName.trim().length < 2)
       next.fullName = "Indique o seu nome.";
     if (!isValidPhone(values.phone)) next.phone = "Indique um número válido.";
-    if (values.municipality.trim().length < 2) next.municipality = "Indique o município.";
     if (values.address.trim().length < 5) next.address = "Indique o bairro e a rua.";
     if (!province) next.province = "Selecione a província.";
     if (!confirmed)
       next.confirm = "Confirme que os dados estão corretos e que pode receber o contacto para combinar a entrega.";
     setErrors(next);
+    if (!confirmed) {
+      window.setTimeout(() => confirmRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 0);
+    }
     return Object.keys(next).length === 0;
   };
 
@@ -145,7 +146,6 @@ export function CheckoutDrawer({
     const fullName = values.fullName.trim().replace(/\s+/g, " ");
     const reference = values.reference.trim();
     const addressLines = [
-      `Município: ${values.municipality.trim()}`,
       values.address.trim(),
       reference ? `Ponto de referência: ${reference}` : null,
       `Província: ${province}`,
@@ -252,7 +252,6 @@ export function CheckoutDrawer({
         customerName: fullName,
         customerPhone: values.phone.trim(),
         address: values.address.trim(),
-        municipality: values.municipality.trim(),
         province,
         reference,
         // Same event ID as the Purchase tracked above, so the thank-you page's
@@ -273,7 +272,6 @@ export function CheckoutDrawer({
     setValues({
       fullName: "",
       phone: "",
-      municipality: "",
       address: "",
       reference: "",
     });
@@ -368,7 +366,7 @@ export function CheckoutDrawer({
                     type={type ?? "text"}
                     inputMode={type === "tel" ? "tel" : undefined}
                     placeholder={placeholder}
-                    autoComplete={key === "fullName" ? "name" : key === "phone" ? "tel" : key === "municipality" ? "address-level2" : key === "address" ? "street-address" : undefined}
+                    autoComplete={key === "fullName" ? "name" : key === "phone" ? "tel" : key === "address" ? "street-address" : undefined}
                     value={values[key]}
                     onChange={(e) => set(key, e.target.value)}
                     className={`h-12 min-h-12 w-full rounded-xl text-base ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C] placeholder:text-[#9B806B] focus-visible:ring-[#8B5E3C]" : ""}`}
@@ -405,6 +403,7 @@ export function CheckoutDrawer({
               </div>
               <div className="space-y-1.5">
                 <label
+                  ref={confirmRef}
                   htmlFor="delivery-confirm"
                   className={`flex cursor-pointer items-start gap-3 rounded-2xl border-2 p-4 transition ${isAqua ? "border-[#CDB5A0] bg-white" : "border-primary/40 bg-primary/5"} ${confirmed ? "ring-2 ring-[#8B5E3C] ring-offset-1" : ""}`}
                 >
