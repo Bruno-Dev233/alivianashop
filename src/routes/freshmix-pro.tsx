@@ -113,7 +113,7 @@ function Page() {
       <section className="border-b border-green-100 bg-white text-[#173b24]">
         <div className="px-4 py-3 text-center">
           <h1 className="whitespace-nowrap text-[clamp(1.05rem,4.5vw,1.9rem)] font-black leading-none tracking-[-.035em] text-[#173b24]">
-            Enviamos para todo o território nacional 🇦🇴
+            🇦🇴 Fazemos Entregas em Luanda e Lubango 🚚
           </h1>
         </div>
 
