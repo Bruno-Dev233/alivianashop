@@ -164,6 +164,7 @@ function OrdersPage() {
                 <p className="mt-1 text-xs text-muted-foreground">
                   {formatDateTime(order.created_at)}
                 </p>
+                {order.scheduled_delivery_date && <p className="mt-1 text-xs font-semibold text-violet-700">Entrega: {new Date(`${order.scheduled_delivery_date}T12:00:00`).toLocaleDateString("pt-PT", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" })}</p>}
               </button>
             ))}
           </div>
@@ -178,7 +179,7 @@ function OrdersPage() {
                   <th className="px-4 py-3">Qtd</th>
                   <th className="px-4 py-3">Valor</th>
                   <th className="px-4 py-3">Estado</th>
-                  <th className="px-4 py-3">Data</th>
+                  <th className="px-4 py-3">Data do pedido / entrega</th>
                 </tr>
               </thead>
               <tbody>
@@ -202,6 +203,7 @@ function OrdersPage() {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">
                       {formatDateTime(order.created_at)}
+                      {order.scheduled_delivery_date && <p className="mt-1 font-semibold text-violet-700">Entrega: {new Date(`${order.scheduled_delivery_date}T12:00:00`).toLocaleDateString("pt-PT", { weekday: "long", day: "2-digit", month: "2-digit", year: "numeric" })}</p>}
                     </td>
                   </tr>
                 ))}
@@ -214,9 +216,9 @@ function OrdersPage() {
       <OrderDetailDialog
         order={selected}
         onClose={() => setSelected(null)}
-        onStatusChange={(order, next) => {
-          void updateStatus(order, next);
-          setSelected({ ...order, status: next });
+        onStatusChange={(order, next, scheduledDate) => {
+          void updateStatus(order, next, scheduledDate);
+          setSelected({ ...order, status: next, ...(scheduledDate !== undefined ? { scheduled_delivery_date: scheduledDate } : {}) });
         }}
       />
     </div>
