@@ -32,6 +32,7 @@ export type Order = {
   unit_cost: number;
   total_price: number;
   status: OrderStatus;
+  scheduled_delivery_date: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -48,6 +49,7 @@ export const ORDER_STATUSES = [
   "NOVO",
   "CONFIRMADO",
   "EM PREPARACAO",
+  "AGENDADO",
   "ENVIADO",
   "ENTREGUE",
   "CANCELADO",
@@ -59,6 +61,7 @@ export const STATUS_LABELS: Record<OrderStatus, string> = {
   NOVO: "Novo",
   CONFIRMADO: "Confirmado",
   "EM PREPARACAO": "Em preparação",
+  AGENDADO: "Agendado",
   ENVIADO: "Enviado",
   ENTREGUE: "Entregue",
   CANCELADO: "Cancelado",
@@ -68,6 +71,7 @@ export const STATUS_CLASSES: Record<OrderStatus, string> = {
   NOVO: "bg-info/12 text-info border-info/30",
   CONFIRMADO: "bg-primary/12 text-primary border-primary/30",
   "EM PREPARACAO": "bg-warning/15 text-warning-foreground border-warning/40",
+  AGENDADO: "bg-violet-100 text-violet-800 border-violet-300",
   ENVIADO: "bg-accent text-accent-foreground border-primary/25",
   ENTREGUE: "bg-success/15 text-success border-success/35",
   CANCELADO: "bg-destructive/10 text-destructive border-destructive/30",
