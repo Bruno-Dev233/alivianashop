@@ -47,34 +47,28 @@ export type StatusHistory = {
 
 export const ORDER_STATUSES = [
   "NOVO",
+  "POR RELIGAR",
   "CONFIRMADO",
-  "EM PREPARACAO",
   "AGENDADO",
-  "ENVIADO",
   "ENTREGUE",
-  "CANCELADO",
 ] as const;
 
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
 
 export const STATUS_LABELS: Record<OrderStatus, string> = {
   NOVO: "Novo",
+  "POR RELIGAR": "Por religar",
   CONFIRMADO: "Confirmado",
-  "EM PREPARACAO": "Em preparação",
   AGENDADO: "Agendado",
-  ENVIADO: "Enviado",
   ENTREGUE: "Entregue",
-  CANCELADO: "Cancelado",
 };
 
 export const STATUS_CLASSES: Record<OrderStatus, string> = {
   NOVO: "bg-info/12 text-info border-info/30",
+  "POR RELIGAR": "bg-orange-100 text-orange-800 border-orange-300",
   CONFIRMADO: "bg-primary/12 text-primary border-primary/30",
-  "EM PREPARACAO": "bg-warning/15 text-warning-foreground border-warning/40",
   AGENDADO: "bg-violet-100 text-violet-800 border-violet-300",
-  ENVIADO: "bg-accent text-accent-foreground border-primary/25",
   ENTREGUE: "bg-success/15 text-success border-success/35",
-  CANCELADO: "bg-destructive/10 text-destructive border-destructive/30",
 };
 
 export function formatKz(value: number): string {
