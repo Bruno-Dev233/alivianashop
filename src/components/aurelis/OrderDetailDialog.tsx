@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
 import { toast } from "sonner";
 
@@ -41,14 +42,16 @@ export function StatusBadge({ status }: { status: OrderStatus }) {
 export function useUpdateOrderStatus() {
   const queryClient = useQueryClient();
 
-  return async (order: Order, status: OrderStatus) => {
-    const { error } = await supabase.from("orders").update({ status }).eq("id", order.id);
+  return async (order: Order, status: OrderStatus, scheduledDate?: string | null) => {
+    const updates: { status: OrderStatus; scheduled_delivery_date?: string | null } = { status };
+    if (scheduledDate !== undefined) updates.scheduled_delivery_date = scheduledDate;
+    const { error } = await supabase.from("orders").update(updates).eq("id", order.id);
     if (error) {
       toast.error("Não foi possível alterar o estado.");
       return false;
     }
     queryClient.setQueryData<Order[]>(ordersKey, (prev) =>
-      prev ? prev.map((o) => (o.id === order.id ? { ...o, status } : o)) : prev,
+      prev ? prev.map((o) => (o.id === order.id ? { ...o, status, ...(scheduledDate !== undefined ? { scheduled_delivery_date: scheduledDate } : {}) } : o)) : prev,
     );
     toast.success(`Pedido actualizado para ${STATUS_LABELS[status]}.`);
 
@@ -65,8 +68,13 @@ export function OrderDetailDialog({
 }: {
   order: Order | null;
   onClose: () => void;
-  onStatusChange: (order: Order, status: OrderStatus) => void;
+  onStatusChange: (order: Order, status: OrderStatus, scheduledDate?: string | null) => void;
 }) {
+  const [scheduledDate, setScheduledDate] = useState(order?.scheduled_delivery_date ?? "");
+  useEffect(() => {
+    setScheduledDate(order?.scheduled_delivery_date ?? "");
+  }, [order?.id, order?.scheduled_delivery_date]);
+
   const { data: history = [] } = useQuery({
     queryKey: ["admin", "history", order?.id],
     enabled: Boolean(order),
@@ -107,7 +115,15 @@ export function OrderDetailDialog({
               <Row label="Custo fornecedor" value={formatKz(Number(order.unit_cost ?? 0))} />
               <Row label="Lucro previsto" value={formatKz(profit)} />
               <Row label="Total" value={formatKz(Number(order.total_price))} />
-              <Row label="Data e hora" value={formatDateTime(order.created_at)} />
+              <Row label="Data e hora do pedido" value={formatDateTime(order.created_at)} />
+              {order.scheduled_delivery_date && (
+                <Row
+                  label="Entrega agendada"
+                  value={new Date(`${order.scheduled_delivery_date}T12:00:00`).toLocaleDateString("pt-PT", {
+                    weekday: "long", day: "2-digit", month: "2-digit", year: "numeric",
+                  })}
+                />
+              )}
               <Row label="Pagamento" value="Na Entrega" />
             </dl>
 
@@ -128,6 +144,25 @@ export function OrderDetailDialog({
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="mt-4 space-y-2 rounded-xl border border-border p-3">
+              <p className="text-sm font-semibold">Agendar data de entrega</p>
+              <input
+                aria-label="Data agendada para entrega"
+                type="date"
+                value={scheduledDate}
+                onChange={(event) => setScheduledDate(event.target.value)}
+                className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm"
+              />
+              <Button
+                type="button"
+                className="w-full"
+                disabled={!scheduledDate}
+                onClick={() => onStatusChange(order, "AGENDADO", scheduledDate || null)}
+              >
+                Guardar agendamento
+              </Button>
             </div>
 
             <Button className="mt-4 h-12 w-full bg-ink text-ink-foreground hover:bg-ink/90" asChild>
