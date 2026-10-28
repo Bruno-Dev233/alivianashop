@@ -120,10 +120,10 @@ function Page() {
         <div className="overflow-hidden bg-[#173b24] py-3 text-white">
           <div className="freshmix-marquee flex w-max whitespace-nowrap">
             <span className="px-5 text-sm font-black tracking-[.01em] sm:text-base">
-              ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
+              🔥 A TUA COZINHA MERECE ESTA NOVIDADE! 🔥 ✨ PRODUTOS SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
             </span>
             <span className="px-5 text-sm font-black tracking-[.01em] sm:text-base" aria-hidden="true">
-              ✨ PRODUTOS ORIGINAIS, SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🛡️ 30 DIAS DE GARANTIA EM TODOS OS PRODUTOS ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
+              🔥 A TUA COZINHA MERECE ESTA NOVIDADE! 🔥 ✨ PRODUTOS SELECIONADOS COM QUALIDADE E CONFIANÇA ✨ 🚚 ENVIO RÁPIDO EM ATÉ 12 HORAS ✨
             </span>
           </div>
         </div>
