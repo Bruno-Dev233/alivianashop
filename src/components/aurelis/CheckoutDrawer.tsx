@@ -30,6 +30,7 @@ type Props = {
   theme?: "default" | "aqua-go";
   allowAllProvinces?: boolean;
   legalNotice?: string;
+  pulsingCta?: boolean;
 };
 
 type FieldKey = "fullName" | "phone" | "address" | "reference";
@@ -79,6 +80,7 @@ export function CheckoutDrawer({
   theme = "default",
   allowAllProvinces = false,
   legalNotice,
+  pulsingCta = false,
 }: Props) {
   const isAqua = theme === "aqua-go";
   const [values, setValues] = useState<Record<FieldKey, string>>({
@@ -295,7 +297,7 @@ export function CheckoutDrawer({
               <Home className="size-4" />
             </span>
             <span className="font-display text-sm font-bold uppercase tracking-wide">
-              Cash on Delivery
+              O teu carrinho
             </span>
           </div>
           <button
@@ -462,7 +464,7 @@ export function CheckoutDrawer({
               type="submit"
               variant="ghost"
               disabled={submitting}
-              className={`h-14 min-h-14 w-full rounded-2xl text-base font-bold shadow-xl sm:h-14 ${isAqua ? "bg-[#5A351F] text-white hover:bg-[#4A2C1C] hover:text-white" : "bg-ink text-ink-foreground shadow-ink hover:bg-ink/90 hover:text-ink-foreground"}`}
+              className={`h-14 min-h-14 w-full rounded-2xl text-base font-bold shadow-xl transition-colors sm:h-14 ${pulsingCta ? "animate-pulse bg-green-600 text-white shadow-green-700/30 hover:bg-green-700 hover:text-white" : isAqua ? "bg-[#5A351F] text-white hover:bg-[#4A2C1C] hover:text-white" : "bg-ink text-ink-foreground shadow-ink hover:bg-ink/90 hover:text-ink-foreground"}`}
             >
               {submitting ? (
                 <>
