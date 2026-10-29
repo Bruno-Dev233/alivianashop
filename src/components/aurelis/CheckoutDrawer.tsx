@@ -29,6 +29,7 @@ type Props = {
   totalPriceOverride?: number;
   theme?: "default" | "aqua-go";
   allowAllProvinces?: boolean;
+  legalNotice?: string;
 };
 
 type FieldKey = "fullName" | "phone" | "address" | "reference";
@@ -77,6 +78,7 @@ export function CheckoutDrawer({
   totalPriceOverride,
   theme = "default",
   allowAllProvinces = false,
+  legalNotice,
 }: Props) {
   const isAqua = theme === "aqua-go";
   const [values, setValues] = useState<Record<FieldKey, string>>({
@@ -401,6 +403,13 @@ export function CheckoutDrawer({
                   <p className="text-xs font-medium text-destructive">{errors.province}</p>
                 )}
               </div>
+              {legalNotice && (
+                <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4">
+                  <p className="mb-2 flex items-center gap-2 text-sm font-bold text-amber-800">⚠️ Aviso legal</p>
+                  <p className="text-sm leading-6 text-foreground">{legalNotice}</p>
+                </div>
+              )}
+
               <div className="space-y-1.5">
                 <label
                   ref={confirmRef}
@@ -424,7 +433,7 @@ export function CheckoutDrawer({
                     className="mt-0.5 size-6 shrink-0 cursor-pointer rounded accent-[#8B5E3C]"
                   />
                   <span className="text-base font-semibold leading-snug">
-                    Confirmo que os meus dados estão corretos e que posso receber o contacto da equipa para combinar a entrega.
+                    Li e aceito o aviso. Confirmo que os meus dados estão corretos, que pretendo comprar e que posso receber o contacto da equipa para combinar a entrega.
                   </span>
                 </label>
                 {errors.confirm && (
