@@ -415,6 +415,7 @@ function Page() {
         maxQuantity={1}
         totalPriceOverride={selectedOffer.price}
         legalNotice="Ao finalizar esta encomenda, declaras que os dados fornecidos são verdadeiros e que tens intenção de comprar a FreshMix Pro 4 em 1 no tamanho selecionado. Pedidos falsos ou feitos sem intenção de receber prejudicam a loja e podem dar origem a responsabilização nos termos da legislação angolana aplicável."
+        pulsingCta
         onQuantityChange={() => {}}
         onPlaced={(order) => {
           const message = encodeURIComponent(
