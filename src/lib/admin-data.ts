@@ -89,7 +89,7 @@ export function computeMetrics(orders: Order[]): Metrics {
     netRevenue: grossRevenue - productCost,
     availableBalance,
     counts,
-    cancelled: counts.CANCELADO,
+    cancelled: counts["CANCELADO"] ?? 0,
     delivered: delivered.length,
   };
 }
