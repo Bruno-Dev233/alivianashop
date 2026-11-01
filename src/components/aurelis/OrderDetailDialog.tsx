@@ -1,9 +1,10 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Phone } from "lucide-react";
+import { Phone, Save } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import {
   Select,
@@ -61,6 +62,24 @@ export function useUpdateOrderStatus() {
   };
 }
 
+
+export function useSaveOrderNote() {
+  const queryClient = useQueryClient();
+  return async (order: Order, note: string) => {
+    const value = note.trim() || null;
+    const { error } = await supabase.from("orders").update({ admin_note: value }).eq("id", order.id);
+    if (error) {
+      toast.error("Não foi possível guardar a nota. Confirma se a migração foi aplicada no Supabase.");
+      return false;
+    }
+    queryClient.setQueryData<Order[]>(ordersKey, (prev) =>
+      prev ? prev.map((item) => item.id === order.id ? { ...item, admin_note: value } : item) : prev,
+    );
+    toast.success("Nota do pedido guardada.");
+    return true;
+  };
+}
+
 export function OrderDetailDialog({
   order,
   onClose,
@@ -71,8 +90,12 @@ export function OrderDetailDialog({
   onStatusChange: (order: Order, status: OrderStatus, scheduledDate?: string | null) => void;
 }) {
   const [scheduledDate, setScheduledDate] = useState(order?.scheduled_delivery_date ?? "");
+  const [adminNote, setAdminNote] = useState(order?.admin_note ?? "");
+  const [savingNote, setSavingNote] = useState(false);
+  const saveOrderNote = useSaveOrderNote();
   useEffect(() => {
     setScheduledDate(order?.scheduled_delivery_date ?? "");
+    setAdminNote(order?.admin_note ?? "");
   }, [order?.id, order?.scheduled_delivery_date]);
 
   const { data: history = [] } = useQuery({
@@ -126,6 +149,22 @@ export function OrderDetailDialog({
               )}
               <Row label="Pagamento" value="Na Entrega" />
             </dl>
+
+            <div className="mt-4 space-y-2 rounded-xl border border-border p-3">
+              <div>
+                <p className="text-sm font-semibold">Nota interna do pedido</p>
+                <p className="text-xs text-muted-foreground">Visível apenas na área administrativa.</p>
+              </div>
+              <Textarea value={adminNote} onChange={(event) => setAdminNote(event.target.value)} placeholder="Ex.: cliente pediu para ligar depois das 15h, confirmar morada..." rows={3} maxLength={2000} />
+              <Button type="button" className="w-full" disabled={savingNote || adminNote === (order.admin_note ?? "")} onClick={async () => {
+                setSavingNote(true);
+                await saveOrderNote(order, adminNote);
+                setSavingNote(false);
+              }}>
+                <Save className="size-4" />
+                {savingNote ? "A guardar..." : "Guardar nota"}
+              </Button>
+            </div>
 
             <div className="mt-4 space-y-2">
               <p className="text-sm font-semibold">Alterar estado</p>
