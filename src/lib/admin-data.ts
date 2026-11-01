@@ -63,7 +63,7 @@ export type Metrics = {
 };
 
 export function computeMetrics(orders: Order[]): Metrics {
-  const valid = orders.filter((o) => o.status !== "CANCELADO");
+  const valid = orders.filter((o) => (o.status as string) !== "CANCELADO");
   const delivered = orders.filter((o) => o.status === "ENTREGUE");
   const grossRevenue = valid.reduce((s, o) => s + Number(o.unit_price) * o.quantity, 0);
   const productCost = valid.reduce((s, o) => s + Number(o.unit_cost ?? 0) * o.quantity, 0);
@@ -72,14 +72,14 @@ export function computeMetrics(orders: Order[]): Metrics {
     0,
   );
 
-  const counts = {
+  const counts: Record<string, number> = {
     NOVO: 0,
     CONFIRMADO: 0,
     "EM PREPARACAO": 0,
     ENVIADO: 0,
     ENTREGUE: 0,
     CANCELADO: 0,
-  } as Record<OrderStatus, number>;
+  };
   for (const order of orders) counts[order.status] = (counts[order.status] ?? 0) + 1;
 
   return {
