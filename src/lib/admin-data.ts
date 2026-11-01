@@ -1,4 +1,4 @@
-import type { Order, OrderStatus } from "@/lib/aurelis";
+import type { Order } from "@/lib/aurelis";
 
 export const ordersKey = ["admin", "orders"] as const;
 
@@ -57,7 +57,7 @@ export type Metrics = {
   productCost: number;
   netRevenue: number;
   availableBalance: number;
-  counts: Record<OrderStatus, number>;
+  counts: Record<string, number>;
   cancelled: number;
   delivered: number;
 };
