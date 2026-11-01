@@ -78,6 +78,7 @@ export type Database = {
       }
       orders: {
         Row: {
+          admin_note: string | null
           created_at: string
           customer_address: string
           customer_name: string
@@ -87,6 +88,7 @@ export type Database = {
           product_id: string | null
           product_name: string
           quantity: number
+          scheduled_delivery_date: string | null
           status: string
           total_price: number
           unit_cost: number
@@ -94,6 +96,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          admin_note?: string | null
           created_at?: string
           customer_address: string
           customer_name: string
@@ -103,6 +106,7 @@ export type Database = {
           product_id?: string | null
           product_name: string
           quantity?: number
+          scheduled_delivery_date?: string | null
           status?: string
           total_price: number
           unit_cost?: number
@@ -110,6 +114,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          admin_note?: string | null
           created_at?: string
           customer_address?: string
           customer_name?: string
@@ -119,6 +124,7 @@ export type Database = {
           product_id?: string | null
           product_name?: string
           quantity?: number
+          scheduled_delivery_date?: string | null
           status?: string
           total_price?: number
           unit_cost?: number
