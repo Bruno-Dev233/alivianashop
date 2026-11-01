@@ -1,4 +1,4 @@
-import type { Order, OrderStatus } from "@/lib/aurelis";
+import type { Order } from "@/lib/aurelis";
 
 export const ordersKey = ["admin", "orders"] as const;
 
@@ -57,13 +57,13 @@ export type Metrics = {
   productCost: number;
   netRevenue: number;
   availableBalance: number;
-  counts: Record<OrderStatus, number>;
+  counts: Record<string, number>;
   cancelled: number;
   delivered: number;
 };
 
 export function computeMetrics(orders: Order[]): Metrics {
-  const valid = orders.filter((o) => o.status !== "CANCELADO");
+  const valid = orders.filter((o) => (o.status as string) !== "CANCELADO");
   const delivered = orders.filter((o) => o.status === "ENTREGUE");
   const grossRevenue = valid.reduce((s, o) => s + Number(o.unit_price) * o.quantity, 0);
   const productCost = valid.reduce((s, o) => s + Number(o.unit_cost ?? 0) * o.quantity, 0);
@@ -72,14 +72,14 @@ export function computeMetrics(orders: Order[]): Metrics {
     0,
   );
 
-  const counts = {
+  const counts: Record<string, number> = {
     NOVO: 0,
     CONFIRMADO: 0,
     "EM PREPARACAO": 0,
     ENVIADO: 0,
     ENTREGUE: 0,
     CANCELADO: 0,
-  } as Record<OrderStatus, number>;
+  };
   for (const order of orders) counts[order.status] = (counts[order.status] ?? 0) + 1;
 
   return {
@@ -89,7 +89,7 @@ export function computeMetrics(orders: Order[]): Metrics {
     netRevenue: grossRevenue - productCost,
     availableBalance,
     counts,
-    cancelled: counts.CANCELADO,
+    cancelled: counts["CANCELADO"] ?? 0,
     delivered: delivered.length,
   };
 }
@@ -97,7 +97,7 @@ export function computeMetrics(orders: Order[]): Metrics {
 export type ChartPoint = { label: string; vendas: number; pedidos: number };
 
 export function buildChartData(orders: Order[], range: Range): ChartPoint[] {
-  const valid = orders.filter((o) => o.status !== "CANCELADO" && inRange(o, range));
+  const valid = orders.filter((o) => (o.status as string) !== "CANCELADO" && inRange(o, range));
 
   if (range.granularity === "hour") {
     const buckets: ChartPoint[] = Array.from({ length: 24 }, (_, h) => ({
@@ -138,7 +138,7 @@ export function buildChartData(orders: Order[], range: Range): ChartPoint[] {
   return days;
 }
 
-export const STATUS_EVENTS: Record<OrderStatus, string> = {
+export const STATUS_EVENTS: Record<string, string> = {
   NOVO: "order.created",
   CONFIRMADO: "order.confirmed",
   "EM PREPARACAO": "order.preparing",
