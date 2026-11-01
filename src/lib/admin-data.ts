@@ -97,7 +97,7 @@ export function computeMetrics(orders: Order[]): Metrics {
 export type ChartPoint = { label: string; vendas: number; pedidos: number };
 
 export function buildChartData(orders: Order[], range: Range): ChartPoint[] {
-  const valid = orders.filter((o) => o.status !== "CANCELADO" && inRange(o, range));
+  const valid = orders.filter((o) => (o.status as string) !== "CANCELADO" && inRange(o, range));
 
   if (range.granularity === "hour") {
     const buckets: ChartPoint[] = Array.from({ length: 24 }, (_, h) => ({
@@ -138,7 +138,7 @@ export function buildChartData(orders: Order[], range: Range): ChartPoint[] {
   return days;
 }
 
-export const STATUS_EVENTS: Record<OrderStatus, string> = {
+export const STATUS_EVENTS: Record<string, string> = {
   NOVO: "order.created",
   CONFIRMADO: "order.confirmed",
   "EM PREPARACAO": "order.preparing",
