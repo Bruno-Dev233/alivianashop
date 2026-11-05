@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Home, Loader2, Lock, MapPin, Package, Truck, X, CreditCard } from "lucide-react";
+import { Home, Loader2, Lock, Package, X, CreditCard } from "lucide-react";
 
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
 import { Button } from "@/components/ui/button";
