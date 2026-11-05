@@ -84,7 +84,11 @@ export type Database = {
           customer_name: string
           customer_phone: string
           id: string
+          landing_page: string | null
+          municipality: string | null
+          neighborhood: string | null
           order_number: number
+          order_source: string | null
           product_id: string | null
           product_name: string
           quantity: number
@@ -102,7 +106,11 @@ export type Database = {
           customer_name: string
           customer_phone: string
           id?: string
+          landing_page?: string | null
+          municipality?: string | null
+          neighborhood?: string | null
           order_number?: number
+          order_source?: string | null
           product_id?: string | null
           product_name: string
           quantity?: number
@@ -120,7 +128,11 @@ export type Database = {
           customer_name?: string
           customer_phone?: string
           id?: string
+          landing_page?: string | null
+          municipality?: string | null
+          neighborhood?: string | null
           order_number?: number
+          order_source?: string | null
           product_id?: string | null
           product_name?: string
           quantity?: number
