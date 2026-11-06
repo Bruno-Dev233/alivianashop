@@ -9,6 +9,10 @@ export type OrderWebhookPayload = {
   customer_phone: string;
   customer_address: string;
   province: string;
+  municipality?: string;
+  neighborhood?: string;
+  source?: string;
+  landing_page?: string;
   email: string | null;
   reference: string | null;
   quantity: number;

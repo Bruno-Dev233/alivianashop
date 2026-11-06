@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Home, Loader2, Lock, Package, X, CreditCard } from "lucide-react";
+import { CreditCard, Home, Loader2, Lock, MapPin, Package, Truck, X } from "lucide-react";
 
 import { QuantityStepper } from "@/components/aurelis/QuantityStepper";
 import { Button } from "@/components/ui/button";
@@ -43,6 +43,12 @@ const ANGOLA_PROVINCES = [
   "Lunda Sul", "Malanje", "Moxico", "Namibe", "Uíge", "Zaire",
 ] as const;
 
+function isAngolanPhone(value: string): boolean {
+  const digits = value.replace(/\D/g, "");
+  const nationalNumber = digits.startsWith("244") ? digits.slice(3) : digits;
+  return /^[29]\d{8}$/.test(nationalNumber);
+}
+
 export function CheckoutDrawer({
   product, open, onOpenChange, quantity, onQuantityChange, onPlaced,
   minQuantity = 1, maxQuantity = 10, totalPriceOverride, theme = "default",
@@ -54,10 +60,9 @@ export function CheckoutDrawer({
     municipality: "", neighborhood: "",
   });
   const [province, setProvince] = useState<string>("Luanda");
-  const [billingSame, setBillingSame] = useState(true);
-  const [billingAddress, setBillingAddress] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const confirmRef = useRef<HTMLLabelElement>(null);
+  const submittingRef = useRef(false);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -87,15 +92,14 @@ export function CheckoutDrawer({
 
   const validate = () => {
     const next: Errors = {};
-    if (values.firstName.trim().length < 2) next.firstName = "Indique o seu nome próprio.";
-    if (values.lastName.trim().length < 2) next.lastName = "Indique o seu apelido.";
-    if (!isValidPhone(values.phone)) next.phone = "Indique um número angolano válido.";
-    if (values.address.trim().length < 3) next.address = "Indique a rua ou endereço.";
-    if (values.municipality.trim().length < 2) next.municipality = "Indique o município.";
-    if (values.neighborhood.trim().length < 2) next.neighborhood = "Indique o bairro.";
+    if (values.firstName.trim().length < 2 || values.firstName.trim().length > 80) next.firstName = "Indique o nome próprio (até 80 caracteres).";
+    if (values.lastName.trim().length < 2 || values.lastName.trim().length > 80) next.lastName = "Indique o apelido (até 80 caracteres).";
+    if (!isAngolanPhone(values.phone)) next.phone = "Indique um número angolano válido, com ou sem +244.";
+    if (values.address.trim().length < 3 || values.address.trim().length > 200) next.address = "Indique a rua ou endereço (até 200 caracteres).";
+    if (values.municipality.trim().length < 2 || values.municipality.trim().length > 100) next.municipality = "Indique o município (até 100 caracteres).";
+    if (values.neighborhood.trim().length < 2 || values.neighborhood.trim().length > 100) next.neighborhood = "Indique o bairro (até 100 caracteres).";
     if (!province) next.province = "Selecione a província.";
     if (!confirmed) next.confirm = "Confirme que os dados estão corretos e que pode receber a encomenda.";
-    if (!billingSame && billingAddress.trim().length < 5) next.confirm = "Indique o endereço de faturação.";
     setErrors(next);
     if (!confirmed) window.setTimeout(() => confirmRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 0);
     return Object.keys(next).length === 0;
@@ -103,7 +107,7 @@ export function CheckoutDrawer({
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (submitting) return;
+    if (submittingRef.current) return;
     setServerError(null);
     if (!validate()) return;
 
@@ -115,20 +119,40 @@ export function CheckoutDrawer({
       `Bairro: ${values.neighborhood.trim()}`,
       reference ? `Complemento/referência: ${reference}` : null,
       `Província: ${province}`,
-      !billingSame ? `Endereço de faturação: ${billingAddress.trim()}` : null,
     ].filter(Boolean) as string[];
 
+    const orderSource = (() => {
+      try {
+        return document.referrer ? new URL(document.referrer).hostname.slice(0, 255) : "direct";
+      } catch {
+        return "direct";
+      }
+    })();
+    const landingPage = window.location.pathname.slice(0, 200);
+
+    submittingRef.current = true;
     setSubmitting(true);
-    const { error } = await supabase.from("orders").insert({
-      product_id: null,
-      product_name: product.name,
-      customer_name: customerName,
-      customer_phone: values.phone.trim(),
-      customer_address: addressLines.join(" | "),
-      quantity,
-      unit_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price,
-      total_price: subtotal,
-    });
+    let error: unknown = null;
+    try {
+      const result = await supabase.from("orders").insert({
+        product_id: null,
+        product_name: product.name,
+        customer_name: customerName,
+        customer_phone: values.phone.trim(),
+        customer_address: addressLines.join(" | "),
+        municipality: values.municipality.trim(),
+        neighborhood: values.neighborhood.trim(),
+        order_source: orderSource,
+        landing_page: landingPage,
+        quantity,
+        unit_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price,
+        total_price: subtotal,
+      });
+      error = result.error;
+    } catch {
+      error = new Error("Order registration failed");
+    }
+    submittingRef.current = false;
     setSubmitting(false);
 
     if (error) {
@@ -142,6 +166,10 @@ export function CheckoutDrawer({
         event: "order.created", product_name: product.name, customer_name: customerName,
         customer_phone: values.phone.trim(), customer_address: addressLines.join(" | "),
         province, email: null, reference: reference || null, quantity,
+        municipality: values.municipality.trim(),
+        neighborhood: values.neighborhood.trim(),
+        source: orderSource,
+        landing_page: landingPage,
         unit_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price,
         supplier_cost: unitCost, total_price: subtotal,
         estimated_profit: (product.price - unitCost) * quantity, status: "NOVO",
@@ -190,59 +218,61 @@ export function CheckoutDrawer({
     onOpenChange(false);
     onPlaced({ productName: product.name, quantity, total: subtotal, customerPhone: values.phone.trim() });
     setValues({ firstName: "", lastName: "", phone: "", address: "", complement: "", municipality: "", neighborhood: "" });
-    setProvince("Luanda"); setBillingSame(true); setBillingAddress(""); setConfirmed(false);
+    setProvince("Luanda"); setConfirmed(false);
   };
 
   const thumb = product.main_image_1 ?? product.main_image_2 ?? undefined;
-  const fieldClass = `h-12 w-full rounded-lg text-base ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C]" : "border-input bg-white"}`;
+  const fieldClass = `h-12 w-full rounded-lg text-base ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C]" : "border-input bg-background"}`;
   const renderField = (key: FieldKey, label: string, placeholder: string, required = true, type = "text") => (
     <div className="min-w-0 space-y-1.5" key={key}>
-      <Label htmlFor={key} className="text-sm font-medium text-[#30343B]">{label}{required ? " *" : ""}</Label>
+      <Label htmlFor={key} className="text-sm font-medium text-foreground">{label}{required ? " *" : " (opcional)"}</Label>
       <Input id={key} type={type} inputMode={type === "tel" ? "tel" : undefined}
         autoComplete={key === "firstName" ? "given-name" : key === "lastName" ? "family-name" : key === "phone" ? "tel" : key === "address" ? "street-address" : undefined}
+        maxLength={key === "firstName" || key === "lastName" ? 80 : key === "address" ? 200 : key === "complement" || key === "phone" ? 160 : 100}
         placeholder={placeholder} value={values[key]} onChange={(e) => set(key, e.target.value)}
-        className={`${fieldClass} ${errors[key] ? "border-red-500 focus-visible:ring-red-500" : ""}`} />
-      {errors[key] && <p className="text-xs text-red-600">{errors[key]}</p>}
+        className={`${fieldClass} ${errors[key] ? "border-destructive focus-visible:ring-destructive" : ""}`} />
+      {errors[key] && <p className="text-xs font-medium text-destructive">{errors[key]}</p>}
     </div>
   );
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className={`flex h-[100dvh] max-h-[100dvh] flex-col gap-0 overflow-hidden rounded-t-2xl border-0 p-0 sm:h-[96dvh] sm:max-h-[96dvh] sm:mx-auto sm:max-w-5xl ${isAqua ? "bg-[#F7F0E7] text-[#4A2C1C]" : "bg-white text-[#20242A]"}`}>
-        <div className="flex shrink-0 items-center justify-between border-b border-gray-200 bg-white px-5 py-4">
-          <div className="flex items-center gap-2 text-sm font-semibold tracking-wide">
-            <Home className="size-4" /> AURELIS <span className="text-gray-400">/</span> Checkout
+      <SheetContent side="bottom" className={`flex h-[100dvh] max-h-[100dvh] flex-col gap-0 overflow-hidden rounded-t-lg border-0 p-0 sm:h-[96dvh] sm:max-h-[96dvh] sm:mx-auto sm:max-w-5xl ${isAqua ? "bg-[#F7F0E7] text-[#4A2C1C]" : "bg-background text-foreground"}`}>
+        <div className={`flex shrink-0 items-center justify-between border-b px-5 py-4 ${isAqua ? "border-[#D8C2AE] bg-[#F7F0E7]" : "border-border bg-background"}`}>
+          <div className="flex items-center gap-2 text-sm font-semibold">
+            <Home className="size-4" /> AURELIS <span className="text-muted-foreground">/</span> Checkout
           </div>
-          <button type="button" aria-label="Fechar checkout" onClick={() => onOpenChange(false)}
-            className="grid size-9 place-items-center rounded-full border border-gray-200 bg-white text-gray-700 hover:bg-gray-50">
+          <Button type="button" variant="outline" size="icon" aria-label="Fechar checkout" onClick={() => onOpenChange(false)}
+            className={`rounded-full ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C]" : ""}`}>
             <X className="size-4" />
-          </button>
+          </Button>
         </div>
 
-        <form onSubmit={handleSubmit} noValidate className="min-h-0 flex-1 overflow-y-auto">
+        <form onSubmit={handleSubmit} noValidate className="flex min-h-0 flex-1 flex-col">
+          <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
           <div className="mx-auto grid min-h-full max-w-5xl grid-cols-1 sm:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)]">
             <div className="order-2 space-y-7 px-5 py-6 sm:order-1 sm:px-8 sm:py-8">
               <div>
-                <div className="mb-3 flex items-center gap-2 text-xs font-medium text-gray-500">
-                  <span>Informações</span><span>›</span><span className="text-gray-900">Entrega</span><span>›</span><span>Pagamento</span>
+                <div className="mb-3 flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                  <span>Entrega</span><span>›</span><span className="text-foreground">Pagamento</span>
                 </div>
-                <h2 className="mb-4 text-xl font-semibold tracking-tight">ENTREGA</h2>
+                <h2 className="mb-4 text-xl font-semibold">ENTREGA</h2>
                 <div className="space-y-4">
                   <div className="space-y-1.5">
                     <Label htmlFor="province" className="text-sm font-medium">Província *</Label>
                     <select id="province" value={province} onChange={(e) => setProvince(e.target.value)}
-                      className={`h-12 w-full rounded-lg border px-3 text-base outline-none focus:ring-2 focus:ring-gray-400 ${errors.province ? "border-red-500" : "border-gray-300"}`} required>
-                      <option value="" disabled>Seleciona a província</option>
+                      className={`h-12 w-full rounded-lg border bg-background px-3 text-base text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring ${isAqua ? "border-[#CDB5A0] bg-white text-[#4A2C1C]" : "border-input"} ${errors.province ? "border-destructive" : ""}`} required>
+                      <option value="" disabled>Seleccione a província</option>
                       {availableProvinces.map((item) => <option key={item} value={item}>{item}</option>)}
                     </select>
-                    {errors.province && <p className="text-xs text-red-600">{errors.province}</p>}
+                    {errors.province && <p className="text-xs font-medium text-destructive">{errors.province}</p>}
                   </div>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {renderField("firstName", "Nome próprio", "Nome")}
                     {renderField("lastName", "Apelido", "Apelido")}
                   </div>
                   {renderField("address", "Endereço", "Rua, avenida e número da casa")}
-                  {renderField("complement", "Andar, referência ou complemento", "Apartamento, referência, ponto próximo (opcional)", false)}
+                  {renderField("complement", "Andar, referência ou complemento", "Apartamento, referência, ponto próximo", false)}
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {renderField("municipality", "Município", "Município")}
                     {renderField("neighborhood", "Bairro", "Bairro")}
@@ -253,44 +283,26 @@ export function CheckoutDrawer({
 
               <section className="space-y-3">
                 <h3 className="text-lg font-semibold">Envio</h3>
-                <div className="flex items-start gap-3 rounded-lg border border-gray-300 bg-white p-4">
-                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full border-[6px] border-[#174A40]" />
+                <div className={`flex items-start gap-3 rounded-lg border p-4 ${isAqua ? "border-[#D8C2AE] bg-white" : "border-border bg-background"}`}>
+                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full border-[6px] border-primary" />
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold">Entrega disponível para a localização selecionada</p>
-                    <p className="mt-1 text-xs leading-relaxed text-gray-500">A equipa confirma a disponibilidade e o prazo de entrega após receber a encomenda.</p>
+                    <p className="flex items-center gap-2 text-sm font-semibold"><Truck className="size-4 shrink-0 text-primary" /> Entrega gratuita — {province}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">A equipa confirma a disponibilidade e o prazo para {values.municipality.trim() || "o município indicado"} depois de receber a encomenda.</p>
                   </div>
-                  <span className="text-sm font-semibold text-[#174A40]">GRÁTIS</span>
+                  <span className="text-sm font-semibold text-primary">GRÁTIS</span>
                 </div>
-                <p className="text-xs text-gray-500">As condições de entrega seguem as regras já aplicadas a este produto.</p>
+                <p className="text-xs text-muted-foreground">Sem custos adicionais. As condições de entrega seguem as regras já aplicadas a este produto.</p>
               </section>
 
               <section className="space-y-3">
                 <h3 className="text-lg font-semibold">Pagamento</h3>
-                <div className="flex items-start gap-3 rounded-lg border-2 border-[#174A40] bg-[#174A40]/[0.035] p-4">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#174A40]/10 text-[#174A40]"><CreditCard className="size-4" /></span>
+                <div className={`flex items-start gap-3 rounded-lg border-2 border-primary bg-primary/5 p-4 ${isAqua ? "border-[#8B5E3C] bg-[#8B5E3C]/5" : ""}`}>
+                  <span className={`grid size-9 shrink-0 place-items-center rounded-full bg-primary/10 text-primary ${isAqua ? "bg-[#8B5E3C]/10 text-[#8B5E3C]" : ""}`}><CreditCard className="size-4" /></span>
                   <div>
                     <p className="text-sm font-semibold">Pagamento na entrega (COD)</p>
-                    <p className="mt-1 text-xs leading-relaxed text-gray-600">Pague apenas quando receber a sua encomenda. A nossa equipa entrará em contacto para confirmar os dados e organizar a entrega.</p>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">💵 Pague apenas quando receber a sua encomenda! A nossa equipa entrará em contacto para confirmar os dados e organizar a entrega.</p>
                   </div>
                 </div>
-              </section>
-
-              <section className="space-y-3">
-                <h3 className="text-lg font-semibold">Endereço de faturação</h3>
-                <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-300 p-4 text-sm">
-                  <input type="radio" checked={billingSame} onChange={() => setBillingSame(true)} className="size-4 accent-[#174A40]" />
-                  O mesmo que o endereço de entrega
-                </label>
-                <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-gray-300 p-4 text-sm">
-                  <input type="radio" checked={!billingSame} onChange={() => setBillingSame(false)} className="size-4 accent-[#174A40]" />
-                  Utilizar um endereço de faturação diferente
-                </label>
-                {!billingSame && <div className="space-y-1.5">
-                  <Label htmlFor="billingAddress">Endereço de faturação *</Label>
-                  <Input id="billingAddress" value={billingAddress} onChange={(e) => setBillingAddress(e.target.value)}
-                    placeholder="Indique o endereço de faturação" className={fieldClass} />
-                  {errors.confirm && <p className="text-xs text-red-600">{errors.confirm}</p>}
-                </div>}
               </section>
 
               {legalNotice && <div className="rounded-lg border border-amber-300 bg-amber-50 p-4">
@@ -298,52 +310,55 @@ export function CheckoutDrawer({
                 <p className="text-sm leading-6 text-gray-700">{legalNotice}</p>
               </div>}
 
-              <label ref={confirmRef} htmlFor="delivery-confirm" className="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-300 p-4">
+              <label ref={confirmRef} htmlFor="delivery-confirm" className={`flex cursor-pointer items-start gap-3 rounded-lg border p-4 ${isAqua ? "border-[#CDB5A0] bg-white" : "border-border bg-background"}`}>
                 <input id="delivery-confirm" type="checkbox" checked={confirmed}
                   onChange={(e) => { setConfirmed(e.target.checked); if (e.target.checked) setErrors((current) => { const next = { ...current }; delete next.confirm; return next; }); }}
-                  className="mt-0.5 size-5 shrink-0 accent-[#174A40]" />
-                <span className="text-sm leading-relaxed text-gray-700">Confirmo que os meus dados estão corretos e que posso receber o contacto da equipa para combinar a entrega.</span>
+                  className="mt-0.5 size-5 shrink-0 accent-primary" />
+                <span className="text-sm leading-relaxed text-foreground">Confirmo que os meus dados estão corretos e que posso receber o contacto da equipa para combinar a entrega.</span>
               </label>
-              {errors.confirm && billingSame && <p className="-mt-5 text-xs text-red-600">{errors.confirm}</p>}
+              {errors.confirm && <p className="-mt-5 text-xs font-medium text-destructive">{errors.confirm}</p>}
 
-              {serverError && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{serverError}</p>}
-              <Button type="submit" disabled={submitting}
-                className={`h-14 w-full rounded-lg text-base font-bold text-white shadow-sm ${pulsingCta ? "bg-green-600 hover:bg-green-700" : "bg-[#174A40] hover:bg-[#123B33]"}`}>
-                {submitting ? <><Loader2 className="mr-2 size-5 animate-spin" /> A registar o pedido...</> : "FAZER A MINHA ENCOMENDA"}
-              </Button>
-              <p className="flex items-center justify-center gap-2 text-xs text-gray-500"><Lock className="size-3.5" /> Os teus dados são tratados de forma segura.</p>
             </div>
 
-            <aside className="order-1 border-b border-gray-200 bg-[#F6F7F8] px-5 py-6 sm:order-2 sm:border-b-0 sm:border-l sm:px-7 sm:py-8">
-              <h3 className="mb-5 text-base font-semibold">Resumo da encomenda</h3>
+            <aside className={`order-1 border-b px-5 py-5 sm:order-2 sm:border-b-0 sm:border-l sm:px-7 sm:py-8 ${isAqua ? "border-[#D8C2AE] bg-[#EFE2D3]" : "border-border bg-muted/60"}`}>
+              <h3 className="mb-4 text-base font-semibold">Resumo da encomenda</h3>
               <div className="flex gap-4">
-                {thumb && <div className="relative size-20 shrink-0 rounded-lg border border-gray-200 bg-white p-1">
+                {thumb && <div className={`relative size-20 shrink-0 rounded-lg border p-1 ${isAqua ? "border-[#D8C2AE] bg-white" : "border-border bg-background"}`}>
                   <img src={thumb} alt={product.name} className="size-full rounded-md object-contain" />
-                  <span className="absolute -right-2 -top-2 grid size-5 place-items-center rounded-full bg-gray-600 text-[11px] font-semibold text-white">{quantity}</span>
+                  <span className="absolute -right-2 -top-2 grid size-5 place-items-center rounded-full bg-foreground text-[11px] font-semibold text-background">{quantity}</span>
                 </div>}
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-semibold leading-snug">{product.name}</p>
-                  <p className="mt-1 text-xs text-gray-500">Pagamento na entrega</p>
+                  <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground"><MapPin className="size-3" /> {province}</p>
                 </div>
-                <p className="text-sm font-semibold">{formatKz(subtotal)}</p>
+                <p className="text-sm font-semibold">{formatKz(totalPriceOverride !== undefined ? subtotal / quantity : product.price)}</p>
               </div>
-              <div className="mt-5 flex items-center justify-between border-t border-gray-200 pt-4">
+              <div className={`mt-4 flex items-center justify-between border-t pt-3 ${isAqua ? "border-[#D8C2AE]" : "border-border"}`}>
                 <span className="text-sm text-gray-600">Quantidade</span>
                 <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} max={maxQuantity} />
               </div>
-              <div className="mt-5 space-y-3 border-t border-gray-200 pt-4 text-sm">
-                <div className="flex justify-between"><span className="text-gray-600">Subtotal</span><span>{formatKz(subtotal)}</span></div>
-                <div className="flex justify-between"><span className="text-gray-600">Envio</span><span className="font-medium text-[#174A40]">Grátis</span></div>
+              <div className={`mt-4 space-y-2 border-t pt-3 text-sm ${isAqua ? "border-[#D8C2AE]" : "border-border"}`}>
+                <div className="flex justify-between"><span className="text-muted-foreground">Subtotal</span><span>{formatKz(subtotal)}</span></div>
+                <div className="flex justify-between"><span className="text-muted-foreground">Envio</span><span className="font-medium text-primary">Grátis</span></div>
               </div>
-              <div className="mt-5 flex items-center justify-between border-t border-gray-300 pt-4">
+              <div className={`mt-4 flex items-center justify-between border-t pt-3 ${isAqua ? "border-[#D8C2AE]" : "border-border"}`}>
                 <span className="text-base font-semibold">Total</span>
                 <span className="text-xl font-bold tracking-tight">{formatKz(subtotal)}</span>
               </div>
-              <div className="mt-6 rounded-lg border border-gray-200 bg-white p-3 text-xs leading-relaxed text-gray-600">
-                <div className="mb-1 flex items-center gap-2 font-semibold text-gray-800"><Package className="size-4" /> Encomenda protegida</div>
+              <div className={`mt-4 rounded-lg border p-3 text-xs leading-relaxed text-muted-foreground ${isAqua ? "border-[#D8C2AE] bg-white" : "border-border bg-background"}`}>
+                <div className="mb-1 flex items-center gap-2 font-semibold text-foreground"><Package className="size-4" /> Encomenda protegida</div>
                 Pagamento apenas no momento em que receberes o produto.
               </div>
             </aside>
+          </div>
+          </div>
+          <div className={`shrink-0 space-y-2 border-t px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 sm:px-8 ${isAqua ? "border-[#D8C2AE] bg-[#F7F0E7]" : "border-border bg-background"}`}>
+            {serverError && <p role="alert" className="rounded-lg bg-destructive/10 px-3 py-2 text-sm text-destructive">{serverError}</p>}
+            <Button type="submit" disabled={submitting}
+              className={`h-14 w-full rounded-lg text-base font-bold text-primary-foreground shadow-sm ${pulsingCta ? "bg-success hover:bg-success/90" : "bg-primary hover:bg-primary/90"}`}>
+              {submitting ? <><Loader2 className="size-5 animate-spin" /> A registar o pedido...</> : "FAZER A MINHA ENCOMENDA"}
+            </Button>
+            <p className="flex items-center justify-center gap-2 text-xs text-muted-foreground"><Lock className="size-3.5" /> Os teus dados são tratados de forma segura.</p>
           </div>
         </form>
       </SheetContent>

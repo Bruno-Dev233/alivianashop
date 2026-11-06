@@ -13,3 +13,7 @@
 
 - Small locally prepared images (logos, icons) are imported directly as ES6 imports from `src/assets/` (e.g. `import logo from "@/assets/aliviana-logo.png"`). `tsconfig.json` already sets `types: ["vite/client"]`, so the import resolves and Vite bundles the file — no `.asset.json` pointer or storage bucket needed, and the private `landing-images` bucket cannot serve customers anyway.
 - When a logo arrives as a JPG with a baked-in transparency checkerboard, strip it in code (threshold the darkness channel, save as `LA` PNG) instead of routing it through the image provider, which rejects brand wordmarks.
+
+## COD checkout
+
+- Keep the shared COD checkout's municipality, neighborhood, source, and landing-page metadata additive alongside the legacy combined customer name/address fields, so existing order readers remain compatible.

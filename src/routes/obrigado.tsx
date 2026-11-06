@@ -38,6 +38,8 @@ function ThankYou() {
     customerPhone: string;
     address: string;
     province: string;
+    municipality?: string;
+    neighborhood?: string;
     reference?: string;
   } | null>(null);
 
@@ -106,6 +108,8 @@ function ThankYou() {
       `👤 Nome: ${whatsappOrder.customerName}`,
       `📞 Telefone: ${whatsappOrder.customerPhone}`,
       `📍 Província: ${whatsappOrder.province}`,
+      whatsappOrder.municipality ? `🏙️ Município: ${whatsappOrder.municipality}` : "",
+      whatsappOrder.neighborhood ? `📌 Bairro: ${whatsappOrder.neighborhood}` : "",
       `🏠 Endereço: ${whatsappOrder.address}`,
       whatsappOrder.reference ? `📌 Ponto de referência: ${whatsappOrder.reference}` : "",
       "",
@@ -121,7 +125,9 @@ function ThankYou() {
     ["Quantidade", qtd ? String(qtd) : "—"],
     ["Total", total ? formatKz(total) : "—"],
     ["Pagamento", "Na entrega"],
-    ["Local de entrega", "Luanda"],
+    ["Local de entrega", whatsappOrder
+      ? [whatsappOrder.neighborhood, whatsappOrder.municipality, whatsappOrder.province].filter(Boolean).join(", ")
+      : "Luanda"],
   ];
   return (
     <div className="grid min-h-screen place-items-center bg-rose-soft px-4 py-10">
