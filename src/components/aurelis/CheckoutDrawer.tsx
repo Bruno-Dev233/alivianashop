@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { supabase } from "@/integrations/supabase/client";
-import { formatKz, isValidPhone, type Product } from "@/lib/aurelis";
+import { formatKz, type Product } from "@/lib/aurelis";
 import { sendOrderWebhook } from "@/lib/webhook.functions";
 
 export type PlacedOrder = {
@@ -334,7 +334,7 @@ export function CheckoutDrawer({
                 <p className="text-sm font-semibold">{formatKz(totalPriceOverride !== undefined ? subtotal / quantity : product.price)}</p>
               </div>
               <div className={`mt-4 flex items-center justify-between border-t pt-3 ${isAqua ? "border-[#D8C2AE]" : "border-border"}`}>
-                <span className="text-sm text-gray-600">Quantidade</span>
+                <span className="text-sm text-muted-foreground">Quantidade</span>
                 <QuantityStepper value={quantity} onChange={onQuantityChange} min={minQuantity} max={maxQuantity} />
               </div>
               <div className={`mt-4 space-y-2 border-t pt-3 text-sm ${isAqua ? "border-[#D8C2AE]" : "border-border"}`}>
