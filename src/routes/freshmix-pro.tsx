@@ -66,7 +66,7 @@ export const Route = createFileRoute("/freshmix-pro")({
 
 function ProductVideo({ src, className = "" }: { src: string; className?: string }) {
   return (
-    <div className={`overflow-hidden rounded-[2rem] bg-black shadow-[0_25px_70px_rgba(0,0,0,.18)] ${className}`}>
+    <div className={`overflow-hidden bg-transparent ${className}`}>
       <video
         src={src}
         autoPlay
@@ -103,7 +103,7 @@ function LoopFeature({ src, eyebrow, title, description, reverse = false, tone =
     <section className="bg-white">
       <ContinuousBar text={eyebrow === "FRUTA FRESCA, SUMO NA HORA" ? "🍊 TRANSFORME AS SUAS FRUTAS FAVORITAS EM SUMOS NATURAIS E FRESCOS! TENHA MAIS SABOR, PRATICIDADE E MOMENTOS DELICIOSOS NA SUA COZINHA COM A FRESHMIX PRO 4 EM 1! 🥤" : eyebrow === "DO COPO À ROTINA" ? "✨ MAIS FRESCURA, MAIS SABOR E MUITO MAIS PRATICIDADE! PREPARE SUMOS COM AS SUAS FRUTAS PREFERIDAS E DESCUBRA UMA NOVA FORMA DE APROVEITAR CADA MOMENTO EM CASA! 🍹" : "🔥 A SUA COZINHA MERECE MAIS PRATICIDADE! TENHA UM EQUIPAMENTO 4 EM 1 PARA FACILITAR A PREPARAÇÃO DAS SUAS BEBIDAS E DESFRUTAR DE SUMOS FEITOS AO SEU GOSTO! 🥤"} tone={tone} />
       <div className={`mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:py-16 md:grid-cols-2 md:gap-12 ${reverse ? "md:[&>div:first-child]:order-2" : ""}`}>
-        <div className="overflow-hidden rounded-[2rem] bg-black shadow-[0_24px_65px_rgba(0,0,0,.16)]">
+        <div className="overflow-hidden bg-transparent">
           <ProductVideo src={src} className="aspect-[9/16] max-h-[620px] md:max-h-[680px]" />
         </div>
         <div className="py-2">
