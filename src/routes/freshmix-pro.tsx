@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
-import maveroLogo from "@/assets/mavero-logo.png";
+const AURELIS_LOGO = "https://files.catbox.moe/wyb2cg.png";
 
 const ASSETS = {
   main: "https://files.catbox.moe/k7zxc7.png",
@@ -196,8 +196,8 @@ function Page() {
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
           <img
-            src={maveroLogo}
-            alt="MAVERO"
+            src={AURELIS_LOGO}
+            alt="AURELIS"
             className="h-7 w-auto object-contain sm:h-9"
             width={1431}
             height={227}
