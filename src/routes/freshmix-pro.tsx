@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { CheckoutDrawer } from "@/components/aurelis/CheckoutDrawer";
 import { formatKz, type Product } from "@/lib/aurelis";
-const AURELIS_LOGO = "https://files.catbox.moe/wyb2cg.png";
+const AURELIS_LOGO = "https://files.catbox.moe/ilehoa.jpg";
 
 const ASSETS = {
   main: "https://files.catbox.moe/k7zxc7.png",
