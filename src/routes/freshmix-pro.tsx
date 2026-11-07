@@ -101,7 +101,7 @@ function LoopFeature({ src, eyebrow, title, description, reverse = false, tone =
 }) {
   return (
     <section className="bg-white">
-      <ContinuousBar text={eyebrow} tone={tone} />
+      <ContinuousBar text={eyebrow === "FRUTA FRESCA, SUMO NA HORA" ? "🍊 TRANSFORME AS SUAS FRUTAS FAVORITAS EM SUMOS NATURAIS, FRESCOS E CHEIOS DE SABOR! ✨ MAIS PRATICIDADE PARA PREPARAR AS SUAS BEBIDAS EM CASA, TODOS OS DIAS! 🥤" : eyebrow === "DO COPO À ROTINA" ? "🥤 TENHA MAIS SABOR E PRATICIDADE NA SUA ROTINA! PREPARE DIFERENTES COMBINAÇÕES DE FRUTAS, DESFRUTE DE BEBIDAS FRESCAS E SIMPLIFIQUE O SEU DIA A DIA COM A FRESHMIX PRO 4 EM 1! 🍊" : "✨ ESCOLHA AS SUAS FRUTAS, PREPARE BEBIDAS AO SEU GOSTO E APROVEITE MOMENTOS MAIS FRESCOS EM CASA! FRESHMIX PRO 4 EM 1: MAIS CONVENIÊNCIA PARA A SUA COZINHA! 🍹"} tone={tone} />
       <div className={`mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:py-16 md:grid-cols-2 md:gap-12 ${reverse ? "md:[&>div:first-child]:order-2" : ""}`}>
         <div className="overflow-hidden rounded-[2rem] bg-black shadow-[0_24px_65px_rgba(0,0,0,.16)]">
           <ProductVideo src={src} className="aspect-[9/16] max-h-[620px] md:max-h-[680px]" />
@@ -343,7 +343,7 @@ function Page() {
           reverse
         />
 
-        <ContinuousBar text="FRESHMIX PRO 4 EM 1 • PRATICIDADE • FRESCURA • SABOR EM CADA COPO" />
+        <ContinuousBar text="🍊 FRESHMIX PRO 4 EM 1: PREPARE SUMOS NATURAIS COM AS SUAS FRUTAS FAVORITAS, EXPERIMENTE NOVAS COMBINAÇÕES E TENHA MAIS PRATICIDADE NA SUA COZINHA, TODOS OS DIAS! 🥤 FRESCURA E SABOR EM CADA COPO! ✨" />
 
         <section className="bg-[#fff7ed] px-4 py-14 sm:py-20">
           <div className="mx-auto max-w-6xl">
