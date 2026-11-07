@@ -34,7 +34,7 @@ type Props = {
 };
 
 type FieldKey = "firstName" | "lastName" | "phone" | "address" | "complement" | "municipality" | "neighborhood";
-type Errors = Partial<Record<FieldKey | "province" | "confirm", string>>;
+type Errors = Partial<Record<FieldKey | "province" | "confirm" | "billingAddress", string>>;
 
 const PROVINCES = ["Luanda"] as const;
 const ANGOLA_PROVINCES = [
@@ -61,6 +61,8 @@ export function CheckoutDrawer({
   });
   const [province, setProvince] = useState<string>("Luanda");
   const [confirmed, setConfirmed] = useState(false);
+  const [separateBillingAddress, setSeparateBillingAddress] = useState(false);
+  const [billingAddress, setBillingAddress] = useState("");
   const confirmRef = useRef<HTMLLabelElement>(null);
   const submittingRef = useRef(false);
   const [errors, setErrors] = useState<Errors>({});
@@ -98,6 +100,7 @@ export function CheckoutDrawer({
     if (values.address.trim().length < 3 || values.address.trim().length > 200) next.address = "Indique a rua ou endereço (até 200 caracteres).";
     if (values.municipality.trim().length < 2 || values.municipality.trim().length > 100) next.municipality = "Indique o município (até 100 caracteres).";
     if (values.neighborhood.trim().length < 2 || values.neighborhood.trim().length > 100) next.neighborhood = "Indique o bairro (até 100 caracteres).";
+    if (separateBillingAddress && (billingAddress.trim().length < 3 || billingAddress.trim().length > 200)) next.billingAddress = "Indique o endereço de faturação (até 200 caracteres).";
     if (!province) next.province = "Selecione a província.";
     if (!confirmed) next.confirm = "Confirme que os dados estão corretos e que pode receber a encomenda.";
     setErrors(next);
@@ -144,6 +147,7 @@ export function CheckoutDrawer({
         neighborhood: values.neighborhood.trim(),
         order_source: orderSource,
         landing_page: landingPage,
+        billing_address: separateBillingAddress ? billingAddress.trim() : null,
         quantity,
         unit_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price,
         total_price: subtotal,
@@ -218,6 +222,7 @@ export function CheckoutDrawer({
     onOpenChange(false);
     onPlaced({ productName: product.name, quantity, total: subtotal, customerPhone: values.phone.trim() });
     setValues({ firstName: "", lastName: "", phone: "", address: "", complement: "", municipality: "", neighborhood: "" });
+    setSeparateBillingAddress(false); setBillingAddress("");
     setProvince("Luanda"); setConfirmed(false);
   };
 
@@ -280,6 +285,25 @@ export function CheckoutDrawer({
                   {renderField("phone", "Número de telefone", "+244 9XX XXX XXX", true, "tel")}
                 </div>
               </div>
+
+              <section className="space-y-3">
+                <h3 className="text-lg font-semibold">Endereço de faturação</h3>
+                <div className="space-y-2">
+                  <label className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 ${!separateBillingAddress ? "border-primary bg-primary/5" : "border-border bg-background"}`}>
+                    <input type="radio" name="billing-address" checked={!separateBillingAddress} onChange={() => { setSeparateBillingAddress(false); setErrors((current) => { const next = { ...current }; delete next.billingAddress; return next; }); }} className="size-4 accent-primary" />
+                    <span className="text-sm">O mesmo que o endereço de entrega</span>
+                  </label>
+                  <label className={`flex cursor-pointer items-center gap-3 rounded-lg border p-3 ${separateBillingAddress ? "border-primary bg-primary/5" : "border-border bg-background"}`}>
+                    <input type="radio" name="billing-address" checked={separateBillingAddress} onChange={() => setSeparateBillingAddress(true)} className="size-4 accent-primary" />
+                    <span className="text-sm">Utilizar um endereço de faturação diferente</span>
+                  </label>
+                  {separateBillingAddress && <div className="pt-1">
+                    <Label htmlFor="billing-address-details" className="text-sm font-medium">Endereço de faturação *</Label>
+                    <Input id="billing-address-details" autoComplete="billing street-address" maxLength={200} placeholder="Rua, avenida e número da casa" value={billingAddress} onChange={(event) => { setBillingAddress(event.target.value); setErrors((current) => { if (!current.billingAddress) return current; const next = { ...current }; delete next.billingAddress; return next; }); }} className={`${fieldClass} ${errors.billingAddress ? "border-destructive focus-visible:ring-destructive" : ""}`} />
+                    {errors.billingAddress && <p className="text-xs font-medium text-destructive">{errors.billingAddress}</p>}
+                  </div>}
+                </div>
+              </section>
 
               <section className="space-y-3">
                 <h3 className="text-lg font-semibold">Envio</h3>
