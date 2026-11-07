@@ -172,7 +172,7 @@ export function CheckoutDrawer({
         landing_page: landingPage,
         unit_price: totalPriceOverride !== undefined ? subtotal / quantity : product.price,
         supplier_cost: unitCost, total_price: subtotal,
-        estimated_profit: (product.price - unitCost) * quantity, status: "NOVO",
+        estimated_profit: subtotal - unitCost * quantity, status: "NOVO",
       },
     }).catch(() => undefined);
 
