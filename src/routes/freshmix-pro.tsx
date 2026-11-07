@@ -80,6 +80,46 @@ function ProductVideo({ src, className = "" }: { src: string; className?: string
   );
 }
 
+function ContinuousBar({ text, tone = "green" }: { text: string; tone?: "green" | "orange" }) {
+  const colors = tone === "orange" ? "bg-[#f97316] text-white" : "bg-[#173b24] text-white";
+  return (
+    <div className={`overflow-hidden py-3 ${colors}`} aria-label={text}>
+      <div className="freshmix-marquee flex w-max whitespace-nowrap">
+        {[0, 1, 2, 3].map((item) => (
+          <span key={item} className="px-5 text-xs font-black tracking-[.08em] sm:text-sm">
+            {text} <span className="mx-3 text-[#facc15]">✦</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LoopFeature({ src, eyebrow, title, description, reverse = false, tone = "green" }: {
+  src: string; eyebrow: string; title: string; description: string;
+  reverse?: boolean; tone?: "green" | "orange";
+}) {
+  return (
+    <section className="bg-white">
+      <ContinuousBar text={eyebrow} tone={tone} />
+      <div className={`mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:py-16 md:grid-cols-2 md:gap-12 ${reverse ? "md:[&>div:first-child]:order-2" : ""}`}>
+        <div className="overflow-hidden rounded-[2rem] bg-black shadow-[0_24px_65px_rgba(0,0,0,.16)]">
+          <ProductVideo src={src} className="aspect-[9/16] max-h-[620px] md:max-h-[680px]" />
+        </div>
+        <div className="py-2">
+          <span className="inline-flex rounded-full bg-[#fff1d6] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#b45309]">{eyebrow}</span>
+          <h2 className="mt-5 text-3xl font-black leading-[1.04] tracking-[-.04em] text-[#173b24] sm:text-5xl">{title}</h2>
+          <p className="mt-5 text-base leading-7 text-[#4b5563] sm:text-lg">{description}</p>
+          <div className="mt-6 flex items-center gap-3 text-sm font-bold text-[#173b24]">
+            <span className="grid size-9 place-items-center rounded-full bg-[#dcfce7] text-[#16a34a]"><Check className="size-5" /></span>
+            Mais praticidade para a sua rotina
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Page() {
   const navigate = useNavigate();
 
@@ -210,6 +250,14 @@ function Page() {
           </div>
         </section>
 
+        <LoopFeature
+          src={ASSETS.video1}
+          eyebrow="FRUTA FRESCA, SUMO NA HORA"
+          title="AS SUAS FRUTAS FAVORITAS, PRONTAS PARA VIRAR SUMO."
+          description="Prepare bebidas com as frutas que mais gosta e desfrute de uma forma simples de trazer mais frescura para o seu dia. A FreshMix Pro ajuda a tornar cada preparação mais prática, sem complicar a sua rotina."
+          tone="orange"
+        />
+
         <section className="bg-[#173b24] px-4 py-5 text-white">
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-2 md:grid-cols-4">
             {[
@@ -287,22 +335,15 @@ function Page() {
           </div>
         </section>
 
-        <section className="px-4 py-14 sm:py-20">
-          <div className="mx-auto max-w-6xl">
-            <div className="text-center">
-              <span className="rounded-full bg-[#fef9c3] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#dc2626]">VEJA EM AÇÃO</span>
-              <h2 className="mt-5 text-3xl font-black tracking-[-.04em] sm:text-5xl">DO FRUTO AO COPO. 🍊</h2>
-              <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#4b5563] sm:text-base">
-                Veja a FreshMix Pro em funcionamento e descubra como ela pode fazer parte da sua rotina.
-              </p>
-            </div>
+        <LoopFeature
+          src={ASSETS.video2}
+          eyebrow="DO COPO À ROTINA"
+          title="MAIS SABOR, MENOS COMPLICAÇÃO."
+          description="Quer preparar uma bebida fresca sem transformar a cozinha numa confusão? Tenha a FreshMix Pro por perto e experimente diferentes combinações de frutas, ao seu gosto."
+          reverse
+        />
 
-            <div className="mt-9 grid gap-5 md:grid-cols-2">
-              <ProductVideo src={ASSETS.video1} className="aspect-[9/16] max-h-[720px] md:mx-auto md:w-full" />
-              <ProductVideo src={ASSETS.video2} className="aspect-[9/16] max-h-[720px] md:mx-auto md:w-full" />
-            </div>
-          </div>
-        </section>
+        <ContinuousBar text="FRESHMIX PRO 4 EM 1 • PRATICIDADE • FRESCURA • SABOR EM CADA COPO" />
 
         <section className="bg-[#fff7ed] px-4 py-14 sm:py-20">
           <div className="mx-auto max-w-6xl">
@@ -352,6 +393,14 @@ function Page() {
             </div>
           </div>
         </section>
+
+        <LoopFeature
+          src={ASSETS.video1}
+          eyebrow="UM NOVO HÁBITO NA SUA COZINHA"
+          title="ESCOLHA AS FRUTAS. PREPARE. APROVEITE."
+          description="Da preparação ao primeiro gole, a FreshMix Pro foi pensada para acompanhar os seus momentos de frescura. Uma opção compacta para quem gosta de preparar bebidas em casa."
+          tone="orange"
+        />
 
         <section className="bg-[#173b24] px-4 py-14 text-white sm:py-20">
           <div className="mx-auto max-w-6xl">
