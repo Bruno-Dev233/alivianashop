@@ -426,8 +426,7 @@ function Page() {
             <h2 className="mt-5 text-3xl font-black tracking-[-.04em] text-[#173b24] sm:text-5xl">A SUA OPINIÃO CONTA.</h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[#4b5563]">Estamos a preparar este espaço para partilhar experiências reais de clientes que já receberam e utilizaram a FreshMix Pro. Não publicamos testemunhos inventados.</p>
             <div className="mt-7 rounded-3xl border border-green-100 bg-white p-6 sm:p-8">
-              <div className="text-2xl tracking-[.2em] text-[#d6a84f]" aria-label="Avaliações de clientes">★★★★★</div>
-              <p className="mt-3 text-sm font-semibold text-[#173b24]">Em breve: opiniões verificadas de clientes AURELIS.</p>
+              <p className="text-sm font-semibold text-[#173b24]">Em breve: opiniões verificadas de clientes AURELIS.</p>
             </div>
           </div>
         </section>
