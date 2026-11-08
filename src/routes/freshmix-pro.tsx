@@ -19,7 +19,7 @@ const PRODUCT = {
   id: "freshmix-pro",
   name: "FreshMix Pro 4 em 1",
   price: 89900,
-  oldPrice: 154400,
+  oldPrice: 124900,
   image: ASSETS.main,
 };
 
@@ -122,6 +122,18 @@ function LoopFeature({ src, eyebrow, title, description, reverse = false, tone =
 
 function Page() {
   const navigate = useNavigate();
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const deadline = new Date("2026-11-27T23:59:59+01:00").getTime();
+    const updateCountdown = () => {
+      const remaining = Math.max(0, deadline - Date.now());
+      setCountdown({ days: Math.floor(remaining / 86400000), hours: Math.floor((remaining % 86400000) / 3600000), minutes: Math.floor((remaining % 3600000) / 60000), seconds: Math.floor((remaining % 60000) / 1000) });
+    };
+    updateCountdown();
+    const timer = window.setInterval(updateCountdown, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     // UTMify: preserve campaign parameters and attribution for FreshMix Pro orders.
@@ -194,22 +206,44 @@ function Page() {
       </section>
 
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-          <img
-            src={AURELIS_LOGO}
-            alt="AURELIS"
-            className="h-7 w-auto object-contain sm:h-9"
-            width={1431}
-            height={227}
-          />
-          <button onClick={buy} className={`${CTA} h-11 bg-[#173b24] px-5 text-xs text-white shadow-lg sm:text-sm`}>
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
+          <a href="#produto" aria-label="FreshMix Pro — início" className="shrink-0">
+            <img src={AURELIS_LOGO} alt="AURELIS" className="h-7 w-auto object-contain sm:h-9" width={1431} height={227} />
+          </a>
+          <nav aria-label="Navegação da página" className="hidden items-center gap-6 lg:flex">
+            {[["Produto", "produto"], ["Benefícios", "beneficios"], ["Para quem", "para-quem"], ["Avaliações", "avaliacoes"]].map(([label, id]) => (
+              <a key={id} href={"#" + id} className="text-sm font-semibold text-[#26352b] transition hover:text-[#16a34a]">{label}</a>
+            ))}
+          </nav>
+          <button onClick={buy} className={`${CTA} h-10 shrink-0 bg-[#173b24] px-4 text-[11px] text-white shadow-lg sm:h-11 sm:px-5 sm:text-sm`}>
             <ShoppingBag className="size-4" /> ENCOMENDAR
           </button>
         </div>
+        <nav aria-label="Navegação rápida" className="flex gap-6 overflow-x-auto border-t border-black/5 px-4 py-2.5 lg:hidden">
+          {[["Produto", "produto"], ["Benefícios", "beneficios"], ["Para quem", "para-quem"], ["Avaliações", "avaliacoes"]].map(([label, id]) => (
+            <a key={id} href={"#" + id} className="shrink-0 text-xs font-bold text-[#26352b]">{label}</a>
+          ))}
+        </nav>
       </header>
+      <section aria-label="Campanha Black Friday" className="bg-[#48208f] px-4 py-4 text-white">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-black tracking-[.08em] text-[#facc15] sm:text-base">BLACK FRIDAY AURELIS</p>
+            <p className="text-xs font-medium text-white/85 sm:text-sm">A oferta especial termina em</p>
+          </div>
+          <div className="flex items-center gap-3 text-center sm:gap-5">
+            {[[String(countdown.days).padStart(2, "0"), "DIAS"], [String(countdown.hours).padStart(2, "0"), "H"], [String(countdown.minutes).padStart(2, "0"), "MIN"], [String(countdown.seconds).padStart(2, "0"), "SEG"]].map(([value, label]) => (
+              <div key={label} className="min-w-9">
+                <span className="block font-serif text-2xl leading-none sm:text-3xl">{value}</span>
+                <span className="mt-1 block text-[9px] font-bold text-white/75 sm:text-[10px]">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <main>
-        <section className="bg-[#fff7ed]">
+        <section id="produto" className="scroll-mt-36 bg-[#fff7ed]">
           <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-7 sm:py-10 md:grid-cols-2 md:py-14">
             <div className="order-2 md:order-1">
               <span className="inline-flex rounded-full bg-[#173b24] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-white">
@@ -345,7 +379,7 @@ function Page() {
 
         <ContinuousBar text="🚚 ENCOMENDE A SUA FRESHMIX PRO 4 EM 1 COM ENTREGA GRÁTIS EM LUANDA E PAGAMENTO APENAS NO ATO DA ENTREGA! MAIS CONVENIÊNCIA PARA RECEBER SEM COMPLICAÇÕES! 📦" />
 
-        <section className="bg-[#fff7ed] px-4 py-14 sm:py-20">
+        <section id="beneficios" className="scroll-mt-36 bg-[#fff7ed] px-4 py-14 sm:py-20">
           <div className="mx-auto max-w-6xl">
             <div className="text-center">
               <span className="rounded-full bg-white px-3 py-1.5 text-[10px] font-black tracking-[.12em]">POR QUE FRESHMIX PRO?</span>
@@ -367,7 +401,38 @@ function Page() {
           </div>
         </section>
 
-        <section className="px-4 py-14 sm:py-20">
+        <section id="para-quem" className="scroll-mt-36 bg-white px-4 py-14 sm:py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="rounded-full bg-[#dcfce7] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#166534]">PENSADA PARA O DIA A DIA</span>
+              <h2 className="mt-5 text-3xl font-black tracking-[-.04em] text-[#173b24] sm:text-5xl">PARA QUEM GOSTA DE TER MAIS FRESCURA EM CASA.</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[#4b5563]">A FreshMix Pro acompanha diferentes rotinas e momentos: escolha as frutas, prepare a sua bebida e aproveite ao seu gosto.</p>
+            </div>
+            <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {[["🍊", "Para quem adora frutas", "Experimente combinações com as suas frutas preferidas."], ["🏡", "Para a família", "Prepare bebidas para diferentes momentos em casa."], ["⏱️", "Para rotinas ocupadas", "Uma opção prática para incluir sumos na rotina."], ["🥤", "Para quem gosta de variar", "Crie combinações ao seu gosto e descubra novos sabores."]].map(([icon, title, description]) => (
+                <article key={title} className="rounded-3xl border border-green-100 bg-[#f8fff9] p-6">
+                  <span className="text-3xl">{icon}</span>
+                  <h3 className="mt-3 font-black text-[#173b24]">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-[#4b5563]">{description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="avaliacoes" className="scroll-mt-36 bg-[#fff7ed] px-4 py-14 sm:py-20">
+          <div className="mx-auto max-w-4xl text-center">
+            <span className="rounded-full bg-white px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#173b24]">AVALIAÇÕES</span>
+            <h2 className="mt-5 text-3xl font-black tracking-[-.04em] text-[#173b24] sm:text-5xl">A SUA OPINIÃO CONTA.</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[#4b5563]">Estamos a preparar este espaço para partilhar experiências reais de clientes que já receberam e utilizaram a FreshMix Pro. Não publicamos testemunhos inventados.</p>
+            <div className="mt-7 rounded-3xl border border-green-100 bg-white p-6 sm:p-8">
+              <div className="text-2xl tracking-[.2em] text-[#d6a84f]" aria-label="Avaliações de clientes">★★★★★</div>
+              <p className="mt-3 text-sm font-semibold text-[#173b24]">Em breve: opiniões verificadas de clientes AURELIS.</p>
+            </div>
+          </div>
+        </section>
+
+<section className="px-4 py-14 sm:py-20">
           <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-2">
             <div>
               <span className="rounded-full bg-[#fef9c3] px-3 py-1.5 text-[10px] font-black tracking-[.12em] text-[#dc2626]">4 EM 1</span>
