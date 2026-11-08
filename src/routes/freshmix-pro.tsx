@@ -227,8 +227,9 @@ function Page() {
               <a key={id} href={"#" + id} className="shrink-0 py-1 text-[11px] font-semibold text-[#26352b] transition hover:text-[#16a34a] sm:text-sm">{label}</a>
             ))}
           </nav>
-          <button onClick={buy} className={`${CTA} h-9 shrink-0 bg-[#173b24] px-3 text-[10px] text-white shadow-lg sm:h-11 sm:px-5 sm:text-sm`}>
-            <ShoppingBag className="size-4" /> <span className="hidden sm:inline">ENCOMENDAR</span><span className="sm:hidden">PEDIR</span>
+          <button onClick={buy} aria-label="Abrir carrinho" title="O teu carrinho" className="relative grid size-10 shrink-0 place-items-center rounded-full text-[#173b24] transition hover:bg-green-50">
+            <ShoppingBag className="size-6" />
+            <span className="absolute -right-0.5 -top-0.5 grid size-[18px] place-items-center rounded-full bg-[#7c4ce0] text-[10px] font-black text-white">1</span>
           </button>
         </div>
       </header>
