@@ -125,10 +125,22 @@ function Page() {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const deadline = new Date("2026-11-27T23:59:59+01:00").getTime();
+    // Evergreen: each visitor gets a persistent 48-hour window.
+    const storageKey = "aurelis_freshmix_black_friday_deadline";
+    const duration = 48 * 60 * 60 * 1000;
+    let deadline = Number(window.localStorage.getItem(storageKey));
+    if (!Number.isFinite(deadline) || deadline <= Date.now()) {
+      deadline = Date.now() + duration;
+      window.localStorage.setItem(storageKey, String(deadline));
+    }
     const updateCountdown = () => {
-      const remaining = Math.max(0, deadline - Date.now());
-      setCountdown({ days: Math.floor(remaining / 86400000), hours: Math.floor((remaining % 86400000) / 3600000), minutes: Math.floor((remaining % 3600000) / 60000), seconds: Math.floor((remaining % 60000) / 1000) });
+      let remaining = deadline - Date.now();
+      if (remaining <= 0) {
+        deadline = Date.now() + duration;
+        window.localStorage.setItem(storageKey, String(deadline));
+        remaining = duration;
+      }
+      setCountdown({ days: 0, hours: Math.floor(remaining / 3600000), minutes: Math.floor((remaining % 3600000) / 60000), seconds: Math.floor((remaining % 60000) / 1000) });
     };
     updateCountdown();
     const timer = window.setInterval(updateCountdown, 1000);
@@ -206,41 +218,20 @@ function Page() {
       </section>
 
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
+        <div className="mx-auto flex max-w-7xl items-center gap-3 px-3 py-3 sm:gap-5 sm:px-4">
           <a href="#produto" aria-label="FreshMix Pro — início" className="shrink-0">
             <img src={AURELIS_LOGO} alt="AURELIS" className="h-7 w-auto object-contain sm:h-9" width={1431} height={227} />
           </a>
-          <nav aria-label="Navegação da página" className="hidden items-center gap-6 lg:flex">
+          <nav aria-label="Navegação da página" className="flex min-w-0 flex-1 items-center justify-center gap-3 overflow-x-auto whitespace-nowrap sm:gap-5 lg:gap-8">
             {[["Produto", "produto"], ["Benefícios", "beneficios"], ["Para quem", "para-quem"], ["Avaliações", "avaliacoes"]].map(([label, id]) => (
-              <a key={id} href={"#" + id} className="text-sm font-semibold text-[#26352b] transition hover:text-[#16a34a]">{label}</a>
+              <a key={id} href={"#" + id} className="shrink-0 py-1 text-[11px] font-semibold text-[#26352b] transition hover:text-[#16a34a] sm:text-sm">{label}</a>
             ))}
           </nav>
-          <button onClick={buy} className={`${CTA} h-10 shrink-0 bg-[#173b24] px-4 text-[11px] text-white shadow-lg sm:h-11 sm:px-5 sm:text-sm`}>
-            <ShoppingBag className="size-4" /> ENCOMENDAR
+          <button onClick={buy} className={`${CTA} h-9 shrink-0 bg-[#173b24] px-3 text-[10px] text-white shadow-lg sm:h-11 sm:px-5 sm:text-sm`}>
+            <ShoppingBag className="size-4" /> <span className="hidden sm:inline">ENCOMENDAR</span><span className="sm:hidden">PEDIR</span>
           </button>
         </div>
-        <nav aria-label="Navegação rápida" className="flex gap-6 overflow-x-auto border-t border-black/5 px-4 py-2.5 lg:hidden">
-          {[["Produto", "produto"], ["Benefícios", "beneficios"], ["Para quem", "para-quem"], ["Avaliações", "avaliacoes"]].map(([label, id]) => (
-            <a key={id} href={"#" + id} className="shrink-0 text-xs font-bold text-[#26352b]">{label}</a>
-          ))}
-        </nav>
       </header>
-      <section aria-label="Campanha Black Friday" className="bg-[#48208f] px-4 py-4 text-white">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-sm font-black tracking-[.08em] text-[#facc15] sm:text-base">BLACK FRIDAY AURELIS</p>
-            <p className="text-xs font-medium text-white/85 sm:text-sm">A oferta especial termina em</p>
-          </div>
-          <div className="flex items-center gap-3 text-center sm:gap-5">
-            {[[String(countdown.days).padStart(2, "0"), "DIAS"], [String(countdown.hours).padStart(2, "0"), "H"], [String(countdown.minutes).padStart(2, "0"), "MIN"], [String(countdown.seconds).padStart(2, "0"), "SEG"]].map(([value, label]) => (
-              <div key={label} className="min-w-9">
-                <span className="block font-serif text-2xl leading-none sm:text-3xl">{value}</span>
-                <span className="mt-1 block text-[9px] font-bold text-white/75 sm:text-[10px]">{label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <main>
         <section id="produto" className="scroll-mt-36 bg-[#fff7ed]">
@@ -256,7 +247,22 @@ function Page() {
                 🥤 FreshMix Pro 4 em 1 — prepare sumos naturais, smoothies e bebidas frescas de forma rápida e prática. Ideal para transformar as suas frutas favoritas em deliciosas bebidas no dia a dia. 🍊✨
               </p>
 
-              <div className="mt-6 flex flex-wrap items-end gap-3">
+              <div aria-label="Oferta Black Friday, contador de 48 horas" className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-[#48208f] px-4 py-3 text-white shadow-md sm:px-5">
+                <div>
+                  <p className="text-sm font-black tracking-[.08em] text-[#facc15]">BLACK FRIDAY AURELIS</p>
+                  <p className="text-xs font-medium text-white/85">A oferta termina em</p>
+                </div>
+                <div className="flex items-center gap-3 text-center sm:gap-4">
+                  {[[String(countdown.hours).padStart(2, "0"), "H"], [String(countdown.minutes).padStart(2, "0"), "MIN"], [String(countdown.seconds).padStart(2, "0"), "SEG"]].map(([value, label]) => (
+                    <div key={label} className="min-w-8">
+                      <span className="block font-serif text-2xl leading-none sm:text-3xl">{value}</span>
+                      <span className="mt-1 block text-[9px] font-bold text-white/75">{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap items-end gap-3">
                 <span className="text-4xl font-black sm:text-5xl">{formatKz(PRODUCT.price)}</span>
                 <span className="pb-1 text-xl font-bold text-[#94a3b8] line-through">{formatKz(PRODUCT.oldPrice)}</span>
                 <span className="mb-1 rounded-full bg-[#f97316] px-3 py-1.5 text-sm font-black text-white">-{discount}%</span>
